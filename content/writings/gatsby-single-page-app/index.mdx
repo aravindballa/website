@@ -1,0 +1,121 @@
+---
+title: 'Single Page Apps with Gatsby'
+date: '2019-11-04'
+type: 'article'
+description: 'Can we build a single page application using a static site generator, Gatsby? Ofcourse yes!'
+banner: 'cover.jpg'
+bannercaption: 'Photo by Tim Trad on Unsplash'
+---
+
+Gatsby, which is a static site generator, is famous for blogs and documentation websites. But there is no wrong in build full blown React apps with it.
+
+In the case of a blog, Gatsby builds a page for every article at the build time and generates a directory which can be hosted directly. But when it comes to Single Page App (SPA), we have only one `index.html` at the root, and the components are loaded depending on the route that the user is in.
+
+We can get the benefits of code spitting with some React lazy suspense features with some minimal extra work too.
+
+```jsx
+const Contact = React.lazy(() => import('../components/Contact'));
+const LazyContact = (props) => (
+  <React.Suspense fallback={'<p>Loading...</p>'}>
+    <Contact {...props} />
+  </React.Suspense>
+);
+```
+
+The `Contact` component is loaded only when it will be rendered, which is when we hit a particular route. We will have a look at the routes in a moment.
+
+## But wait
+
+Before that, we need a `gatsby-node.js` file to let Gatsby know that we want all the route to end up in `index.html`
+
+After cloning Gatsby's Default starter, let's add this file.
+
+```js
+// gatsby-node.js
+
+exports.onCreatePage = ({ page, actions }) => {
+  const { createPage } = actions;
+  if (page.path === `/`) {
+    page.matchPath = `/*`;
+    createPage(page);
+  }
+};
+```
+
+Now we are ready.
+
+## Components for each Routes
+
+Let's plan to have two routes, `/contact` and `/about` . In `src/components` we will create basic components like this.
+
+```jsx
+// src/components/Contact.js
+import React from 'react';
+
+console.log('contact component');
+
+export default function () {
+  return <div>Contact Us as you like.</div>;
+}
+
+// src/components/About.js
+import React from 'react';
+
+console.log('about component');
+
+export default function () {
+  return <div>We are a great bunch of people</div>;
+}
+```
+
+I've added the console logs to check when this file is loaded. We don't want it to load at the homepage. Rather only when the route is visited.
+
+## Main App
+
+In the main page, which is `src/pages/index.js` we make use for `@reach/router` which Gatsby itself, uses for routing.
+
+```jsx
+// src/pages/index.js
+
+import React from 'react';
+import { Router, Link } from '@reach/router';
+
+const Contact = React.lazy(() => import('../components/Contact'));
+const About = React.lazy(() => import('../components/About'));
+
+const LazyComponent = ({ Component, ...props }) => (
+  <React.Suspense fallback={'<p>Loading...</p>'}>
+    <Component {...props} />
+  </React.Suspense>
+);
+
+const Home = () => <h2>Hello and Welcome</h2>;
+
+const IndexPage = () => (
+  <div>
+    <h1>Hi people</h1>
+    <Link to="/">Home</Link>
+    <br />
+    <Link to="/contact/">Contact</Link>
+    <br />
+    <Link to="/about-us">About Us</Link>
+    <br />
+
+    <input />
+
+    <Router>
+      <Home path="/" />
+      <LazyComponent Component={Contact} path="contact" />
+      <LazyComponent Component={About} path="about-us" />
+    </Router>
+  </div>
+);
+```
+
+`LazyComponent` renders the `Component` we pass to it as a prop under `React.Suspense` with a fallback.
+
+If you build this project and serve, you can open the Networks tab in the browser console and see that a new JS file is loaded when you hit the `/contact` route for the first time.
+
+That's it, this is all we need to make an SPA using Gatsby.
+
+Here is a working codesandbox link - [https://codesandbox.io/s/gatsby-starter-default-yf72w](https://codesandbox.io/s/gatsby-starter-default-yf72w)
