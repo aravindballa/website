@@ -1,7 +1,13 @@
 import Head from "next/head";
 import Link from "next/link";
+import useDarkMode from "use-dark-mode";
 
 export default function Layout({ children }) {
+  const darkMode = useDarkMode(true, {
+    classNameDark: "dark",
+    classNameLight: "light",
+  });
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Head>
@@ -27,7 +33,7 @@ export default function Layout({ children }) {
         {children}
       </main>
 
-      <footer className="flex items-center justify-center w-full h-24 border-t">
+      <footer className="flex items-center justify-around w-full h-24 border-t dark:border-gray-700">
         <div className="text-center text-gray-500 dark:text-gray-500 text-xs">
           <p>
             Copyright whenever. This site is{" "}
@@ -57,6 +63,13 @@ export default function Layout({ children }) {
               rss
             </a>
           </p>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            value={darkMode.value}
+            onClick={darkMode.toggle}
+          />
         </div>
       </footer>
     </div>

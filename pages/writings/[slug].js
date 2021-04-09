@@ -14,8 +14,6 @@ const components = (slug) => ({
       <img
         alt={alt}
         src={require("../../content/writings" + "/" + slug + "/" + src).default}
-        width={400}
-        height={400}
       />
     );
   },
@@ -25,7 +23,7 @@ export default function WritingsPage({ source, slug }) {
   const content = hydrate(source, { components: components(slug) });
   return (
     <Layout>
-      <div className="prose">{content}</div>
+      <div className="prose dark:prose-light">{content}</div>
     </Layout>
   );
 }
