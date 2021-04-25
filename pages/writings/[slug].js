@@ -17,7 +17,16 @@ const sizeOf = promisify(require('image-size'));
 const components = (slug) => ({
   code: CodeBlock,
   img: ({ src, alt }) => {
-    return <img alt={alt} src={require('../../content/writings/' + slug + '/' + src).default} />;
+    return (
+      <img
+        alt={alt}
+        src={
+          src.startsWith('http')
+            ? src
+            : require('../../content/writings/' + slug + '/' + src).default
+        }
+      />
+    );
   },
   GrayBlock,
 });
