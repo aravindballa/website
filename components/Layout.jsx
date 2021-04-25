@@ -25,7 +25,9 @@ export default function Layout({ children }) {
           </Link>
           <div className="flex">
             <span className="ml-8">
-              <Link href="/writings">Writings</Link>
+              <Link href="/writings" prefetch>
+                Writings
+              </Link>
             </span>
             <span className="ml-8">
               <Link href="/hackletter">Hackletter</Link>
