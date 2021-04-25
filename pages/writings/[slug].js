@@ -21,6 +21,7 @@ export default function WritingsPage({ source, slug, frontmatter }) {
 
   // TODO fix complete banner images
   // TODO fix path.join in require
+  // TODO fix error in console -> Module parse failed: Assigning to rvalue
   return (
     <Layout>
       <div className="mt-12 prose lg:prose-lg dark:prose-light">

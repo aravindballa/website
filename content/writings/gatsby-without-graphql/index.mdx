@@ -5,7 +5,7 @@ type: 'article'
 published: true
 description: "Number one misconception about Gatsby is that you need to know GraphQL to build something with Gatsby, which is not true. Yes, you don't need GraphQL."
 tags: 'react,javascript,graphql,gatsby'
-banner: './hero.jpeg'
+banner: 'hero.jpeg'
 ---
 
 Number one misconception about Gatsby is that you need to know GraphQL to build something with Gatsby, **which is not true**. Yes, you don't need GraphQL. A Gatsby site can be built from an API or just with some data from a JSON file.
@@ -73,14 +73,14 @@ Next, we create a template which will get the data from the JSON and render it t
 // src/templates/page.js
 import React from 'react';
 
-const PageTemplate = props => {
+const PageTemplate = (props) => {
   const { title = null, paragraphs = null } = props.pageContext;
 
   return (
     <React.Fragment>
       {title && <h1>{title}</h1>}
       {paragraphs &&
-        paragraphs.map(para => (
+        paragraphs.map((para) => (
           <div>
             <h2>{para.heading}</h2>
             <p>{para.content}</p>
@@ -110,7 +110,7 @@ exports.createPages = ({ actions }) => {
   const pageData = JSON.parse(fs.readFileSync('./content/data.json', { encoding: 'utf-8' }));
   const blogPostTemplate = path.resolve(`src/templates/page.js`);
 
-  pageData.pages.forEach(page => {
+  pageData.pages.forEach((page) => {
     createPage({
       path: page.slug,
       component: blogPostTemplate,

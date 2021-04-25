@@ -5,7 +5,7 @@ type: 'article'
 published: true
 description: 'Can you use React in an existing/old JS project? If you do, how do you manage the components?'
 tags: 'web-development,javascript,reactjs,react'
-banner: './banner.jpeg'
+banner: 'banner.jpeg'
 ---
 
 You are probably not starting a new project with React in the frontend. You just want to build some components, make use of the apis that your frontend already consumes and use them in your existing application.
@@ -22,7 +22,7 @@ class WelcomeComp extends React.Component {
     if (props.name) this.state = { name: props.name };
   }
 
-  updateName = name => this.setState({ name });
+  updateName = (name) => this.setState({ name });
 
   render() {
     return <p>I am a React Component. Hello {this.state.name}</p>;
@@ -74,13 +74,13 @@ You can pass a reference to the component and store it as a local variable in th
   var rootEl = document.getElementById('root');
   var componentProps = {
     name: 'Balla',
-    ref: function(ref) {
+    ref: function (ref) {
       this.welcomeComp = ref;
     },
   };
   ReactDOM.render(React.createElement(WelcomeComp, componentProps, null), rootEl);
 
-  setTimeout(function() {
+  setTimeout(function () {
     this.welcomeComp.updateName('Aravind');
   }, 2000);
 </script>

@@ -3,7 +3,7 @@ title: 'Advanced git tips'
 date: '2018-09-23'
 type: 'article'
 description: 'Some of the advanced git usage and tips for the pros. Things that I have learnt over the years of using git at work.'
-banner: './git.png'
+banner: 'git-330x478.png'
 ---
 
 Git is amazing and you will learn only by using it. Try to learn the commands, you will forget if you don't use them. The same is the case for GUIs (like Tower or Source Tree). You might not have to learn the commands, but you will forget the process.

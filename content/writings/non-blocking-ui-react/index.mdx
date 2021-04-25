@@ -5,7 +5,7 @@ type: 'article'
 published: true
 description: 'Sometimes, a few updates/computations take up a lot of time. They block the UI from updating, which makes it look as if things are slow.'
 tags: 'react,javascript,webworkers'
-banner: './banner.jpg'
+banner: 'banner.jpg'
 ---
 
 Sometimes, a few updates/computations take up a lot of time. They block the UI from updating, which makes it look as if things are slow. I am not talking about asynchronous data fetches which take time.
@@ -19,7 +19,7 @@ Consider this for example
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const fib = i => (i <= 1 ? i : fib(i - 1) + fib(i - 2));
+const fib = (i) => (i <= 1 ? i : fib(i - 1) + fib(i - 2));
 
 function App() {
   const [value, setValue] = React.useState('');
@@ -32,7 +32,7 @@ function App() {
     setLength(result);
   }, [value]);
 
-  const handleChange = async e => {
+  const handleChange = async (e) => {
     const { value } = e.target;
     setValue(value);
   };
@@ -65,7 +65,7 @@ This is the worker, which has to be statically served. (Put in `public` folder)
 
 ```javascript
 // thread.worker.js
-const fib = i => (i <= 1 ? i : fib(i - 1) + fib(i - 2));
+const fib = (i) => (i <= 1 ? i : fib(i - 1) + fib(i - 2));
 
 self.addEventListener('message', ({ data }) => {
   let { type, payload } = data;
@@ -116,7 +116,7 @@ function App() {
     worker.postMessage({ type: 'UPDATE', payload: value.length });
   }, [value]);
 
-  const handleChange = async e => {
+  const handleChange = async (e) => {
     const { value } = e.target;
     setValue(value);
   };

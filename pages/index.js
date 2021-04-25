@@ -4,7 +4,7 @@ import Layout from "../components/Layout";
 export default function Home() {
   return (
     <Layout>
-      <div className="prose dark:prose-light">
+      <div className="prose lg:prose-lg dark:prose-light">
         <p>
           Hi 👋 I am Software Developer working remotely from Hyderabad, India.
           I love JS and CSS 💛. I like to{" "}

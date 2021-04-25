@@ -5,7 +5,7 @@ type: 'article'
 published: true
 description: 'There is the fetch API in Node, which allows us to make a HTTP request and get some information from the servers. We can use that to make REST calls, get HTML content of a webpage and many more things.'
 tags: 'node,javascript,fetch,async await'
-banner: './hero.jpg'
+banner: 'hero.jpg'
 ---
 
 There is the `fetch` API in Node, which allows us to make a HTTP request and get some information from the servers. We can use that to make REST calls, get HTML content of a webpage(if we are using node for scraping) and many more things.
@@ -16,8 +16,8 @@ An example of such call goes like this
 
 ```js
 fetch('/url')
-  .then(res => res.json())
-  .then(data => console.log(data));
+  .then((res) => res.json())
+  .then((data) => console.log(data));
 ```
 
 # The Async way

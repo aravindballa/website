@@ -1,11 +1,12 @@
-import Head from "next/head";
-import Link from "next/link";
-import useDarkMode from "use-dark-mode";
+import Head from 'next/head';
+import Link from 'next/link';
+import useDarkMode from 'use-dark-mode';
+import Logo from './Logo';
 
 export default function Layout({ children }) {
   const darkMode = useDarkMode(true, {
-    classNameDark: "dark",
-    classNameLight: "light",
+    classNameDark: 'dark',
+    classNameLight: 'light',
   });
 
   return (
@@ -15,9 +16,13 @@ export default function Layout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header className="w-full py-8">
-        <div className="flex justify-between max-w-3xl mx-auto">
-          <Link href="/">Aravind Balla</Link>
+      <header className="w-full py-8 text-lg">
+        <div className="flex justify-between items-center max-w-3xl mx-auto">
+          <Link href="/">
+            <a>
+              <Logo width={50} height={37} />
+            </a>
+          </Link>
           <div className="flex">
             <span className="ml-8">
               <Link href="/writings">Writings</Link>
@@ -29,47 +34,29 @@ export default function Layout({ children }) {
         </div>
       </header>
 
-      <main className="flex flex-col items-center flex-1 px-20">
-        {children}
-      </main>
+      <main className="px-8 flex-1">{children}</main>
 
-      <footer className="flex items-center justify-around w-full h-24 border-t dark:border-gray-700">
-        <div className="text-center text-gray-500 dark:text-gray-500 text-xs">
+      <footer className="flex items-center justify-around w-full py-12">
+        <div className="text-center text-gray-500">
           <p>
-            Copyright whenever. This site is{" "}
-            <Link href="/opensource">opensource</Link>
+            Copyright whenever. This site is <Link href="/opensource">opensource</Link>
             .
             <br />
-            <a
-              className="text-gray-500 dark:text-gray-500"
-              href="mailto:hey+website@balla.dev"
-              rel="me"
-            >
+            <a className="text-gray-500" href="mailto:hey+website@balla.dev" rel="me">
               mail
-            </a>{" "}
-            |{" "}
-            <a
-              className="text-gray-500 dark:text-gray-500"
-              href="https://twitter.com/aravindballa"
-              rel="me"
-            >
+            </a>{' '}
+            |{' '}
+            <a className="text-gray-500" href="https://twitter.com/aravindballa" rel="me">
               twitter
-            </a>{" "}
-            |{" "}
-            <a
-              className="text-gray-500 dark:text-gray-500"
-              href="https://aravindballa.com/rss.xml"
-            >
+            </a>{' '}
+            |{' '}
+            <a className="text-gray-500" href="https://aravindballa.com/rss.xml">
               rss
             </a>
           </p>
         </div>
         <div>
-          <input
-            type="checkbox"
-            value={darkMode.value}
-            onClick={darkMode.toggle}
-          />
+          <input type="checkbox" value={darkMode.value} onClick={darkMode.toggle} />
         </div>
       </footer>
     </div>

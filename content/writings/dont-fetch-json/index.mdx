@@ -5,7 +5,7 @@ type: 'article'
 published: true
 description: 'It is a small experiment to check whether you can directly get the `html` for the component instead of fetching the JSON data and populating it in the React Component.'
 tags: 'react,javascript'
-banner: './banner.jpg'
+banner: 'banner.jpg'
 ---
 
 Why should you though? This is not intended if you have an API endpoint (backend) serving multiple types of clients(like mobile and web).
@@ -32,7 +32,7 @@ exports.renderedCompMiddleware = (req, res, next) => {
   const html = `
 <h2>Server rendered component</h2>
 <ul>
-  ${items.map(item => `<li>${item}</li>`)}
+  ${items.map((item) => `<li>${item}</li>`)}
 </ul>
 `;
 
@@ -73,7 +73,7 @@ class SSRComp extends React.Component {
   }
 
   componentDidMount() {
-    fetchComp().then(html => this.setState({ html }));
+    fetchComp().then((html) => this.setState({ html }));
   }
 
   render() {
@@ -89,9 +89,9 @@ export default SSRComp;
 ```javascript
 export function fetchComp() {
   return fetch('/getcomp')
-    .then(data => data.json())
-    .then(comp => comp.html)
-    .catch(error => {
+    .then((data) => data.json())
+    .then((comp) => comp.html)
+    .catch((error) => {
       console.warn(error);
       return null;
     });

@@ -1,9 +1,10 @@
 module.exports = {
+  trailingSlash: true,
   webpack: (config, { isServer }) => {
     // Fixes npm packages that depend on `fs` module
     if (!isServer) {
       config.node = {
-        fs: "empty",
+        fs: 'empty',
       };
     }
 
@@ -11,10 +12,10 @@ module.exports = {
       test: /\.(svg|png|jpe?g|gif|mp4)$/i,
       use: [
         {
-          loader: "file-loader",
+          loader: 'file-loader',
           options: {
-            publicPath: "/_next",
-            name: "static/media/[name].[hash].[ext]",
+            publicPath: '/_next',
+            name: 'static/media/[name].[hash].[ext]',
           },
         },
       ],
