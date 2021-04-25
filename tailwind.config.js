@@ -3,6 +3,7 @@ module.exports = {
   darkMode: 'class',
   theme: {
     fontFamily: {
+      head: ['Poppins', 'sans-serif'],
       sans: [
         '"Work Sans"',
         'ui-sans-serif',

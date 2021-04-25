@@ -4,11 +4,13 @@ import glob from 'glob';
 import matter from 'gray-matter';
 import renderToString from 'next-mdx-remote/render-to-string';
 import hydrate from 'next-mdx-remote/hydrate';
-
+import { promisify } from 'util';
 import Image from 'next/image';
 
 import Layout from '../../components/Layout';
 import { POSTS_PATH, postFilePaths } from '../../lib/utils';
+
+const sizeOf = promisify(require('image-size'));
 
 const components = (slug) => ({
   img: ({ src, alt }) => {
@@ -19,25 +21,21 @@ const components = (slug) => ({
 export default function WritingsPage({ source, slug, frontmatter }) {
   const content = hydrate(source, { components: components(slug) });
 
-  // TODO fix complete banner images
   // TODO fix path.join in require
   // TODO fix error in console -> Module parse failed: Assigning to rvalue
+
   return (
     <Layout>
       <div className="mt-12 prose lg:prose-lg dark:prose-light">
         <h1>{frontmatter.title}</h1>
         {frontmatter.banner && (
-          <div className="aspect-w-16 aspect-h-9 relative w-full h-96">
-            <Image
-              className="rounded-md"
-              src={
-                require('../../content/writings' + '/' + slug + '/' + frontmatter.banner).default
-              }
-              alt={`Banner image for ${frontmatter.title}`}
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
+          <Image
+            className="rounded-md"
+            src={require('../../content/writings' + '/' + slug + '/' + frontmatter.banner).default}
+            alt={`Banner image for ${frontmatter.title}`}
+            width={frontmatter.bannerWidth}
+            height={frontmatter.bannerHeight}
+          />
         )}
         {content}
       </div>
@@ -61,6 +59,16 @@ export const getStaticProps = async ({ params }) => {
     components: components(params.slug),
     scope: data,
   });
+
+  if (data.banner) {
+    const { width, height } = await sizeOf(
+      path.join(POSTS_PATH, possiblePostFile[0], '..', data.banner)
+    );
+    if (width && height) {
+      data.bannerWidth = width;
+      data.bannerHeight = height;
+    }
+  }
 
   return {
     props: {

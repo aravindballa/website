@@ -51,7 +51,7 @@ export const getStaticProps = async () => {
   const allPosts = [];
   for (const postPath of postFilePaths()) {
     const postFilePath = path.join(POSTS_PATH, postPath);
-    const source = fs.readFileSync(postFilePath);
+    const source = fs.readFileSync(postFilePath, { encoding: 'utf-8' });
 
     const { content, data } = matter(source);
 

@@ -53,6 +53,6 @@
   h2,
   h3,
   h4 {
-    font-family: Poppins, sans-serif;
+    @apply font-head;
   }
 }
