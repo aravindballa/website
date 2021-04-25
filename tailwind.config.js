@@ -1,20 +1,20 @@
 module.exports = {
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
-  darkMode: "class",
+  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class',
   theme: {
     fontFamily: {
       sans: [
         '"Work Sans"',
-        "ui-sans-serif",
-        "system-ui",
-        "-apple-system",
-        "BlinkMacSystemFont",
+        'ui-sans-serif',
+        'system-ui',
+        '-apple-system',
+        'BlinkMacSystemFont',
         '"Segoe UI"',
-        "Roboto",
+        'Roboto',
         '"Helvetica Neue"',
-        "Arial",
+        'Arial',
         '"Noto Sans"',
-        "sans-serif",
+        'sans-serif',
         '"Apple Color Emoji"',
         '"Segoe UI Emoji"',
         '"Segoe UI Symbol"',
@@ -26,75 +26,76 @@ module.exports = {
         light: {
           css: [
             {
-              color: theme("colors.foreground"),
+              color: theme('colors.foreground'),
               '[class~="lead"]': {
-                color: theme("colors.gray.300"),
+                color: theme('colors.gray.300'),
               },
               a: {
-                color: theme("colors.white"),
+                color: theme('colors.white'),
               },
               strong: {
-                color: theme("colors.white"),
+                color: theme('colors.white'),
               },
-              "ol > li::before": {
-                color: theme("colors.foreground"),
+              'ol > li::before': {
+                color: theme('colors.foreground'),
               },
-              "ul > li::before": {
-                backgroundColor: theme("colors.gray.600"),
+              'ul > li::before': {
+                backgroundColor: theme('colors.gray.600'),
               },
               hr: {
-                borderColor: theme("colors.gray.200"),
+                borderColor: theme('colors.gray.200'),
               },
               blockquote: {
-                color: theme("colors.gray.200"),
-                borderLeftColor: theme("colors.gray.600"),
+                color: theme('colors.gray.200'),
+                borderLeftColor: theme('colors.gray.600'),
               },
               h1: {
-                color: theme("colors.white"),
+                color: theme('colors.white'),
               },
               h2: {
-                color: theme("colors.white"),
+                color: theme('colors.white'),
               },
               h3: {
-                color: theme("colors.white"),
+                color: theme('colors.white'),
               },
               h4: {
-                color: theme("colors.white"),
+                color: theme('colors.white'),
               },
-              "figure figcaption": {
-                color: theme("colors.foreground"),
+              'figure figcaption': {
+                color: theme('colors.foreground'),
               },
               code: {
-                color: theme("colors.white"),
+                color: theme('colors.white'),
               },
-              "a code": {
-                color: theme("colors.white"),
+              'a code': {
+                color: theme('colors.white'),
               },
               pre: {
-                color: theme("colors.gray.200"),
-                backgroundColor: theme("colors.gray.800"),
+                color: theme('colors.gray.200'),
+                backgroundColor: theme('colors.gray.800'),
               },
               thead: {
-                color: theme("colors.white"),
-                borderBottomColor: theme("colors.foreground"),
+                color: theme('colors.white'),
+                borderBottomColor: theme('colors.foreground'),
               },
-              "tbody tr": {
-                borderBottomColor: theme("colors.gray.600"),
+              'tbody tr': {
+                borderBottomColor: theme('colors.gray.600'),
               },
             },
           ],
         },
       }),
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        headings: 'var(--headings)',
       },
     },
   },
   variants: {
     extend: {
-      typography: ["dark"],
+      typography: ['dark'],
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [require('@tailwindcss/typography')],
 };

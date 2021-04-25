@@ -4,8 +4,19 @@
 
 @layer base {
   @font-face {
-    font-family: "Work Sans";
-    src: url("/fonts/WorkSans-VariableFont_wght.ttf") format("truetype");
+    font-family: 'Work Sans';
+    src: url('/fonts/WorkSans-VariableFont_wght.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    font-weight: 400;
+    src: url('/fonts/Poppins-Regular.tff') format('truetype');
+  }
+  @font-face {
+    font-family: 'Poppins';
+    font-weight: bold;
+    src: url('/fonts/Poppins-Bold.tff') format('truetype');
   }
 
   :root {
@@ -36,5 +47,12 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: Poppins, sans-serif;
   }
 }
