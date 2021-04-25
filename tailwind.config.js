@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors');
+
 module.exports = {
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: 'class',
@@ -24,6 +26,13 @@ module.exports = {
     },
     extend: {
       typography: (theme) => ({
+        DEFAULT: {
+          css: {
+            pre: {
+              backgroundColor: '#282c34',
+            },
+          },
+        },
         light: {
           css: [
             {
@@ -73,7 +82,7 @@ module.exports = {
               },
               pre: {
                 color: theme('colors.gray.200'),
-                backgroundColor: theme('colors.gray.800'),
+                backgroundColor: '#282c34',
               },
               thead: {
                 color: theme('colors.white'),
@@ -90,6 +99,7 @@ module.exports = {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
         headings: 'var(--headings)',
+        gray: colors.trueGray,
       },
     },
   },

@@ -9,13 +9,17 @@ import Image from 'next/image';
 
 import Layout from '../../components/Layout';
 import { POSTS_PATH, postFilePaths } from '../../lib/utils';
+import GrayBlock from '../../components/GrayBlock';
+import CodeBlock from '../../components/CodeBlock';
 
 const sizeOf = promisify(require('image-size'));
 
 const components = (slug) => ({
+  code: CodeBlock,
   img: ({ src, alt }) => {
     return <img alt={alt} src={require('../../content/writings/' + slug + '/' + src).default} />;
   },
+  GrayBlock,
 });
 
 export default function WritingsPage({ source, slug, frontmatter }) {
