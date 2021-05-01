@@ -12,13 +12,7 @@ export default function HackletterPage({ allPosts }) {
   return (
     <Layout>
       <div className="mt-12 max-w-3xl mx-auto">
-        <Image
-          className="rounded-md"
-          src="/hl-header.jpg"
-          width={728}
-          height={386}
-          loading="eager"
-        />
+        <Image className="rounded-md" src="/hl-header.jpg" width={728} height={386} priority />
         <p className="text-lg mt-4">
           I send out a weekly letter, <i>on every Tuesday</i>, which gives you a behind-the-scenes
           look into what I'm working on, solutions and hacks that I'm building, podcast episodes I

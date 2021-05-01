@@ -2,14 +2,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 const Subscribe = ({ renderContent, className, tags }) => {
-  const [name, setName] = useState(``);
-  const [lastname, setLastName] = useState(``);
-  const [email, setEmail] = useState(``);
   const [status, setStatus] = useState(`READY`);
-
-  const handleNameChange = (e) => setName(e.target.value);
-  const handleLastNameChange = (e) => setLastName(e.target.value);
-  const handleEmailChange = (e) => setEmail(e.target.value);
 
   return (
     <form
@@ -18,6 +11,12 @@ const Subscribe = ({ renderContent, className, tags }) => {
       onSubmit={async (e) => {
         e.preventDefault();
         setStatus('SUBMITTING');
+
+        const name = e.currentTarget.elements['name'].value;
+        const lastname = e.currentTarget.elements['last-name'].value;
+        const email = e.currentTarget.elements['email'].value;
+
+        if (!name || !email) return;
 
         try {
           const res = await fetch(`/api/hackletter-submission`, {
@@ -70,8 +69,6 @@ const Subscribe = ({ renderContent, className, tags }) => {
               type="text"
               className="px-3 py-1 dark:bg-purple-800 dark:bg-opacity-50 bg-purple-200 placeholder-purple-400 text-base rounded"
               placeholder="Name"
-              value={name}
-              onChange={handleNameChange}
             />
             <input
               id="last-name"
@@ -80,8 +77,6 @@ const Subscribe = ({ renderContent, className, tags }) => {
               hidden
               className="px-3 py-1 dark:bg-purple-800 dark:bg-opacity-50 bg-purple-200 placeholder-purple-400 text-base rounded"
               placeholder="Name"
-              value={lastname}
-              onChange={handleLastNameChange}
             />
             <input
               id="email"
@@ -89,8 +84,6 @@ const Subscribe = ({ renderContent, className, tags }) => {
               type="email"
               className="px-3 py-1 dark:bg-purple-800 dark:bg-opacity-50 bg-purple-200 placeholder-purple-400 text-base rounded flex-1"
               placeholder="yourname@example.com"
-              value={email}
-              onChange={handleEmailChange}
             />
             <button
               type="submit"

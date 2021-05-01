@@ -28,7 +28,7 @@ const components = (slug) => ({
   },
 });
 
-export default function WritingsPage({ source, slug, frontmatter }) {
+export default function HackletterPost({ source, slug, frontmatter }) {
   const content = hydrate(source, { components: components(slug) });
 
   // TODO fix path.join in require

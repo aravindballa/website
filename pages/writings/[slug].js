@@ -49,6 +49,7 @@ export default function WritingsPage({ source, slug, frontmatter }) {
             alt={`Banner image for ${frontmatter.title}`}
             width={frontmatter.bannerWidth}
             height={frontmatter.bannerHeight}
+            priority
           />
         )}
         {content}
@@ -84,6 +85,8 @@ export const getStaticProps = async ({ params }) => {
       data.bannerHeight = height;
     }
   }
+
+  // TODO calculate dimensions for pics in post as well
 
   return {
     props: {
