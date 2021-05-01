@@ -3,7 +3,10 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import Link from 'next/link';
 import Image from 'next/image';
+import { NextSeo } from 'next-seo';
+import { format } from 'date-fns';
 
+import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
 import { HACKLETTER_PATH, hlFilePaths } from '../../lib/utils';
 import Subscribe from '../../components/Subscribe';
@@ -11,6 +14,18 @@ import Subscribe from '../../components/Subscribe';
 export default function HackletterPage({ allPosts }) {
   return (
     <Layout>
+      <NextSeo
+        title="Hackletter"
+        description="Weekly newsletter by Aravind Balla"
+        openGraph={{
+          url: `${baseUrl}hackletter/`,
+          title: 'Hackletter',
+          description: 'Weekly newsletter by Aravind Balla',
+          images: [
+            { url: `${baseUrl}hl-header.jpg`, width: 728, height: 386, alt: 'Hackletter header' },
+          ],
+        }}
+      />
       <div className="mt-12 max-w-3xl mx-auto">
         <Image className="rounded-md" src="/hl-header.jpg" width={728} height={386} priority />
         <p className="text-lg mt-4">
@@ -37,7 +52,7 @@ export default function HackletterPage({ allPosts }) {
                   <span>
                     <span>{post.frontmatter.title}</span> <span className="opacity-50">|</span>{' '}
                     <span className="text-sm">
-                      {new Date(post.frontmatter.date).toLocaleDateString()}
+                      {format(new Date(post.frontmatter.date), 'MMMM dd, yyyy')}
                     </span>
                   </span>
                 </a>

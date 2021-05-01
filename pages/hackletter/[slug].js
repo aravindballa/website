@@ -6,7 +6,9 @@ import renderToString from 'next-mdx-remote/render-to-string';
 import hydrate from 'next-mdx-remote/hydrate';
 import { promisify } from 'util';
 import Link from 'next/link';
+import { NextSeo } from 'next-seo';
 
+import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
 import { HACKLETTER_PATH, hlFilePaths } from '../../lib/utils';
 import Subscribe from '../../components/Subscribe';
@@ -36,6 +38,18 @@ export default function HackletterPost({ source, slug, frontmatter }) {
 
   return (
     <Layout>
+      <NextSeo
+        title={frontmatter.title}
+        description={`Letter #${slug} from weekly newsletter by Aravind Balla`}
+        openGraph={{
+          url: `${baseUrl}hackletter/${slug}/`,
+          title: frontmatter.title,
+          description: `Letter #${slug} from weekly newsletter by Aravind Balla`,
+          images: [
+            { url: `${baseUrl}hl-header.jpg`, width: 728, height: 386, alt: 'Hackletter header' },
+          ],
+        }}
+      />
       <div className="mt-12 prose lg:prose-lg dark:prose-light">
         <h1>{frontmatter.title}</h1>
         <p className="text-md italic text-purple-500">

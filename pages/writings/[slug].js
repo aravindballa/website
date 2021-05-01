@@ -6,9 +6,13 @@ import renderToString from 'next-mdx-remote/render-to-string';
 import hydrate from 'next-mdx-remote/hydrate';
 import { promisify } from 'util';
 import Image from 'next/image';
+import { NextSeo, BlogJsonLd } from 'next-seo';
+import { format } from 'date-fns';
 
+import { POSTS_PATH, postFilePaths, normalizeUrl } from '../../lib/utils';
+import { baseUrl } from '../../seo.config';
+import { getOGImageWithDimensions } from '../../lib/getOGImageUrl';
 import Layout from '../../components/Layout';
-import { POSTS_PATH, postFilePaths } from '../../lib/utils';
 import GrayBlock from '../../components/GrayBlock';
 import CodeBlock from '../../components/CodeBlock';
 import Subscribe from '../../components/Subscribe';
@@ -40,6 +44,41 @@ export default function WritingsPage({ source, slug, frontmatter }) {
 
   return (
     <Layout>
+      <NextSeo
+        title={frontmatter.title}
+        description={frontmatter.description}
+        openGraph={{
+          url: `${baseUrl}writings/${slug}/`,
+          title: 'Writings',
+          description: frontmatter.description,
+          images: [
+            getOGImageWithDimensions({
+              title: frontmatter.title,
+              dateString: format(new Date(frontmatter.date), 'MMMM dd yyy'),
+            }),
+          ],
+          type: 'article',
+          article: {
+            authors: ['Aravind Balla'],
+            publishedTime: new Date(frontmatter.date).toISOString(),
+            tags: !!frontmatter.tags && frontmatter.tags.split(',').map((t) => t.trim()),
+          },
+        }}
+      />
+      <BlogJsonLd
+        url={`${baseUrl}writings/${slug}/`}
+        title={frontmatter.title}
+        images={[
+          normalizeUrl(
+            baseUrl +
+              require('../../content/writings' + '/' + slug + '/' + frontmatter.banner).default
+          ),
+        ]}
+        datePublished={new Date(frontmatter.date).toISOString()}
+        authorName="Aravind Balla"
+        description={frontmatter.description}
+      />
+
       <div className="mt-12 prose lg:prose-lg dark:prose-light">
         <h1>{frontmatter.title}</h1>
         {frontmatter.banner && (

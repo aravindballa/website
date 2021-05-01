@@ -3,13 +3,24 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import Link from 'next/link';
 import Image from 'next/image';
+import { NextSeo } from 'next-seo';
 
 import Layout from '../../components/Layout';
 import { POSTS_PATH, postFilePaths } from '../../lib/utils';
+import { getOGImageWithDimensions } from '../../lib/getOGImageUrl';
+import { baseUrl } from '../../seo.config';
 
 export default function WritingsPage({ allPosts }) {
   return (
     <Layout>
+      <NextSeo
+        title="Writings"
+        openGraph={{
+          url: `${baseUrl}writings/`,
+          title: 'Writings',
+          images: [getOGImageWithDimensions({ title: 'Writings' })],
+        }}
+      />
       <div className="mt-12">
         <h1 className="text-5xl mb-12 font-bold text-headings">Writings</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 gap-y-8 max-w-5xl mx-auto">
