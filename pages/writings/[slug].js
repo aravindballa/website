@@ -11,6 +11,7 @@ import Layout from '../../components/Layout';
 import { POSTS_PATH, postFilePaths } from '../../lib/utils';
 import GrayBlock from '../../components/GrayBlock';
 import CodeBlock from '../../components/CodeBlock';
+import Subscribe from '../../components/Subscribe';
 
 const sizeOf = promisify(require('image-size'));
 
@@ -51,6 +52,7 @@ export default function WritingsPage({ source, slug, frontmatter }) {
           />
         )}
         {content}
+        <Subscribe />
       </div>
     </Layout>
   );

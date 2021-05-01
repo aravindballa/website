@@ -11,12 +11,12 @@
   @font-face {
     font-family: 'Poppins';
     font-weight: 400;
-    src: url('/fonts/Poppins-Regular.tff') format('truetype');
+    src: url('/fonts/Poppins-Regular.ttf') format('truetype');
   }
   @font-face {
     font-family: 'Poppins';
     font-weight: bold;
-    src: url('/fonts/Poppins-Bold.tff') format('truetype');
+    src: url('/fonts/Poppins-Bold.ttf') format('truetype');
   }
 
   :root {
@@ -54,5 +54,9 @@
   h3,
   h4 {
     @apply font-head;
+  }
+
+  .no-margin {
+    margin: 0 !important;
   }
 }

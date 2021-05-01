@@ -5,10 +5,11 @@ import matter from 'gray-matter';
 import renderToString from 'next-mdx-remote/render-to-string';
 import hydrate from 'next-mdx-remote/hydrate';
 import { promisify } from 'util';
-import Image from 'next/image';
+import Link from 'next/link';
 
 import Layout from '../../components/Layout';
 import { HACKLETTER_PATH, hlFilePaths } from '../../lib/utils';
+import Subscribe from '../../components/Subscribe';
 
 const sizeOf = promisify(require('image-size'));
 
@@ -41,6 +42,30 @@ export default function WritingsPage({ source, slug, frontmatter }) {
           Sent on {new Date(frontmatter.date).toLocaleDateString()}
         </p>
         {content}
+        <Subscribe
+          className="mt-4"
+          renderContent={() => (
+            <>
+              <h3 className="m-0 no-margin text-headings font-head font-bold text-2xl">
+                Hop right in 🏄‍♀️
+              </h3>
+              <p className="text-base mt-4">
+                I send these letters weekly to your email about things I'm currently learning,{' '}
+                <strong>articles</strong> I write, <strong>books</strong> I read, the{' '}
+                <strong>podcasts</strong> I record and places I <strong>travel</strong> to. I call
+                it -{' '}
+                <Link href="/hackletter">
+                  <i>Hackletter</i>
+                </Link>
+                . I'd love to share and discuss them with you!
+              </p>
+              <p className="text-sm">
+                <Link href="/hackletter">Back to the archive 📬</Link>
+              </p>
+            </>
+          )}
+          tags="hackletter,website"
+        />
       </div>
     </Layout>
   );

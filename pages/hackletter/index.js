@@ -6,17 +6,31 @@ import Image from 'next/image';
 
 import Layout from '../../components/Layout';
 import { HACKLETTER_PATH, hlFilePaths } from '../../lib/utils';
+import Subscribe from '../../components/Subscribe';
 
-export default function WritingsPage({ allPosts }) {
+export default function HackletterPage({ allPosts }) {
   return (
     <Layout>
       <div className="mt-12 max-w-3xl mx-auto">
-        <Image className="rounded-md" src="/hl-header.jpg" width={728} height={386} />
+        <Image
+          className="rounded-md"
+          src="/hl-header.jpg"
+          width={728}
+          height={386}
+          loading="eager"
+        />
         <p className="text-lg mt-4">
           I send out a weekly letter, <i>on every Tuesday</i>, which gives you a behind-the-scenes
           look into what I'm working on, solutions and hacks that I'm building, podcast episodes I
           record and interesting reads I find.
         </p>
+        <Subscribe
+          className="mt-4"
+          renderContent={() => (
+            <h3 className="m-0 text-headings font-head font-bold text-2xl">Hop right in 🏄‍♀️</h3>
+          )}
+          tags="hackletter,website"
+        />
         <h2 className="text-4xl text-headings font-bold mt-8">Archive</h2>
         <div className="text-lg mt-4">
           {allPosts.map((post) => (
