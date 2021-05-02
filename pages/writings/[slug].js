@@ -115,6 +115,12 @@ export const getStaticProps = async ({ params }) => {
     scope: data,
   });
 
+  if (data.published !== undefined && data.published === false) {
+    return {
+      notFound: true,
+    };
+  }
+
   if (data.banner) {
     const { width, height } = await sizeOf(
       path.join(POSTS_PATH, possiblePostFile[0], '..', data.banner)
