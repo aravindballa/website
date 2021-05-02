@@ -22,4 +22,26 @@ module.exports = {
     });
     return config;
   },
+  headers() {
+    return [
+      {
+        source: '/rss.xml',
+        headers: [
+          {
+            key: 'content-type',
+            value: 'text/xml',
+          },
+        ],
+      },
+      {
+        source: '/fonts/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
+  },
 };
