@@ -1,7 +1,7 @@
-function Logo(props) {
+function Logo({ className, ...props }) {
   return (
     <svg
-      className="fill-current"
+      className={`fill-current ${className}`}
       width={941}
       height={691}
       viewBox="0 0 941 691"
