@@ -31,6 +31,6 @@
     "autoprefixer": "^10.0.4",
     "image-size": "^1.0.0",
     "postcss": "^8.1.10",
-    "tailwindcss": "^2.0.2"
+    "tailwindcss": "^2.1.2"
   }
 }
