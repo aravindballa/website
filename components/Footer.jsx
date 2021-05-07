@@ -16,7 +16,7 @@ export default function Footer() {
           <p className="mb-4">
             <Link href="/">
               <a className="hover:text-gray-600 dark:hover:text-gray-400">
-                <Logo className="sm:mx-auto md:m-0" width={25} height={18.5} />
+                <Logo className="mx-auto md:m-0" width={25} height={18.5} />
               </a>
             </Link>
           </p>
