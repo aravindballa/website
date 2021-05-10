@@ -2,7 +2,6 @@ import path from 'path';
 import fs from 'fs';
 import matter from 'gray-matter';
 import Link from 'next/link';
-import Image from 'next/image';
 import { NextSeo } from 'next-seo';
 import { format } from 'date-fns';
 
@@ -10,8 +9,10 @@ import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
 import { HACKLETTER_PATH, hlFilePaths } from '../../lib/utils';
 import Subscribe from '../../components/Subscribe';
+import Image from '../../components/Image';
+import getImageProps from '../../lib/getImageProps';
 
-export default function HackletterPage({ allPosts }) {
+export default function HackletterPage({ allPosts, hlImageProps }) {
   return (
     <Layout>
       <NextSeo
@@ -27,7 +28,8 @@ export default function HackletterPage({ allPosts }) {
         }}
       />
       <div className="mt-12 max-w-3xl mx-auto">
-        <Image className="rounded-md" src="/hl-header.jpg" width={728} height={386} priority />
+        <Image className="rounded-md" {...hlImageProps} width={728} height={386} priority />
+
         <p className="text-lg mt-4">
           I send out a weekly letter, <i>on every Tuesday</i>, which gives you a behind-the-scenes
           look into what I'm working on, solutions and hacks that I'm building, podcast episodes I
@@ -60,36 +62,6 @@ export default function HackletterPage({ allPosts }) {
             </p>
           ))}
         </div>
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6 gap-y-8 max-w-5xl mx-auto">
-          {allPosts.map((post) => (
-            <div className="mt-4" key={post.slug}>
-              <Link href={post.slug}>
-                <a>
-                  {!!post.frontmatter.banner && (
-                    <div className="aspect-w-16 aspect-h-9 relative w-full h-64">
-                      <Image
-                        className="rounded-md"
-                        src={require('../../content' + post.slug + post.frontmatter.banner).default}
-                        alt={`Banner image for ${post.frontmatter.title}`}
-                        layout="fill"
-                        objectFit="cover"
-                      />
-                    </div>
-                  )}
-                </a>
-              </Link>
-              <h3 className="text-lg font-bold mt-4">
-                <Link href={post.slug}>
-                  <a className="no-underline text-headings">{post.frontmatter.title}</a>
-                </Link>
-              </h3>
-              <p
-                className="text-lg mt-4 block max-w-full break-all"
-                dangerouslySetInnerHTML={{ __html: post.content }}
-              />
-            </div>
-          ))}
-        </div> */}
       </div>
     </Layout>
   );
@@ -101,7 +73,7 @@ export const getStaticProps = async () => {
     const postFilePath = path.join(HACKLETTER_PATH, postPath);
     const source = fs.readFileSync(postFilePath, { encoding: 'utf-8' });
 
-    const { content, data } = matter(source);
+    const { data } = matter(source);
 
     if (data.published !== undefined && data.published === false) continue;
 
@@ -111,6 +83,8 @@ export const getStaticProps = async () => {
     });
   }
 
+  const hlImageProps = await getImageProps('/hl-header.jpg');
+
   return {
     props: {
       allPosts: allPosts
@@ -118,6 +92,7 @@ export const getStaticProps = async () => {
         .sort(
           (a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
         ),
+      hlImageProps,
     },
   };
 };
