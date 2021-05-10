@@ -31,21 +31,14 @@
     --palered: #eb697f;
   }
   body.dark {
-    --background: #151515;
-    --foreground: #d7d7d7;
-    --headings: #ffffff;
-    /* replacing with bg-gray-200 dark:bg-gray-800 */
-    --gray700: #242424;
-    --gray500: #4f4f4f;
-    --inverse-bg: #fff;
+    --background: 21, 21, 21; /* #151515 */
+    --foreground: 215, 215, 215; /* #d7d7d7 */
+    --headings: 255, 255, 255; /* #fff */
   }
   body.light {
-    --background: #fff;
-    --foreground: #151515;
-    --headings: #000;
-    --gray700: #f4f4f4;
-    --gray500: #4f4f4f;
-    --inverse-bg: #000;
+    --background: 255, 255, 255; /* #fff */
+    --foreground: 21, 21, 21; /* #151515 */
+    --headings: 0, 0, 0; /* #000 */
   }
 
   body {

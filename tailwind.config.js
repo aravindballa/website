@@ -96,9 +96,12 @@ module.exports = {
         },
       }),
       colors: {
-        background: 'var(--background)',
-        foreground: 'var(--foreground)',
-        headings: 'var(--headings)',
+        background: ({ opacityValue }) =>
+          opacityValue ? `rgba(var(--background), ${opacityValue})` : `rgb(var(--background))`,
+        foreground: ({ opacityValue }) =>
+          opacityValue ? `rgba(var(--foreground), ${opacityValue})` : `rgb(var(--foreground))`,
+        headings: ({ opacityValue }) =>
+          opacityValue ? `rgba(var(--headings), ${opacityValue})` : `rgb(var(--headings))`,
         gray: colors.trueGray,
       },
     },
