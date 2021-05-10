@@ -14,7 +14,7 @@ export default function Header() {
   });
 
   const navLinks = [
-    <Link href="/writings" prefetch>
+    <Link href="/writings">
       <a className={headerLinksClasses}>Writings</a>
     </Link>,
     <Link href="/hackletter">

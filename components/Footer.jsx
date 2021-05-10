@@ -73,29 +73,16 @@ export default function Footer() {
               YouTube
             </a>
           </li>
+          <li>
+            <a
+              className="hover:text-gray-600 dark:hover:text-gray-400"
+              href="https://notes.aravindballa.com/"
+            >
+              Notes
+            </a>
+          </li>
         </ul>
       </div>
-      {/* <div className="text-center text-gray-500">
-        <p>
-          Copyright whenever. This site is <Link href="/opensource">opensource</Link>
-          .
-          <br />
-          <a className="text-gray-500" href="mailto:hey+website@balla.dev" rel="me">
-            mail
-          </a>{' '}
-          |{' '}
-          <a className="text-gray-500" href="https://twitter.com/aravindballa" rel="me">
-            twitter
-          </a>{' '}
-          |{' '}
-          <a className="text-gray-500" href="https://aravindballa.com/rss.xml">
-            rss
-          </a>
-        </p>
-      </div> */}
-      {/* <div>
-        <input type="checkbox" value={darkMode.value} onClick={darkMode.toggle} />
-      </div> */}
     </footer>
   );
 }
