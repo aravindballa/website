@@ -26,7 +26,7 @@ export default function HackletterPost({ source, slug, frontmatter }) {
           description: `Letter #${slug} from weekly newsletter by Aravind Balla`,
           images: [
             {
-              url: `${baseUrl}/images/hl-header.jpg`,
+              url: `${baseUrl}images/hl-header.jpg`,
               width: 728,
               height: 386,
               alt: 'Hackletter header',
