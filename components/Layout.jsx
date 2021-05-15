@@ -2,8 +2,10 @@ import Head from 'next/head';
 
 import Footer from './Footer';
 import Header from './Header';
+import useViews from './useViews';
 
 export default function Layout({ children }) {
+  useViews();
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Head>
