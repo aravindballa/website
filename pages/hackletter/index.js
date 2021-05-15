@@ -12,7 +12,7 @@ import Subscribe from '../../components/Subscribe';
 import Image from '../../components/Image';
 import getImageProps from '../../lib/getImageProps';
 
-export default function HackletterPage({ allPosts, hlImageProps }) {
+export default function HackletterPage({ allPosts, bannerImageProps }) {
   return (
     <Layout>
       <NextSeo
@@ -28,7 +28,13 @@ export default function HackletterPage({ allPosts, hlImageProps }) {
         }}
       />
       <div className="mt-12 max-w-3xl mx-auto">
-        <Image className="rounded-md" {...hlImageProps} width={728} height={386} priority />
+        <Image
+          className="mx-auto rounded-md"
+          {...bannerImageProps}
+          width={728}
+          height={386}
+          priority
+        />
 
         <p className="text-lg mt-4">
           I send out a weekly letter, <i>on every Tuesday</i>, which gives you a behind-the-scenes
@@ -83,7 +89,7 @@ export const getStaticProps = async () => {
     });
   }
 
-  const hlImageProps = await getImageProps('/hl-header.jpg');
+  const bannerImageProps = await getImageProps('/images/hl-header.jpg');
 
   return {
     props: {
@@ -92,7 +98,7 @@ export const getStaticProps = async () => {
         .sort(
           (a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
         ),
-      hlImageProps,
+      bannerImageProps,
     },
   };
 };

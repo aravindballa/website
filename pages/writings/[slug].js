@@ -2,10 +2,9 @@ import path from 'path';
 import fs from 'fs';
 import glob from 'glob';
 import matter from 'gray-matter';
-import renderToString from 'next-mdx-remote/render-to-string';
-import hydrate from 'next-mdx-remote/hydrate';
+import { serialize } from 'next-mdx-remote/serialize';
+import { MDXRemote } from 'next-mdx-remote';
 import { promisify } from 'util';
-import Image from 'next/image';
 import { NextSeo, BlogJsonLd } from 'next-seo';
 import { format } from 'date-fns';
 
@@ -13,35 +12,14 @@ import { POSTS_PATH, postFilePaths, normalizeUrl } from '../../lib/utils';
 import { baseUrl } from '../../seo.config';
 import { getOGImageWithDimensions } from '../../lib/getOGImageUrl';
 import Layout from '../../components/Layout';
-import GrayBlock from '../../components/GrayBlock';
-import CodeBlock from '../../components/CodeBlock';
 import Subscribe from '../../components/Subscribe';
+import components from '../../components/mdxComponents';
+import getImageProps from '../../lib/getImageProps';
+import Image from '../../components/Image';
 
 const sizeOf = promisify(require('image-size'));
 
-const components = (slug) => ({
-  code: CodeBlock,
-  img: ({ src, alt }) => {
-    return (
-      <img
-        alt={alt}
-        src={
-          src.startsWith('http')
-            ? src
-            : require('../../content/writings/' + slug + '/' + src).default
-        }
-      />
-    );
-  },
-  GrayBlock,
-});
-
 export default function WritingsPage({ source, slug, frontmatter }) {
-  const content = hydrate(source, { components: components(slug) });
-
-  // TODO fix path.join in require
-  // TODO fix error in console -> Module parse failed: Assigning to rvalue
-
   return (
     <Layout>
       <NextSeo
@@ -68,12 +46,9 @@ export default function WritingsPage({ source, slug, frontmatter }) {
       <BlogJsonLd
         url={`${baseUrl}writings/${slug}/`}
         title={frontmatter.title}
-        images={[
-          normalizeUrl(
-            baseUrl +
-              require('../../content/writings' + '/' + slug + '/' + frontmatter.banner).default
-          ),
-        ]}
+        images={
+          frontmatter.banner && [normalizeUrl(`${baseUrl}images/${slug}/${frontmatter.banner}`)]
+        }
         datePublished={new Date(frontmatter.date).toISOString()}
         authorName="Aravind Balla"
         description={frontmatter.description}
@@ -83,15 +58,15 @@ export default function WritingsPage({ source, slug, frontmatter }) {
         <h1>{frontmatter.title}</h1>
         {frontmatter.banner && (
           <Image
+            {...frontmatter.bannerImageProps}
             className="rounded-md"
-            src={require('../../content/writings' + '/' + slug + '/' + frontmatter.banner).default}
             alt={`Banner image for ${frontmatter.title}`}
             width={frontmatter.bannerWidth}
             height={frontmatter.bannerHeight}
             priority
           />
         )}
-        {content}
+        <MDXRemote {...source} components={components(slug)} />
         <Subscribe />
       </div>
     </Layout>
@@ -110,10 +85,7 @@ export const getStaticProps = async ({ params }) => {
 
   const { content, data } = matter(source);
 
-  const mdxSource = await renderToString(content, {
-    components: components(params.slug),
-    scope: data,
-  });
+  const mdxSource = await serialize(content);
 
   if (data.published !== undefined && data.published === false) {
     return {
@@ -122,16 +94,18 @@ export const getStaticProps = async ({ params }) => {
   }
 
   if (data.banner) {
-    const { width, height } = await sizeOf(
-      path.join(POSTS_PATH, possiblePostFile[0], '..', data.banner)
-    );
+    const imagePath = path.join('/images', possiblePostFile[0], '..', data.banner);
+    const { width, height } = await sizeOf(path.join('public', imagePath));
     if (width && height) {
       data.bannerWidth = width;
       data.bannerHeight = height;
     }
+
+    data.bannerImageProps = await getImageProps(imagePath);
   }
 
   // TODO calculate dimensions for pics in post as well
+  // TODO construct an image map for all the images
 
   return {
     props: {

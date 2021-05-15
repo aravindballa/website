@@ -2,40 +2,19 @@ import path from 'path';
 import fs from 'fs';
 import glob from 'glob';
 import matter from 'gray-matter';
-import renderToString from 'next-mdx-remote/render-to-string';
-import hydrate from 'next-mdx-remote/hydrate';
-import { promisify } from 'util';
+import { serialize } from 'next-mdx-remote/serialize';
+import { MDXRemote } from 'next-mdx-remote';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
+import { format } from 'date-fns';
 
 import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
 import { HACKLETTER_PATH, hlFilePaths } from '../../lib/utils';
 import Subscribe from '../../components/Subscribe';
-
-const sizeOf = promisify(require('image-size'));
-
-const components = (slug) => ({
-  img: ({ src, alt }) => {
-    return (
-      <img
-        alt={alt}
-        src={
-          src.startsWith('http')
-            ? src
-            : require('../../content/writings/' + slug + '/' + src).default
-        }
-      />
-    );
-  },
-});
+import components from '../../components/mdxComponents';
 
 export default function HackletterPost({ source, slug, frontmatter }) {
-  const content = hydrate(source, { components: components(slug) });
-
-  // TODO fix path.join in require
-  // TODO fix error in console -> Module parse failed: Assigning to rvalue
-
   return (
     <Layout>
       <NextSeo
@@ -46,16 +25,21 @@ export default function HackletterPost({ source, slug, frontmatter }) {
           title: frontmatter.title,
           description: `Letter #${slug} from weekly newsletter by Aravind Balla`,
           images: [
-            { url: `${baseUrl}hl-header.jpg`, width: 728, height: 386, alt: 'Hackletter header' },
+            {
+              url: `${baseUrl}/images/hl-header.jpg`,
+              width: 728,
+              height: 386,
+              alt: 'Hackletter header',
+            },
           ],
         }}
       />
       <div className="mt-12 prose lg:prose-lg dark:prose-light">
         <h1>{frontmatter.title}</h1>
         <p className="text-md italic text-purple-500">
-          Sent on {new Date(frontmatter.date).toLocaleDateString()}
+          Sent on {format(new Date(frontmatter.date), 'MMMM do, yyy')}
         </p>
-        {content}
+        <MDXRemote {...source} components={components(slug)} />
         <Subscribe
           className="mt-4"
           renderContent={() => (
@@ -99,10 +83,7 @@ export const getStaticProps = async ({ params }) => {
 
   const { content, data } = matter(source);
 
-  const mdxSource = await renderToString(content, {
-    components: components(params.slug),
-    scope: data,
-  });
+  const mdxSource = await serialize(content);
 
   return {
     props: {

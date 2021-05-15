@@ -2,13 +2,15 @@ import path from 'path';
 import fs from 'fs';
 import matter from 'gray-matter';
 import Link from 'next/link';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { NextSeo } from 'next-seo';
 
 import Layout from '../../components/Layout';
+import Image from '../../components/Image';
 import { POSTS_PATH, postFilePaths } from '../../lib/utils';
 import { getOGImageWithDimensions } from '../../lib/getOGImageUrl';
 import { baseUrl } from '../../seo.config';
+import getImageProps from '../../lib/getImageProps';
 
 export default function WritingsPage({ allPosts }) {
   return (
@@ -31,8 +33,8 @@ export default function WritingsPage({ allPosts }) {
                   {!!post.frontmatter.banner && (
                     <div className="aspect-w-16 aspect-h-9 relative w-full h-64">
                       <Image
-                        className="rounded-md"
-                        src={require('../../content' + post.slug + post.frontmatter.banner).default}
+                        {...post.frontmatter.bannerImageProps}
+                        className="rounded-md w-full h-64"
                         alt={`Banner image for ${post.frontmatter.title}`}
                         layout="fill"
                         objectFit="cover"
@@ -68,6 +70,8 @@ export const getStaticProps = async () => {
 
     if (data.published !== undefined && data.published === false) continue;
 
+    const slug = postPath.replace(/\.mdx?$/, '').replace(/\/index/, '');
+
     /**
      * If there is no banner image, first image from the content is used
      */
@@ -77,11 +81,12 @@ export const getStaticProps = async () => {
         data.banner = firstImageFromContent[1];
       }
     }
+    data.bannerImageProps = await getImageProps(`/images/${slug}/${data.banner}`);
 
     allPosts.push({
       frontmatter: data,
       content: content.slice(0, 150) + '...',
-      slug: '/writings/' + postPath.replace(/\.mdx?$/, '').replace(/\/index/, '') + '/',
+      slug: '/writings/' + slug + '/',
     });
   }
 

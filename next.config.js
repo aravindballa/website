@@ -1,6 +1,6 @@
 module.exports = {
   trailingSlash: true,
-  webpack: (config, { isServer }) => {
+  webpack: (config, { isServer, defaultLoaders }) => {
     // Fixes npm packages that depend on `fs` module
     if (!isServer) {
       config.node = {
@@ -8,18 +8,17 @@ module.exports = {
       };
     }
 
+    // fixes error in console -> Module parse failed: Assigning to rvalue
     config.module.rules.push({
-      test: /\.(svg|png|jpe?g|gif|mp4)$/i,
+      test: /\.(md|mdx)/,
       use: [
+        defaultLoaders.babel,
         {
-          loader: 'file-loader',
-          options: {
-            publicPath: '/_next',
-            name: 'static/media/[name].[hash].[ext]',
-          },
+          loader: '@mdx-js/loader',
         },
       ],
     });
+
     return config;
   },
   headers() {

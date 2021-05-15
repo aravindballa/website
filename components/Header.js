@@ -32,7 +32,7 @@ export default function Header() {
           <div className="flex items-center flex-1">
             <Link href="/">
               <a className="block mr-8">
-                <Logo width={28} height="auto" />
+                <Logo width={28} height={20.56} />
               </a>
             </Link>
             <div className="hidden md:flex">
