@@ -12,6 +12,7 @@ import { POSTS_PATH, postFilePaths, normalizeUrl } from '../../lib/utils';
 import { baseUrl } from '../../seo.config';
 import { getOGImageWithDimensions } from '../../lib/getOGImageUrl';
 import Layout from '../../components/Layout';
+import Bio from '../../components/Bio';
 import Subscribe from '../../components/Subscribe';
 import components from '../../components/mdxComponents';
 import getImageProps from '../../lib/getImageProps';
@@ -67,6 +68,7 @@ export default function WritingsPage({ source, slug, frontmatter }) {
           />
         )}
         <MDXRemote {...source} components={components(slug)} />
+        <Bio />
         <Subscribe />
       </div>
     </Layout>

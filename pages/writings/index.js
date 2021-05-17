@@ -2,7 +2,6 @@ import path from 'path';
 import fs from 'fs';
 import matter from 'gray-matter';
 import Link from 'next/link';
-// import Image from 'next/image';
 import { NextSeo } from 'next-seo';
 
 import Layout from '../../components/Layout';
