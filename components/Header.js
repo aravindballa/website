@@ -4,6 +4,7 @@ import { MoonIcon, SunIcon, MenuIcon } from '@heroicons/react/outline';
 import { Menu } from '@headlessui/react';
 
 import Logo from './Logo';
+import { useEffect } from 'react';
 
 const headerLinksClasses = 'hover:opacity-80 focus:opacity-80 transistion-opacity duration-50';
 
@@ -12,6 +13,13 @@ export default function Header() {
     classNameDark: 'dark',
     classNameLight: 'light',
   });
+
+  useEffect(() => {
+    const faviconELs = document.querySelectorAll('link[rel="icon"]');
+    faviconELs.forEach((faviconEl) => {
+      faviconEl.href = darkMode.value ? '/logo-dark.png' : '/logo32x32.png';
+    });
+  }, [darkMode.value]);
 
   const navLinks = [
     <Link href="/writings">

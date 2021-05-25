@@ -61,12 +61,53 @@ export default function Home({ allPosts }) {
                 </Link>
               </h3>
               <p
-                className="text-lg mt-2 block max-w-full break-all"
+                className="mt-2 block max-w-full break-all"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
             </div>
           ))}
         </div>
+      </div>
+      <div className="mt-12 prose lg:prose-lg dark:prose-light">
+        <h2>You know about the podcast, right? 🎙</h2>
+        <div className="flex gap-2">
+          <p className="flex-1">
+            Brittik and I host a podcast where we talk about technology, startups and all the things
+            we love about. It's called{' '}
+            <a href="https://learningcurve.dev">Learning Curve Podcast</a>
+          </p>
+          <Image className="rounded-md" src="/images/lc-logo.png" height={250} width={250} />
+        </div>
+
+        <h2>Speaking</h2>
+        <p>I speak at meetups and conferences on topics that I'm excited about.</p>
+        <ul>
+          <li>
+            <a href="https://www.youtube.com/watch?v=8XP0pxofYbQ">
+              Jun 2020: Building a Second brain (Remote)
+            </a>
+          </li>
+          <li>
+            <a href="https://www.meetup.com/vue-hyderabad/events/268288016/">
+              Feb 2020: Taking power back to CSS
+            </a>
+          </li>
+          <li>
+            <Link href="/talks/devfest-19/">
+              <a>Oct 2019: Build Blazing Fast Portfolios</a>
+            </Link>
+          </li>
+          <li>
+            <a href="https://www.meetup.com/coderplex/events/263195332/">
+              Jul 2019: Build Websites with Gatsby JS
+            </a>
+          </li>
+          <li>
+            <a href="https://www.meetup.com/vue-hyderabad/events/268288016/">
+              Apr 2018: React vs Vue
+            </a>
+          </li>
+        </ul>
       </div>
     </Layout>
   );

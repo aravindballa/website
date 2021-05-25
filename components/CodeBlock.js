@@ -1,7 +1,7 @@
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import oceanicNext from 'prism-react-renderer/themes/oceanicNext';
 
-export default ({ className = '', children }) => {
+const CodeBlock = ({ className = '', children }) => {
   const language = className.replace(/language-/, '');
   return (
     <Highlight {...defaultProps} code={children} language={language} theme={oceanicNext}>
@@ -27,3 +27,5 @@ export default ({ className = '', children }) => {
     </Highlight>
   );
 };
+
+export default CodeBlock;
