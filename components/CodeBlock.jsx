@@ -4,11 +4,17 @@ import oceanicNext from 'prism-react-renderer/themes/oceanicNext';
 const CodeBlock = ({ className = '', children }) => {
   const language = className.replace(/language-/, '');
   return (
-    <Highlight {...defaultProps} code={children} language={language} theme={oceanicNext}>
+    <Highlight
+      {...defaultProps}
+      className="w-full"
+      code={children}
+      language={language}
+      theme={oceanicNext}
+    >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre className={className + ' relative'} style={{ ...style, padding: 0, margin: 0 }}>
+        <pre className={`${className} flex flex-col`} style={{ ...style, padding: 0, margin: 0 }}>
           {language && (
-            <div className="absolute right-0 top-0 text-gray-400 bg-gray-900 p-1 rounded text-sm select-none uppercase">
+            <div className="absolute right-3 top-3 text-gray-400 bg-gray-900 p-1 rounded text-sm select-none uppercase">
               {language}
             </div>
           )}

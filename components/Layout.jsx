@@ -15,7 +15,7 @@ export default function Layout({ children }) {
 
       <Header />
 
-      <main className="px-8 flex-1 mt-12 md:mt-24">{children}</main>
+      <main className="px-8 flex-1 mt-24">{children}</main>
 
       <Footer />
     </div>

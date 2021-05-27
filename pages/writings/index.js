@@ -22,7 +22,7 @@ export default function WritingsPage({ allPosts }) {
           images: [getOGImageWithDimensions({ title: 'Writings' })],
         }}
       />
-      <div className="mt-12">
+      <div className="md:mt-12">
         <h1 className="text-5xl mb-12 font-bold text-headings">Writings</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 gap-y-8 max-w-5xl mx-auto">
           {allPosts.map((post) => (

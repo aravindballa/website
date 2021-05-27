@@ -55,4 +55,9 @@
   .no-margin {
     margin: 0 !important;
   }
+
+  .prose > pre {
+    /* max-w-[30ch] md:max-w-full mx-auto; */
+    @apply relative max-w-[30ch] md:max-w-full mx-auto;
+  }
 }

@@ -31,7 +31,7 @@ export default function Home({ allPosts }) {
         </p>
       </div>
       <div className="max-w-[75ch]">
-        <div className="flex justify-between items-end">
+        <div className="flex flex-col md:flex-row justify-between md:items-end">
           <h2 className="text-3xl font-bold mt-12 mb-4">Few things I've wrote recently</h2>
           <Link href="/writings">
             <a className="mb-4">See all</a>
@@ -70,7 +70,7 @@ export default function Home({ allPosts }) {
       </div>
       <div className="mt-12 prose lg:prose-lg dark:prose-light">
         <h2>You know about the podcast, right? 🎙</h2>
-        <div className="flex gap-2">
+        <div className="flex flex-col-reverse md:flex-row gap-2">
           <p className="flex-1">
             Brittik and I host a podcast where we talk about technology, startups and all the things
             we love about. It's called{' '}

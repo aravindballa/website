@@ -55,7 +55,7 @@ export default function WritingsPage({ source, slug, frontmatter }) {
         description={frontmatter.description}
       />
 
-      <div className="mt-12 prose lg:prose-lg dark:prose-light">
+      <div className="md:mt-12 prose lg:prose-lg dark:prose-light">
         <h1>{frontmatter.title}</h1>
         {frontmatter.banner && (
           <Image
