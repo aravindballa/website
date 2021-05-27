@@ -3,30 +3,68 @@ import { Client } from '@notionhq/client';
 import { Page } from '@notionhq/client/build/src/api-types';
 import { PagesCreateResponse } from '@notionhq/client/build/src/api-endpoints';
 
+import countriesData from '../../lib/countries.json';
+
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
 export default async function views(req: NextApiRequest, res: NextApiResponse) {
-  if (!req.query.slug || Array.isArray(req.query.slug)) {
+  const { slug, width, timestamp, tz } = JSON.parse(req.body);
+
+  if (!slug || !width || !timestamp || !tz) {
     res.status(204).json({});
     return;
   }
 
-  const slug = req.query.slug === '/' ? req.query.slug : req.query.slug.replace(/\/$/, ''); // remove last slash
+  const formattedSlug = slug === '/' ? slug : slug.replace(/\/$/, ''); // remove last slash
+  let deviceType = 'Mobile';
+  if (width > 768) deviceType = 'Tablet';
+  if (width > 1024) deviceType = 'Desktop';
 
-  const matchingPageRecords = await notion.databases.query({
-    database_id: process.env.VIEWS_DB,
-    filter: {
-      property: 'Slug',
-      text: {
-        equals: slug,
+  let timezone = countriesData.timezones[tz];
+  while (!('c' in timezone)) {
+    timezone = countriesData.timezones[timezone.a];
+  }
+  const country = countriesData.countries[timezone.c];
+
+  if (req.method === 'POST') {
+    // 1. Check if record exists in PAGES table
+    const matchingPageRecords = await notion.databases.query({
+      database_id: process.env.PAGES_DB,
+      filter: {
+        property: 'Name',
+        text: {
+          equals: formattedSlug,
+        },
       },
-    },
-  });
+    });
 
-  let exisitingPageRecord: Page | PagesCreateResponse;
+    let exisitingPageRecord: Page | PagesCreateResponse;
 
-  if (matchingPageRecords.results.length === 0) {
-    exisitingPageRecord = await notion.pages.create({
+    // 2. (Optional) If record doesn't exist, create it
+    if (matchingPageRecords.results.length === 0) {
+      exisitingPageRecord = await notion.pages.create({
+        parent: {
+          database_id: process.env.PAGES_DB,
+        },
+        properties: {
+          Name: {
+            title: [
+              //@ts-ignore
+              {
+                text: {
+                  content: formattedSlug,
+                },
+              },
+            ],
+          },
+        },
+      });
+    } else {
+      exisitingPageRecord = matchingPageRecords.results[0];
+    }
+
+    // 3. Add a record to the VISITS table
+    await notion.pages.create({
       parent: {
         database_id: process.env.VIEWS_DB,
       },
@@ -36,33 +74,49 @@ export default async function views(req: NextApiRequest, res: NextApiResponse) {
             //@ts-ignore
             {
               text: {
-                content: slug,
+                content: formattedSlug,
               },
             },
           ],
         },
-        //@ts-ignore
-        Views: {
-          number: 0,
-        },
-      },
-    });
-  } else {
-    exisitingPageRecord = matchingPageRecords.results[0];
-  }
 
-  if (req.method === 'POST') {
-    //@ts-ignore
-    const existingCount = exisitingPageRecord.properties.Views.number;
-    await notion.pages.update({
-      page_id: exisitingPageRecord.id,
-      properties: {
         //@ts-ignore
-        Views: {
-          number: existingCount + 1,
+        Timestamp: {
+          date: {
+            start: timestamp,
+          },
+        },
+
+        Device: {
+          //@ts-ignore
+          select: {
+            name: deviceType,
+          },
+        },
+
+        Location: {
+          rich_text: [
+            //@ts-ignore
+            {
+              type: 'text',
+              text: {
+                content: country,
+              },
+            },
+          ],
+        },
+
+        'Actual Slug': {
+          //@ts-ignore
+          relation: [
+            {
+              id: exisitingPageRecord.id,
+            },
+          ],
         },
       },
     });
+
     res.status(200).json({});
   }
 }
