@@ -51,7 +51,7 @@ export default function HackletterPage({ allPosts, bannerImageProps }) {
         <h2 className="text-4xl text-headings font-bold mt-8">Archive</h2>
         <div className="text-lg mt-4">
           {allPosts.map((post) => (
-            <p key={post.slug}>
+            <p key={post.slug} className="mb-4">
               <Link className="hover:no-underline flex items-baseline" href={post.slug}>
                 <a>
                   <span className="text-sm text-gray-500 mr-4">
