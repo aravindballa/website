@@ -62,7 +62,6 @@ module.exports = {
       {
         source: '/api/event',
         destination: 'https://plausible.io/api/event',
-        basePath: false,
       },
     ];
   },
