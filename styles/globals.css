@@ -57,7 +57,10 @@
   }
 
   .prose > pre {
-    /* max-w-[30ch] md:max-w-full mx-auto; */
     @apply relative max-w-[30ch] md:max-w-full mx-auto;
+  }
+
+  .prose a {
+    @apply break-all;
   }
 }

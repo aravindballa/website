@@ -21,7 +21,7 @@ class MyDocument extends Document {
           <link href="/logo32x32.png" rel="icon" sizes="32x32" type="image/png" />
           <link href="/logo-apple-touch.png" rel="apple-touch-icon" sizes="180x180" />
 
-          <script async defer data-domain="aravindballa.com" src="/js/plausible.js"></script>
+          <script async defer data-domain="aravindballa.com" src="/js/script.js"></script>
         </Head>
         <body>
           <script src="noflash.js" />
