@@ -42,15 +42,6 @@ module.exports = {
           },
         ],
       },
-      {
-        source: '/api/event',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'no-cache',
-          },
-        ],
-      },
     ];
   },
   async rewrites() {
@@ -60,7 +51,7 @@ module.exports = {
         destination: 'https://plausible.io/js/plausible.js',
       },
       {
-        source: '/api/event',
+        source: '/api/event/',
         destination: 'https://plausible.io/api/event',
       },
     ];
