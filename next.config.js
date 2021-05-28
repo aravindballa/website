@@ -42,6 +42,15 @@ module.exports = {
           },
         ],
       },
+      {
+        source: '/api/event',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-cache',
+          },
+        ],
+      },
     ];
   },
   async rewrites() {
