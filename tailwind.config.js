@@ -104,6 +104,7 @@ module.exports = {
         headings: ({ opacityValue }) =>
           opacityValue ? `rgba(var(--headings), ${opacityValue})` : `rgb(var(--headings))`,
         gray: colors.trueGray,
+        yellow: colors.yellow,
       },
     },
   },

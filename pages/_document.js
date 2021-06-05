@@ -24,7 +24,7 @@ class MyDocument extends Document {
           <script async defer data-domain="aravindballa.com" src="/js/script.js"></script>
         </Head>
         <body>
-          <script src="noflash.js" />
+          <script src="/noflash.js" />
           <Main />
           <NextScript />
         </body>

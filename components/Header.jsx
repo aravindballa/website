@@ -31,6 +31,9 @@ export default function Header() {
     <Link href="https://learningcurve.dev/?utm_source=aravindballa.com">
       <a className={headerLinksClasses}>Podcast</a>
     </Link>,
+    <Link href="/bookshelf">
+      <a className={headerLinksClasses}>Bookshelf</a>
+    </Link>,
   ];
 
   return (

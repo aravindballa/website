@@ -1,4 +1,11 @@
 module.exports = {
+  images: {
+    domains: [
+      'images-na.ssl-images-amazon.com',
+      'm.media-amazon.com',
+      'readwise-assets.s3.amazonaws.com',
+    ],
+  },
   trailingSlash: true,
   webpack: (config, { isServer, defaultLoaders }) => {
     // Fixes npm packages that depend on `fs` module
