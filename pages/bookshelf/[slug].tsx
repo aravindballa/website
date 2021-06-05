@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
+import Image from 'next/image';
 
 import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
@@ -21,7 +22,16 @@ export default function Book({ highlights, bookData, slug }) {
       />
       <div className="mt-12 prose lg:prose-lg dark:prose-light">
         <h1>Highlights from "{bookData.title}"</h1>
-        <p className="italic text-lg">By {bookData.author}</p>
+        <div className="flex justify-between flex-col md:flex-row">
+          <p className="italic text-lg">By {bookData.author}</p>
+          <Image
+            className="rounded border-2 border-gray-500"
+            src={bookData.cover}
+            width={132}
+            height={200}
+            layout="fixed"
+          />
+        </div>
         <div className="my-12">
           {highlights.results.map((result) => (
             <p className="" key={result.id}>
@@ -91,6 +101,7 @@ export const getStaticProps = async ({ params }) => {
       bookData: {
         title: book.title,
         author: book.author,
+        cover: book.cover_image_url,
       },
       slug: params.slug,
     },
