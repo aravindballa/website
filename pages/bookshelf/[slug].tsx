@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
 import Subscribe from '../../components/Subscribe';
-import slugify from 'slugify';
 import { ReadwiseBook } from '../../types';
 
 export default function Book({ highlights, bookData, slug }) {
@@ -30,6 +29,7 @@ export default function Book({ highlights, bookData, slug }) {
             width={132}
             height={200}
             layout="fixed"
+            quality={100}
           />
         </div>
         <div className="my-12">
@@ -94,6 +94,7 @@ export const getStaticProps = async ({ params }) => {
   });
   const books = await booksResponse.json();
   const book = books.results.find((book: ReadwiseBook) => `${book.id}` === bookId);
+  console.log(book);
 
   return {
     props: {
@@ -110,19 +111,10 @@ export const getStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths = async () => {
-  const booksResponse = await fetch('https://readwise.io/api/v2/books/?category=books', {
-    headers: {
-      Authorization: `TOKEN ${process.env.READWISE_TOKEN}`,
-    },
-  });
-  const books = await booksResponse.json();
-
+  // Generate the pages on the fly. If we generate all pages
+  // at build time, we hit the Readwise API rate limits
   return {
-    paths: books.results.map((book: ReadwiseBook) => ({
-      params: {
-        slug: `${slugify(book.title, { lower: true })}-${book.id}`,
-      },
-    })),
-    fallback: false,
+    paths: [],
+    fallback: 'blocking',
   };
 };
