@@ -9,7 +9,7 @@ import slugify from 'slugify';
 
 import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
-import { ReadwiseBook } from './types';
+import { ReadwiseBook } from '../../types';
 
 const bookWrapVariants = {
   visible: (i) => ({
@@ -71,30 +71,38 @@ export default function Bookshelf({ books }) {
                 variants={bookWrapVariants}
                 whileHover="hover"
               >
-                <motion.div className="flex">
+                <div className="flex">
                   <motion.div
-                    className="-mt-8 flex rounded border-2 border-gray-500 relative"
+                    className="md:-mt-8 flex rounded border-2 border-gray-500 relative w-[67px] h-[100px] mt-0 md:w-auto md:h-auto"
                     variants={bookCoverVariants}
                   >
                     <motion.div
-                      className="bg-gray-500 rounded absolute w-[134px] h-[200px] top-2 left-[1px]"
+                      className="hidden md:block bg-gray-500 rounded absolute w-[134px] h-[200px] top-2 left-[1px]"
                       variants={bookBorderVariants}
                     ></motion.div>
-                    <Image className="" src={book.cover_image_url} width={132} height={200} />
+                    <Image
+                      className=""
+                      quality={100}
+                      src={book.cover_image_url}
+                      width={132}
+                      height={200}
+                    />
                   </motion.div>
-                  <motion.div className="flex-1 ml-4">
-                    <motion.h2 className="font-2xl font-bold">{book.title}</motion.h2>
-                    <motion.p className="font-lg">{book.author}</motion.p>
+                  <div className="flex-1 ml-4">
+                    <h2 className="font-2xl font-bold">{book.title}</h2>
+                    <p className="font-lg">{book.author}</p>
                     <div className="mt-2 text-gray-400 flex items-center">
                       <BookOpenIcon className="w-5 h-5 mr-2 inline" />
-                      <p>Last read in {format(new Date(book.last_highlight_at), 'MMMM, yyyy')}</p>
+                      <p className="flex-1">
+                        Last read in {format(new Date(book.last_highlight_at), 'MMMM, yyyy')}
+                      </p>
                     </div>
                     <div className="text-gray-400 flex items-center">
                       <BookmarkIcon className="w-5 h-5 mr-2 inline" />
-                      <p>{book.num_highlights} highlights</p>
+                      <p className="flex-1">{book.num_highlights} highlights</p>
                     </div>
-                  </motion.div>
-                </motion.div>
+                  </div>
+                </div>
               </motion.a>
             </Link>
           ))}

@@ -5,7 +5,7 @@ import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
 import Subscribe from '../../components/Subscribe';
 import slugify from 'slugify';
-import { ReadwiseBook } from './types';
+import { ReadwiseBook } from '../../types';
 
 export default function Book({ highlights, bookData, slug }) {
   return (
