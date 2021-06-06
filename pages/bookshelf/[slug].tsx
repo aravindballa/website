@@ -6,6 +6,7 @@ import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
 import Subscribe from '../../components/Subscribe';
 import { ReadwiseBook } from '../../types';
+import { getOGImageWithDimensions } from '../../lib/getOGImageUrl';
 
 export default function Book({ highlights, bookData, slug }) {
   return (
@@ -17,6 +18,7 @@ export default function Book({ highlights, bookData, slug }) {
           url: `${baseUrl}bookshelf/${slug}/`,
           title: bookData.title,
           description: `Highlights from the book ${bookData.title} by Aravind Balla`,
+          images: [getOGImageWithDimensions({ title: `${bookData.title} - Book highlights` })],
         }}
       />
       <div className="mt-12 prose lg:prose-lg dark:prose-light">

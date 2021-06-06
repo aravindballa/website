@@ -10,6 +10,7 @@ import slugify from 'slugify';
 import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
 import { ReadwiseBook } from '../../types';
+import { getOGImageWithDimensions } from '../../lib/getOGImageUrl';
 
 const bookWrapVariants = {
   visible: (i) => ({
@@ -50,6 +51,7 @@ export default function Bookshelf({ books }) {
           url: `${baseUrl}bookshelf/`,
           title: 'Book shelf',
           description: 'A digital bookshelf with books that Aravind Balla reads',
+          images: [getOGImageWithDimensions({ title: 'Bookshelf' })],
         }}
       />
       <h1 className="text-headings text-5xl font-bold">Book shelf 📚</h1>
