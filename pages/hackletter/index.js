@@ -35,7 +35,14 @@ export default function HackletterPage({ allPosts, bannerImageProps }) {
           height={386}
           priority
         />
-
+        <p className="text-lg mt-4">
+          Hi 👋. I'm{' '}
+          <Link href="/">
+            <a className="underline">Aravind Balla</a>
+          </Link>
+          , a Web Developer working remotely from Hyderabad, India. I love JS and CSS 💛. I like to
+          build stuff, document the process and share the knowledge I gain.
+        </p>
         <p className="text-lg mt-4">
           I send out a weekly letter, <i>on every Tuesday</i>, which gives you a behind-the-scenes
           look into what I'm working on, solutions and hacks that I'm building, podcast episodes I

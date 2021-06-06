@@ -14,8 +14,7 @@ export default function Home({ allPosts }) {
       <div className="prose lg:prose-lg dark:prose-light">
         <p>
           Hi 👋 I am Software Developer working remotely from Hyderabad, India. I love JS and CSS
-          💛. I like to <Link href="/projects">build stuff</Link>, document the process and share
-          the knowledge I gain.
+          💛. I like to build stuff, document the process and share the knowledge I gain.
         </p>
         <p>
           I currently work 👨🏻‍💻 at{' '}
