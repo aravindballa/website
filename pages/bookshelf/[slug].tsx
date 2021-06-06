@@ -33,11 +33,13 @@ export default function Book({ highlights, bookData, slug }) {
           />
         </div>
         <div className="my-12">
-          {highlights.results.map((result) => (
-            <p className="" key={result.id}>
-              <span className="bg-yellow-500 bg-opacity-20">{result.text}</span>
-            </p>
-          ))}
+          {highlights.results
+            .sort((a, b) => a.location - b.location)
+            .map((result) => (
+              <p className="" key={result.id}>
+                <span className="bg-yellow-500 bg-opacity-20">{result.text}</span>
+              </p>
+            ))}
         </div>
         <div className="text-base bg-gray-100 dark:bg-gray-800 p-4 rounded text-gray-600 dark:text-gray-300">
           These highlights are sourced from my Kindle using Readwise. Readwise automatically syncs
@@ -94,7 +96,6 @@ export const getStaticProps = async ({ params }) => {
   });
   const books = await booksResponse.json();
   const book = books.results.find((book: ReadwiseBook) => `${book.id}` === bookId);
-  console.log(book);
 
   return {
     props: {
