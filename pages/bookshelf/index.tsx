@@ -5,12 +5,12 @@ import fetch from 'node-fetch';
 import Image from 'next/image';
 import { BookOpenIcon, BookmarkIcon } from '@heroicons/react/outline';
 import { motion } from 'framer-motion';
-import slugify from 'slugify';
 
 import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
 import { ReadwiseBook } from '../../types';
 import { getOGImageWithDimensions } from '../../lib/getOGImageUrl';
+import { slugify } from '../../lib/utils';
 
 const bookWrapVariants = {
   visible: (i) => ({
@@ -59,10 +59,7 @@ export default function Bookshelf({ books }) {
         {books.results
           .filter((book) => book.author !== null && book.num_highlights > 0)
           .map((book: ReadwiseBook, i: number) => (
-            <Link
-              key={book.id}
-              href={`/bookshelf/${slugify(book.title, { lower: true })}-${book.id}`}
-            >
+            <Link key={book.id} href={`/bookshelf/${slugify(book.title)}-${book.id}`}>
               <motion.a
                 role="button"
                 tabIndex={0}

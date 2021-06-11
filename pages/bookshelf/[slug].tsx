@@ -1,14 +1,22 @@
+import fs from 'fs';
+import glob from 'glob';
+import path from 'path';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import Image from 'next/image';
+import matter from 'gray-matter';
+import { serialize } from 'next-mdx-remote/serialize';
+import { MDXRemote } from 'next-mdx-remote';
 
 import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
 import Subscribe from '../../components/Subscribe';
 import { ReadwiseBook } from '../../types';
 import { getOGImageWithDimensions } from '../../lib/getOGImageUrl';
+import { BOOKSHELF_PATH } from '../../lib/utils';
 
-export default function Book({ highlights, bookData, slug }) {
+export default function Book({ highlights, bookData, slug, source, pageTitle }) {
+  const pageHeading = pageTitle || `Highlights from "${bookData.title}"`;
   return (
     <Layout>
       <NextSeo
@@ -22,7 +30,7 @@ export default function Book({ highlights, bookData, slug }) {
         }}
       />
       <div className="mt-12 prose lg:prose-lg dark:prose-light">
-        <h1>Highlights from "{bookData.title}"</h1>
+        <h1>{pageHeading}</h1>
         <div className="flex justify-between flex-col md:flex-row">
           <p className="italic text-lg">By {bookData.author}</p>
           <Image
@@ -34,6 +42,13 @@ export default function Book({ highlights, bookData, slug }) {
             quality={100}
           />
         </div>
+
+        {source && (
+          <div className="mt-12">
+            <MDXRemote {...source} />
+          </div>
+        )}
+
         <div className="my-12">
           {highlights.results
             .sort((a, b) => a.location - b.location)
@@ -99,6 +114,21 @@ export const getStaticProps = async ({ params }) => {
   const books = await booksResponse.json();
   const book = books.results.find((book: ReadwiseBook) => `${book.id}` === bookId);
 
+  const possibleFile = glob.sync(`${params.slug.replace(/-[0-9]+$/, '')}.*`, {
+    cwd: BOOKSHELF_PATH,
+  });
+
+  let source = null;
+  let summaryFrontmatter = null;
+  if (possibleFile?.length) {
+    const bookSummary = fs.readFileSync(path.join(BOOKSHELF_PATH, possibleFile[0]), {
+      encoding: 'utf-8',
+    });
+    const { content, data } = matter(bookSummary);
+    summaryFrontmatter = data;
+    source = await serialize(content);
+  }
+
   return {
     props: {
       highlights,
@@ -107,6 +137,8 @@ export const getStaticProps = async ({ params }) => {
         author: book.author,
         cover: book.cover_image_url,
       },
+      source,
+      pageTitle: summaryFrontmatter?.title || '',
       slug: params.slug,
     },
     revalidate: 60 * 60, // 1 hour
