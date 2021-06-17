@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
-const Subscribe = ({ renderContent, className, tags }) => {
+type Props = {
+  renderContent?: () => React.ReactNode;
+  className?: string;
+  tags?: string;
+};
+
+const Subscribe = ({ renderContent, className, tags }: Props) => {
   const [status, setStatus] = useState(`READY`);
 
   return (
@@ -45,16 +51,10 @@ const Subscribe = ({ renderContent, className, tags }) => {
           renderContent()
         ) : (
           <>
-            <h3 className="m-0 no-margin">Get letters from me 🙌</h3>
+            <h3 className="no-margin">Get letters from me 🙌</h3>
             <p className="text-base mt-4">
-              I send letters weekly to your email about things I'm currently learning,{' '}
-              <strong>articles</strong> I write, <strong>books</strong> I read, the{' '}
-              <strong>podcasts</strong> I record and places I <strong>travel</strong> to. I call it
-              -{' '}
-              <Link href="/hackletter">
-                <i>Hackletter</i>
-              </Link>
-              . I'd love to share and discuss them with you!
+              Get a behind-the-scenes look on the stuff I build, podcast episodes and articles which
+              make you a more effective developer.
             </p>
             <p className="text-sm">
               <Link href="/hackletter">Read the archive 📬</Link>
@@ -100,6 +100,9 @@ const Subscribe = ({ renderContent, className, tags }) => {
             Something went wrong. Could you refresh page and retry? 🙊
           </p>
         ) : null}
+        <div className="text-purple-400 dark:text-purple-500 text-center text-base italic mt-4">
+          One email every Tuesday. No less. No more.
+        </div>
       </div>
     </form>
   );

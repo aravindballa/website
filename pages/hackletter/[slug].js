@@ -48,14 +48,9 @@ export default function HackletterPost({ source, slug, frontmatter }) {
                 Hop right in 🏄‍♀️
               </h3>
               <p className="text-base mt-4">
-                I send these letters weekly to your email about things I'm currently learning,{' '}
-                <strong>articles</strong> I write, <strong>books</strong> I read, the{' '}
-                <strong>podcasts</strong> I record and places I <strong>travel</strong> to. I call
-                it -{' '}
-                <Link href="/hackletter">
-                  <i>Hackletter</i>
-                </Link>
-                . I'd love to share and discuss them with you!
+                Get emails like these, every <i>Tuesday</i>, which talk about behind-the-scenes look
+                on the stuff I build, podcast episodes and articles which make you a more effective
+                developer.
               </p>
               <p className="text-sm">
                 <Link href="/hackletter">Back to the archive 📬</Link>

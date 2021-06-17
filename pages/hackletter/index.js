@@ -40,13 +40,12 @@ export default function HackletterPage({ allPosts, bannerImageProps }) {
           <Link href="/">
             <a className="underline">Aravind Balla</a>
           </Link>
-          , a Web Developer working remotely from Hyderabad, India. I love JS and CSS 💛. I like to
-          build stuff, document the process and share the knowledge I gain.
+          , a Web Developer working remotely from Hyderabad, India. I love JS and CSS 💛 and build
+          stuff to solve my problems.
         </p>
         <p className="text-lg mt-4">
-          I send out a weekly letter, <i>on every Tuesday</i>, which gives you a behind-the-scenes
-          look into what I'm working on, solutions and hacks that I'm building, podcast episodes I
-          record and interesting reads I find.
+          Get a behind-the-scenes look on the stuff I build, podcast episodes and articles which
+          make you a more effective developer.
         </p>
         <Subscribe
           className="mt-4"

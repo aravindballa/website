@@ -63,30 +63,7 @@ export default function Book({ highlights, bookData, slug, source, pageTitle }) 
           all your highlights from various sources. It's cool.{' '}
           <a href="https://readwise.io/i/aravind1">Referral link</a> if you'd like to try.
         </div>
-        <Subscribe
-          className="mt-4"
-          renderContent={() => (
-            <>
-              <h3 className="m-0 no-margin text-headings font-head font-bold text-2xl">
-                Hop right in 🏄‍♀️
-              </h3>
-              <p className="text-base mt-4">
-                I send letters weekly to your email about my <strong>learnings from books</strong>{' '}
-                I'm currently reading, <strong>articles</strong> I write, the{' '}
-                <strong>podcasts</strong> I record and places I <strong>travel</strong> to. I call
-                it -{' '}
-                <Link href="/hackletter">
-                  <i>Hackletter</i>
-                </Link>
-                . I'd love to share and discuss them with you!
-              </p>
-              <p className="text-sm">
-                <Link href="/hackletter">Back to the archive 📬</Link>
-              </p>
-            </>
-          )}
-          tags="hackletter,website"
-        />
+        <Subscribe className="mt-4" tags="hackletter,website" />
       </div>
     </Layout>
   );
