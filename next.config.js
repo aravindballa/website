@@ -4,6 +4,7 @@ module.exports = {
       'images-na.ssl-images-amazon.com',
       'm.media-amazon.com',
       'readwise-assets.s3.amazonaws.com',
+      'res.cloudinary.com',
     ],
   },
   trailingSlash: true,

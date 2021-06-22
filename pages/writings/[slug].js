@@ -57,7 +57,7 @@ export default function WritingsPage({ source, slug, frontmatter }) {
 
       <div className="md:mt-12 prose lg:prose-lg dark:prose-light">
         <h1>{frontmatter.title}</h1>
-        {frontmatter.banner && (
+        {frontmatter.banner && !frontmatter.articleNoBanner && (
           <Image
             {...frontmatter.bannerImageProps}
             className="rounded-md"
