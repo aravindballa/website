@@ -99,15 +99,9 @@ export default function NotionNextBlog({ bannerImageProps }) {
             maintaining them.
           </p>
         </div>
-        <Subscribe
-          className="mt-4"
-          renderContent={() => (
-            <h3 className="m-0 text-headings font-head font-bold text-2xl">
-              Know when it's ready! 📬
-            </h3>
-          )}
-          tags="next-notion"
-        />
+        <a className="gumroad-button mx-auto mb-4" href="https://gum.co/next-notion">
+          Know when it's ready
+        </a>
       </div>
     </Layout>
   );
