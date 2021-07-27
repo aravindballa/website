@@ -2,7 +2,6 @@ import { NextSeo } from 'next-seo';
 
 import { baseUrl } from '../seo.config';
 import Layout from '../components/Layout';
-import Subscribe from '../components/Subscribe';
 import Image from '../components/Image';
 import getImageProps from '../lib/getImageProps';
 
@@ -69,9 +68,12 @@ export default function NotionNextBlog({ bannerImageProps }) {
             <a href="https://gunm.co/next-notion">Gumroad</a>.
           </p>
 
-          <a className="gumroad-button mx-auto mb-4" href="https://gum.co/next-notion">
-            Checkout on Gumroad
-          </a>
+          <script src="https://gumroad.com/js/gumroad.js"></script>
+          <div className="text-center mb-4">
+            <a className="gumroad-button" href="https://gum.co/next-notion">
+              Know when it's ready
+            </a>
+          </div>
 
           <ol>
             <li>Setting up Notion for content</li>
@@ -99,9 +101,11 @@ export default function NotionNextBlog({ bannerImageProps }) {
             maintaining them.
           </p>
         </div>
-        <a className="gumroad-button mx-auto mb-4" href="https://gum.co/next-notion">
-          Know when it's ready
-        </a>
+        <div className="text-center my-4">
+          <a className="gumroad-button" href="https://gum.co/next-notion">
+            Know when it's ready
+          </a>
+        </div>
       </div>
     </Layout>
   );
