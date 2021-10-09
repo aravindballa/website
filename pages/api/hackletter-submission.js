@@ -8,25 +8,24 @@ export default async function hackletterSubmission(req, res) {
       res.status(200);
     }
 
-    const [firstName, ...otherParts] = name.split(' ');
-
-    const response = await fetch('https://api.mailbluster.com/api/leads', {
+    const response = await fetch('https://api.buttondown.email/v1/subscribers', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: process.env.MAILBLUSTER_TOKEN,
+        Authorization: `Token ${process.env.BUTTONDOWN_TOKEN}`,
       },
       body: JSON.stringify({
-        firstName,
-        lastName: otherParts && !!otherParts.length && otherParts.join(' '),
         email,
-        subscribed: true,
         tags: tags.split(',').map((tag) => tag.trim()),
+        referrer_url: referrer,
         meta: {
-          referrer,
+          name,
+          firstname: name.trim().split(' ')[0],
         },
       }),
     });
+
+    console.log(response);
 
     if (response.status === 201) {
       let message = `New subscriber 💌: ${name} added to mailing list.`;
