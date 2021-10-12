@@ -1,18 +1,11 @@
-import path from 'path';
-import fs from 'fs';
-import glob from 'glob';
-import matter from 'gray-matter';
-import { serialize } from 'next-mdx-remote/serialize';
-import { MDXRemote } from 'next-mdx-remote';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import { format } from 'date-fns';
 
 import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
-import { HACKLETTER_PATH, hlFilePaths } from '../../lib/utils';
+import { hackletterPosts } from '../../lib/utils';
 import Subscribe from '../../components/Subscribe';
-import components from '../../components/mdxComponents';
 
 export default function HackletterPost({ source, slug, frontmatter }) {
   return (
@@ -39,7 +32,7 @@ export default function HackletterPost({ source, slug, frontmatter }) {
         <p className="text-md italic text-purple-500">
           Sent on {format(new Date(frontmatter.date), 'MMMM do, yyy')}
         </p>
-        <MDXRemote {...source} components={components(slug)} />
+        <div dangerouslySetInnerHTML={{ __html: source }} />
         <Subscribe
           className="mt-4"
           renderContent={() => (
@@ -65,41 +58,41 @@ export default function HackletterPost({ source, slug, frontmatter }) {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const possiblePostFile = glob.sync(`${params.slug}.{md,mdx}`, { cwd: HACKLETTER_PATH });
-  if (!possiblePostFile || possiblePostFile.length === 0) {
+  const hlPosts = await hackletterPosts();
+  if (parseInt(params.slug, 10) > hlPosts.length || parseInt(params.slug, 10) < 1) {
     return {
       notFound: true,
     };
   }
 
-  const source = fs.readFileSync(path.join(HACKLETTER_PATH, possiblePostFile[0]), {
-    encoding: 'utf-8',
-  });
-
-  const { content, data } = matter(source);
-
-  const mdxSource = await serialize(content);
+  const currentPost = hlPosts[hlPosts.length - parseInt(params.slug, 10)];
+  if (!currentPost) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
-      frontmatter: data,
-      source: mdxSource,
+      frontmatter: {
+        title: currentPost.title,
+        date: currentPost.date,
+      },
+      source: currentPost.description,
       slug: params.slug,
     },
   };
 };
 
 export const getStaticPaths = async () => {
-  const paths = hlFilePaths()
-    // Map the path into the static paths object required by Next.js
-    .map((postPath) => ({
-      params: {
-        slug: postPath.replace(/\.mdx?$/, ''),
-      },
-    }));
+  const hlPosts = await hackletterPosts();
 
   return {
-    paths,
-    fallback: false,
+    paths: hlPosts.map((post, index) => ({
+      params: {
+        slug: `${hlPosts.length - index}`,
+      },
+    })),
+    fallback: 'blocking',
   };
 };

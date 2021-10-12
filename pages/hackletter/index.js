@@ -1,13 +1,10 @@
-import path from 'path';
-import fs from 'fs';
-import matter from 'gray-matter';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import { format } from 'date-fns';
 
 import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
-import { HACKLETTER_PATH, hlFilePaths } from '../../lib/utils';
+import { hackletterPosts } from '../../lib/utils';
 import Subscribe from '../../components/Subscribe';
 import Image from '../../components/Image';
 import getImageProps from '../../lib/getImageProps';
@@ -64,10 +61,8 @@ export default function HackletterPage({ allPosts, bannerImageProps }) {
                     #{post.slug.replace(/\/hackletter\/(.*?)\/$/, '$1')}
                   </span>
                   <span>
-                    <span>{post.frontmatter.title}</span> <span className="opacity-50">|</span>{' '}
-                    <span className="text-sm">
-                      {format(new Date(post.frontmatter.date), 'MMMM dd, yyyy')}
-                    </span>
+                    <span>{post.title}</span> <span className="opacity-50">|</span>{' '}
+                    <span className="text-sm">{format(new Date(post.date), 'MMMM dd, yyyy')}</span>
                   </span>
                 </a>
               </Link>
@@ -80,20 +75,11 @@ export default function HackletterPage({ allPosts, bannerImageProps }) {
 }
 
 export const getStaticProps = async () => {
-  const allPosts = [];
-  for (const postPath of hlFilePaths()) {
-    const postFilePath = path.join(HACKLETTER_PATH, postPath);
-    const source = fs.readFileSync(postFilePath, { encoding: 'utf-8' });
-
-    const { data } = matter(source);
-
-    if (data.published !== undefined && data.published === false) continue;
-
-    allPosts.push({
-      frontmatter: data,
-      slug: '/hackletter/' + postPath.replace(/\.mdx?$/, '') + '/',
-    });
-  }
+  const hlPosts = await hackletterPosts();
+  const allPosts = hlPosts.map((hl, index) => ({
+    ...hl,
+    slug: `/hackletter/${hlPosts.length - index}/`,
+  }));
 
   const bannerImageProps = await getImageProps('/images/hl-header.jpg');
 
@@ -101,10 +87,9 @@ export const getStaticProps = async () => {
     props: {
       allPosts: allPosts
         .filter(Boolean)
-        .sort(
-          (a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
-        ),
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
       bannerImageProps,
     },
+    revalidate: 60,
   };
 };
