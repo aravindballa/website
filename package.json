@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "rss": "node -r esm scripts/generateRSS.js",
-    "prebuild": "yarn rss"
+    "prebuild": "yarn rss",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@headlessui/react": "^1.2.0",
@@ -25,6 +26,7 @@
     "next": "^10.2.2",
     "next-mdx-remote": "^3.0.1",
     "next-seo": "^4.24.0",
+    "next-sitemap": "^1.6.192",
     "node-fetch": "^2.6.1",
     "prism-react-renderer": "^1.2.0",
     "react": "^17.0.1",
