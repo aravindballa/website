@@ -53,8 +53,8 @@ const Subscribe = ({ renderContent, className, tags }: Props) => {
           <>
             <h3 className="no-margin">Get letters from me 🙌</h3>
             <p className="text-base mt-4">
-              Get a behind-the-scenes look on the stuff I build, podcast episodes and articles which
-              make you a more effective developer.
+              Get a behind-the-scenes look on the stuff I build, articles I write and podcast
+              episodes which make you a more effective builder.
             </p>
             <p className="text-sm">
               <Link href="/hackletter">Read the archive 📬</Link>
@@ -101,7 +101,7 @@ const Subscribe = ({ renderContent, className, tags }: Props) => {
           </p>
         ) : null}
         <div className="text-purple-400 dark:text-purple-500 text-center text-base italic mt-4">
-          One email every Tuesday. No less. No more.
+          One email every Tuesday. No more. Maybe less.
         </div>
       </div>
     </form>

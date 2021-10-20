@@ -41,8 +41,8 @@ export default function HackletterPage({ allPosts, bannerImageProps }) {
           stuff to solve my problems.
         </p>
         <p className="text-lg mt-4">
-          Get a behind-the-scenes look on the stuff I build, podcast episodes and articles which
-          make you a more effective developer.
+          Get a behind-the-scenes look on the stuff I build, articles I write and podcast episodes
+          which make you a more effective builder.
         </p>
         <Subscribe
           className="mt-4"
