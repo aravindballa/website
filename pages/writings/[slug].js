@@ -26,9 +26,10 @@ export default function WritingsPage({ source, slug, frontmatter }) {
       <NextSeo
         title={frontmatter.title}
         description={frontmatter.description}
+        canonical={`${baseUrl}writings/${slug}/`}
         openGraph={{
           url: `${baseUrl}writings/${slug}/`,
-          title: 'Writings',
+          title: frontmatter.title,
           description: frontmatter.description,
           images: [
             getOGImageWithDimensions({

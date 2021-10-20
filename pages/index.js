@@ -7,11 +7,15 @@ import Layout from '../components/Layout';
 import { POSTS_PATH, postFilePaths } from '../lib/utils';
 import getImageProps from '../lib/getImageProps';
 import Image from '../components/Image';
+import { NextSeo } from 'next-seo';
+import { baseUrl } from '../seo.config';
 
 export default function Home({ allPosts }) {
   return (
     <Layout>
+      <NextSeo canonical={`${baseUrl}`} />
       <div className="prose lg:prose-lg dark:prose-light">
+      <h1>Aravind Balla</h1>
         <p>
           Hi 👋 I am Software Developer working remotely from Hyderabad, India. I love JS and CSS
           💛. I like to build stuff, document the process and share the knowledge I gain.

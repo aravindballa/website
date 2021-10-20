@@ -22,6 +22,7 @@ export default function Book({ highlights, bookData, slug, source, pageTitle }) 
       <NextSeo
         title={`${bookData.title} - Book highlights`}
         description={`Highlights from the book ${bookData.title} by Aravind Balla`}
+        canonical={`${baseUrl}bookshelf/${slug}/`}
         openGraph={{
           url: `${baseUrl}bookshelf/${slug}/`,
           title: bookData.title,

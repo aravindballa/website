@@ -13,12 +13,14 @@ export default function HackletterPage({ allPosts, bannerImageProps }) {
   return (
     <Layout>
       <NextSeo
-        title="Hackletter"
-        description="Weekly newsletter by Aravind Balla"
+        title="Hackletter - A weekly newsletter for curious builders"
+        description="Get a behind-the-scenes look on the stuff I build, articles I write and podcast episodes which make you a more effective builder."
+        canonical={`${baseUrl}hackletter/`}
         openGraph={{
           url: `${baseUrl}hackletter/`,
-          title: 'Hackletter',
-          description: 'Weekly newsletter by Aravind Balla',
+          title: 'Hackletter - A weekly newsletter for curious builders',
+          description:
+            'Get a behind-the-scenes look on the stuff I build, articles I write and podcast episodes which make you a more effective builder.',
           images: [
             { url: `${baseUrl}hl-header.jpg`, width: 728, height: 386, alt: 'Hackletter header' },
           ],
@@ -47,7 +49,7 @@ export default function HackletterPage({ allPosts, bannerImageProps }) {
         <Subscribe
           className="mt-4"
           renderContent={() => (
-            <h3 className="m-0 text-headings font-head font-bold text-2xl">Hop right in 🏄‍♀️</h3>
+            <h2 className="m-0 text-headings font-head font-bold text-2xl">Hop right in 🏄‍♀️</h2>
           )}
           tags="hackletter,website"
         />
@@ -61,7 +63,8 @@ export default function HackletterPage({ allPosts, bannerImageProps }) {
                     #{post.slug.replace(/\/hackletter\/(.*?)\/$/, '$1')}
                   </span>
                   <span>
-                    <span>{post.title}</span> <span className="opacity-50">|</span>{' '}
+                    <h3 className="inline">{post.title.replace(/\| Hackletter.*?$/, '')}</h3>{' '}
+                    <span className="opacity-50">|</span>{' '}
                     <span className="text-sm">{format(new Date(post.date), 'MMMM dd, yyyy')}</span>
                   </span>
                 </a>

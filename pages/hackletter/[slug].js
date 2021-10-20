@@ -12,11 +12,12 @@ export default function HackletterPost({ source, slug, frontmatter }) {
     <Layout>
       <NextSeo
         title={frontmatter.title}
-        description={`Letter #${slug} from weekly newsletter by Aravind Balla`}
+        description={`Letter #${slug} from hackletter which is weekly newsletter for curious builders by Aravind Balla`}
+        canonical={`${baseUrl}hackletter/${slug}/`}
         openGraph={{
           url: `${baseUrl}hackletter/${slug}/`,
           title: frontmatter.title,
-          description: `Letter #${slug} from weekly newsletter by Aravind Balla`,
+          description: `Letter #${slug} from hackletter which is weekly newsletter for curious builders by Aravind Balla`,
           images: [
             {
               url: `${baseUrl}images/hl-header.jpg`,
@@ -37,9 +38,9 @@ export default function HackletterPost({ source, slug, frontmatter }) {
           className="mt-4"
           renderContent={() => (
             <>
-              <h3 className="m-0 no-margin text-headings font-head font-bold text-2xl">
+              <h2 className="m-0 no-margin text-headings font-head font-bold text-2xl">
                 Hop right in 🏄‍♀️
-              </h3>
+              </h2>
               <p className="text-base mt-4">
                 Get emails like these, every <i>Tuesday</i>, which talk about behind-the-scenes look
                 on the stuff I build, podcast episodes and articles which make you a more effective

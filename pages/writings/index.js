@@ -16,6 +16,7 @@ export default function WritingsPage({ allPosts }) {
     <Layout>
       <NextSeo
         title="Writings"
+        canonical={`${baseUrl}writings/`}
         openGraph={{
           url: `${baseUrl}writings/`,
           title: 'Writings',

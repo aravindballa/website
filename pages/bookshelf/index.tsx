@@ -45,12 +45,14 @@ export default function Bookshelf({ books }) {
   return (
     <Layout>
       <NextSeo
-        title="Book shelf"
-        description="A digital bookshelf with books that Aravind Balla reads"
+        title="Digital Bookshelf"
+        description="A digital bookshelf with books that Aravind Balla reads. Click on the book to see highlights he took."
+        canonical={`${baseUrl}bookshelf/`}
         openGraph={{
           url: `${baseUrl}bookshelf/`,
-          title: 'Book shelf',
-          description: 'A digital bookshelf with books that Aravind Balla reads',
+          title: 'Digital Bookshelf',
+          description:
+            'A digital bookshelf with books that Aravind Balla reads. Click on the book to see highlights he took.',
           images: [getOGImageWithDimensions({ title: 'Bookshelf' })],
         }}
       />

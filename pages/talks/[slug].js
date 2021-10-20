@@ -11,11 +11,16 @@ import { format } from 'date-fns';
 import { talksFilePaths, TALKS_PATH } from '../../lib/utils';
 import Layout from '../../components/Layout';
 import components from '../../components/mdxComponents';
+import { baseUrl } from '../../seo.config';
 
 export default function WritingsPage({ source, slug, frontmatter }) {
   return (
     <Layout>
-      <NextSeo title={frontmatter.title} description={frontmatter.description} />
+      <NextSeo
+        title={frontmatter.title}
+        description={frontmatter.description}
+        canonical={`${baseUrl}talks/${slug}/`}
+      />
 
       <div className="mt-12 prose lg:prose-lg dark:prose-light">
         <h1>{frontmatter.title}</h1>

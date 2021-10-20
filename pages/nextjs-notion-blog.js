@@ -11,6 +11,7 @@ export default function NotionNextBlog({ bannerImageProps }) {
       <NextSeo
         title="How to build a blog with Next JS and Notion"
         description="Learn how to build a modern, fast and static blog with all the features like RSS, comments and strong SEO using amazing open source technologies."
+        canonical={`${baseUrl}nextjs-notion-blog/`}
         openGraph={{
           url: `${baseUrl}nextjs-notion-blog/`,
           title: 'How to build a blog with Next JS and Notion',
