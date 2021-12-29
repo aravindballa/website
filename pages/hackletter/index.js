@@ -59,14 +59,14 @@ export default function HackletterPage({ allPosts, bannerImageProps }) {
             <p key={post.slug} className="mb-4">
               <Link className="hover:no-underline flex items-baseline" href={post.slug}>
                 <a>
-                  <span className="text-sm text-gray-500 mr-4">
+                  <div className="text-sm text-gray-500 inline mr-4">
                     #{post.slug.replace(/\/hackletter\/(.*?)\/$/, '$1')}
-                  </span>
-                  <span>
+                  </div>
+                  <div className="inline">
                     <h3 className="inline">{post.title.replace(/\| Hackletter.*?$/, '')}</h3>{' '}
                     <span className="opacity-50">|</span>{' '}
                     <span className="text-sm">{format(new Date(post.date), 'MMMM dd, yyyy')}</span>
-                  </span>
+                  </div>
                 </a>
               </Link>
             </p>
