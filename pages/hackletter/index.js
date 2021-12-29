@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 
 import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
-import { hackletterPosts } from '../../lib/utils';
+import getHLPostsFromRSS from '../../lib/hackletterRSS';
 import Subscribe from '../../components/Subscribe';
 import Image from '../../components/Image';
 import getImageProps from '../../lib/getImageProps';
@@ -78,7 +78,7 @@ export default function HackletterPage({ allPosts, bannerImageProps }) {
 }
 
 export const getStaticProps = async () => {
-  const hlPosts = await hackletterPosts();
+  const hlPosts = await getHLPostsFromRSS();
   const allPosts = hlPosts.map((hl, index) => ({
     ...hl,
     slug: `/hackletter/${hlPosts.length - index}/`,

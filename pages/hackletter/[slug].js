@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 
 import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
-import { hackletterPosts } from '../../lib/utils';
+import getHLPostsFromRSS from '../../lib/hackletterRSS';
 import Subscribe from '../../components/Subscribe';
 
 export default function HackletterPost({ source, slug, frontmatter }) {
@@ -59,7 +59,7 @@ export default function HackletterPost({ source, slug, frontmatter }) {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const hlPosts = await hackletterPosts();
+  const hlPosts = await getHLPostsFromRSS();
   if (parseInt(params.slug, 10) > hlPosts.length || parseInt(params.slug, 10) < 1) {
     return {
       notFound: true,
@@ -86,7 +86,7 @@ export const getStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths = async () => {
-  const hlPosts = await hackletterPosts();
+  const hlPosts = await getHLPostsFromRSS();
 
   return {
     paths: hlPosts.map((post, index) => ({
