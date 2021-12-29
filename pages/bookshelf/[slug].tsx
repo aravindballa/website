@@ -1,7 +1,6 @@
 import fs from 'fs';
 import glob from 'glob';
 import path from 'path';
-import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import Image from 'next/image';
 import matter from 'gray-matter';
@@ -14,6 +13,7 @@ import Subscribe from '../../components/Subscribe';
 import { ReadwiseBook } from '../../types';
 import { getOGImageWithDimensions } from '../../lib/getOGImageUrl';
 import { BOOKSHELF_PATH } from '../../lib/utils';
+import getReadwiseBooks from '../../lib/readwiseData';
 
 export default function Book({ highlights, bookData, slug, source, pageTitle }) {
   const pageHeading = pageTitle || `Highlights from "${bookData.title}"`;
@@ -84,12 +84,7 @@ export const getStaticProps = async ({ params }) => {
   );
   const highlights = await highlightsResponse.json();
 
-  const booksResponse = await fetch(`https://readwise.io/api/v2/books/?category=books`, {
-    headers: {
-      Authorization: `TOKEN ${process.env.READWISE_TOKEN}`,
-    },
-  });
-  const books = await booksResponse.json();
+  const books = await getReadwiseBooks();
   const book = books.results.find((book: ReadwiseBook) => `${book.id}` === bookId);
 
   const possibleFile = glob.sync(`${params.slug.replace(/-[0-9]+$/, '')}.*`, {

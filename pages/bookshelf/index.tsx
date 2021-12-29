@@ -11,6 +11,7 @@ import Layout from '../../components/Layout';
 import { ReadwiseBook } from '../../types';
 import { getOGImageWithDimensions } from '../../lib/getOGImageUrl';
 import { slugify } from '../../lib/utils';
+import getReadwiseBooks from '../../lib/readwiseData';
 
 const bookWrapVariants = {
   visible: (i) => ({
@@ -121,12 +122,7 @@ export default function Bookshelf({ books }) {
 }
 
 export const getStaticProps = async () => {
-  const booksResponse = await fetch('https://readwise.io/api/v2/books/?category=books', {
-    headers: {
-      Authorization: `TOKEN ${process.env.READWISE_TOKEN}`,
-    },
-  });
-  const books = await booksResponse.json();
+  const books = await getReadwiseBooks();
 
   return {
     props: {
