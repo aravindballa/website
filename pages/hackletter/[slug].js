@@ -86,7 +86,7 @@ export const getStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths = async () => {
-  const hlPosts = await getHLPostsFromRSS();
+  const hlPosts = await hackletterPosts();
 
   return {
     paths: hlPosts.map((post, index) => ({
