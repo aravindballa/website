@@ -94,7 +94,9 @@ const Subscribe = ({ renderContent, className, tags }: Props) => {
           </div>
         )}
         {status === `SUBMITTING` ? <p className="m-0 text-center w-full">Submitting 🙇‍♂️</p> : null}
-        {status === `DONE` ? <p className="m-0 text-center w-full">Thanks 🎉</p> : null}
+        {status === `DONE` ? (
+          <p className="m-0 text-center w-full">Done! Please check you mail to confirm. 🎉</p>
+        ) : null}
         {status === `ERROR` ? (
           <p className="m-0 text-center w-full text-sm">
             Something went wrong. Could you refresh page and retry? 🙊

@@ -54,7 +54,7 @@ export default function Book({ highlights, bookData, slug, source, pageTitle }) 
           {highlights.results
             .sort((a, b) => a.location - b.location)
             .map((result) => (
-              <p className="" key={result.id}>
+              <p key={result.id}>
                 <span className="bg-yellow-500 bg-opacity-20">{result.text}</span>
               </p>
             ))}
