@@ -35,7 +35,9 @@ export default function Home({ allPosts }) {
       </div>
       <div className="max-w-[75ch]">
         <div className="flex flex-col md:flex-row justify-between md:items-end">
-          <h2 className="text-3xl font-bold mt-12 mb-4">Few things I've wrote recently</h2>
+          <h2 className="text-3xl font-bold mt-12 mb-4 text-headings">
+            Few things I've wrote recently
+          </h2>
           <Link href="/writings">
             <a className="mb-4">See all</a>
           </Link>
@@ -138,7 +140,9 @@ export const getStaticProps = async () => {
         data.banner = firstImageFromContent[1];
       }
     }
-    data.bannerImageProps = await getImageProps(`/images/${slug}/${data.banner}`);
+    if (fs.existsSync(`public/images/${slug}/${data.banner}`)) {
+      data.bannerImageProps = await getImageProps(`/images/${slug}/${data.banner}`);
+    }
 
     allPosts.push({
       frontmatter: data,

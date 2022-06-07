@@ -13,8 +13,8 @@ export default function Bio() {
         />
       </div>
       <p className="ml-6 flex-1">
-        By <strong className="text-purple-400 font-bold">Aravind Balla</strong> who is a friendly
-        human, building things for himself, and sometimes for others.{' '}
+        By <strong className="text-purple-400 font-bold">Aravind Balla</strong>, a Javascript
+        Developer building things to solve problems faced by him &amp; his friends.{' '}
         <a className="underline" href="https://twitter.com/aravindballa" target="_blank">
           You should hit him up on Twitter!
         </a>

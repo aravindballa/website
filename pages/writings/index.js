@@ -25,9 +25,14 @@ export default function WritingsPage({ allPosts }) {
       />
       <div className="md:mt-12">
         <h1 className="text-5xl mb-12 font-bold text-headings">Writings</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 gap-y-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-2 gap-x-12 gap-y-16 max-w-6xl mx-auto">
           {allPosts.map((post) => (
-            <div className="mt-4" key={post.slug}>
+            <div
+              className={`${
+                !!post.frontmatter.banner ? `row-span-2` : `row-span-1`
+              } group border border-gray-200 dark:border-gray-700 p-4 rounded-md hover:shadow transition-all`}
+              key={post.slug}
+            >
               <Link href={post.slug}>
                 <a>
                   {!!post.frontmatter.banner && (
@@ -45,11 +50,13 @@ export default function WritingsPage({ allPosts }) {
               </Link>
               <h3 className="text-lg font-bold mt-4">
                 <Link href={post.slug}>
-                  <a className="no-underline text-headings">{post.frontmatter.title}</a>
+                  <a className="no-underline text-headings group-hover:underline">
+                    {post.frontmatter.title}
+                  </a>
                 </Link>
               </h3>
               <p
-                className="text-lg mt-4 block max-w-full break-all"
+                className="text-lg mt-4 block max-w-full break-all group-hover:text-headings"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
             </div>
@@ -83,7 +90,9 @@ export const getStaticProps = async () => {
         data.banner = firstImageFromContent[1];
       }
     }
-    data.bannerImageProps = await getImageProps(`/images/${slug}/${data.banner}`);
+    if (fs.existsSync(`public/images/${slug}/${data.banner}`)) {
+      data.bannerImageProps = await getImageProps(`/images/${slug}/${data.banner}`);
+    }
 
     allPosts.push({
       frontmatter: data,
