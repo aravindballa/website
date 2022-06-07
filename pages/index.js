@@ -15,7 +15,7 @@ export default function Home({ allPosts }) {
     <Layout>
       <NextSeo canonical={`${baseUrl}`} />
       <div className="prose lg:prose-lg dark:prose-light">
-      <h1>Aravind Balla</h1>
+        <h1>Aravind Balla</h1>
         <p>
           Hi 👋 I am Software Developer working remotely from Hyderabad, India. I love JS and CSS
           💛. I like to build stuff, document the process and share the knowledge I gain.
@@ -121,6 +121,7 @@ export const getStaticProps = async () => {
   for (const postPath of postFilePaths()) {
     const postFilePath = path.join(POSTS_PATH, postPath);
     const source = fs.readFileSync(postFilePath, { encoding: 'utf-8' });
+    if (!source) continue;
 
     const { content, data } = matter(source);
 

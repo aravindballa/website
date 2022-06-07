@@ -66,6 +66,8 @@ export const getStaticProps = async () => {
     const postFilePath = path.join(POSTS_PATH, postPath);
     const source = fs.readFileSync(postFilePath, { encoding: 'utf-8' });
 
+    if (!source) continue;
+
     const { content, data } = matter(source);
 
     if (data.published !== undefined && data.published === false) continue;
