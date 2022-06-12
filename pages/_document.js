@@ -22,6 +22,12 @@ class MyDocument extends Document {
           <link href="/logo-apple-touch.png" rel="apple-touch-icon" sizes="180x180" />
 
           <script async defer data-domain="aravindballa.com" src="/js/script.js"></script>
+          <script
+            async
+            defer
+            data-website-id="febff40b-15fc-42e3-aa02-184f82c9480d"
+            src="/js/script-u.js"
+          ></script>
         </Head>
         <body>
           <script src="/noflash.js" />
