@@ -70,6 +70,10 @@ module.exports = {
         source: '/js/api/collect/',
         destination: 'https://analytics.balla.dev/api/collect/',
       },
+      {
+        source: '/api/collect/',
+        destination: 'https://analytics.balla.dev/api/collect/',
+      },
     ];
   },
 };
