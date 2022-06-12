@@ -66,6 +66,10 @@ module.exports = {
         source: '/api/event/',
         destination: 'https://plausible.io/api/event',
       },
+      {
+        source: '/api/collect/',
+        destination: 'https://analytics.balla.dev/api/collect/',
+      },
     ];
   },
 };
