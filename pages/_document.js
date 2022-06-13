@@ -27,7 +27,7 @@ class MyDocument extends Document {
             defer
             data-website-id="febff40b-15fc-42e3-aa02-184f82c9480d"
             src="/js/script-u.js"
-            data-host-url="https://analytics.balla.dev"
+            data-host-url="https://aravindballa.com/u/"
           ></script>
         </Head>
         <body>
