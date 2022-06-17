@@ -61,6 +61,10 @@ export default function Bookshelf({ books }) {
       <div className="mt-12 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         {books.results
           .filter((book) => book.author !== null && book.num_highlights > 0)
+          .sort(
+            (a, b) =>
+              new Date(b.last_highlight_at).getTime() - new Date(a.last_highlight_at).getTime()
+          )
           .map((book: ReadwiseBook, i: number) => (
             <Link key={book.id} href={`/bookshelf/${slugify(book.title)}-${book.id}`}>
               <motion.a
