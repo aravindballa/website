@@ -68,6 +68,11 @@ export default function WritingsPage({ source, slug, frontmatter }) {
             priority
           />
         )}
+        {frontmatter.bannercaption && (
+          <div className="mt-1 text-base italic opacity-60 text-center">
+            {frontmatter.bannercaption}
+          </div>
+        )}
         <MDXRemote {...source} components={components(slug)} />
         <Bio />
         <Subscribe />
