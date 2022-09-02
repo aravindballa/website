@@ -26,7 +26,7 @@ export default function Header() {
       <a className={headerLinksClasses}>Writings</a>
     </Link>,
     <Link href="/hackletter">
-      <a className={headerLinksClasses}>Hackletter</a>
+      <a className={headerLinksClasses}>Newsletter</a>
     </Link>,
     <Link href="https://learningcurve.dev/?utm_source=aravindballa.com">
       <a className={headerLinksClasses}>Podcast</a>
