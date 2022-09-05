@@ -29,7 +29,7 @@ import { normalizeUrl, postFilePaths, POSTS_PATH } from '../lib/utils';
     feed.item({
       title: data.title,
       description: data.description,
-      url: normalizeUrl(`${baseUrl}/${slug}`),
+      url: normalizeUrl(`${baseUrl}/writings/${slug}/`),
       author: 'Aravind Balla',
       date: new Date(data.date).toUTCString(),
       // custom_elements: [
