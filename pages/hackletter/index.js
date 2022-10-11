@@ -4,12 +4,10 @@ import { format } from 'date-fns';
 
 import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
-import { hackletterPosts } from '../../lib/utils';
 import Subscribe from '../../components/Subscribe';
-import Image from '../../components/Image';
-import getImageProps from '../../lib/getImageProps';
+import ImagekitImage from '../../components/ImagekitImage';
 
-export default function HackletterPage({ allPosts, bannerImageProps }) {
+export default function HackletterPage() {
   return (
     <Layout>
       <NextSeo
@@ -27,9 +25,9 @@ export default function HackletterPage({ allPosts, bannerImageProps }) {
         }}
       />
       <div className="mt-12 max-w-3xl mx-auto">
-        <Image
+        <ImagekitImage
           className="mx-auto rounded-md"
-          {...bannerImageProps}
+          src="hl-header.jpg"
           width={728}
           height={386}
           priority
@@ -55,44 +53,15 @@ export default function HackletterPage({ allPosts, bannerImageProps }) {
         />
         <h2 className="text-4xl text-headings font-bold mt-8">Archive</h2>
         <div className="text-lg mt-4">
-          {allPosts.map((post) => (
-            <p key={post.slug} className="mb-4">
-              <Link className="hover:no-underline flex items-baseline" href={post.slug}>
-                <a>
-                  <div className="text-sm text-gray-500 inline mr-4">
-                    #{post.slug.replace(/\/hackletter\/(.*?)\/$/, '$1')}
-                  </div>
-                  <div className="inline">
-                    <h3 className="inline">{post.title.replace(/\| Hackletter.*?$/, '')}</h3>{' '}
-                    <span className="opacity-50">|</span>{' '}
-                    <span className="text-sm">{format(new Date(post.date), 'MMMM dd, yyyy')}</span>
-                  </div>
-                </a>
-              </Link>
-            </p>
-          ))}
+          <p>
+            Vist{' '}
+            <a className="underline" href="https://hackletter.email/">
+              hackletter.email
+            </a>{' '}
+            for all the posts
+          </p>
         </div>
       </div>
     </Layout>
   );
 }
-
-export const getStaticProps = async () => {
-  const hlPosts = await hackletterPosts();
-  const allPosts = hlPosts.map((hl, index) => ({
-    ...hl,
-    slug: `/hackletter/${hlPosts.length - index}/`,
-  }));
-
-  const bannerImageProps = await getImageProps('/images/hl-header.jpg');
-
-  return {
-    props: {
-      allPosts: allPosts
-        .filter(Boolean)
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
-      bannerImageProps,
-    },
-    revalidate: 60,
-  };
-};

@@ -5,8 +5,7 @@ import matter from 'gray-matter';
 
 import Layout from '../components/Layout';
 import { POSTS_PATH, postFilePaths } from '../lib/utils';
-import getImageProps from '../lib/getImageProps';
-import Image from '../components/Image';
+import ImagekitImage from '../components/ImagekitImage';
 import { NextSeo } from 'next-seo';
 import { baseUrl } from '../seo.config';
 
@@ -49,8 +48,8 @@ export default function Home({ allPosts }) {
                 <a>
                   {!!post.frontmatter.banner && (
                     <div className="aspect-w-16 aspect-h-9 relative w-full h-32">
-                      <Image
-                        {...post.frontmatter.bannerImageProps}
+                      <ImagekitImage
+                        src={`${post.slug}-${post.frontmatter.banner}`}
                         className="rounded-md w-full h-32"
                         alt={`Banner image for ${post.frontmatter.title}`}
                         layout="fill"
@@ -81,7 +80,7 @@ export default function Home({ allPosts }) {
             we love about. It's called{' '}
             <a href="https://learningcurve.dev">Learning Curve Podcast</a>
           </p>
-          <Image className="rounded-md" src="/images/lc-logo.png" height={250} width={250} />
+          <ImagekitImage className="rounded-md" src="lc-logo.png" height={250} width={250} />
         </div>
 
         <h2>Speaking</h2>
@@ -131,23 +130,10 @@ export const getStaticProps = async () => {
 
     const slug = postPath.replace(/\.mdx?$/, '').replace(/\/index/, '');
 
-    /**
-     * If there is no banner image, first image from the content is used
-     */
-    if (!data.banner) {
-      const firstImageFromContent = content.match(/\!\[.*?\]\((.*?)\)/);
-      if (firstImageFromContent) {
-        data.banner = firstImageFromContent[1];
-      }
-    }
-    if (fs.existsSync(`public/images/${slug}/${data.banner}`)) {
-      data.bannerImageProps = await getImageProps(`/images/${slug}/${data.banner}`);
-    }
-
     allPosts.push({
       frontmatter: data,
       content: content.slice(0, 150) + '...',
-      slug: '/writings/' + slug + '/',
+      slug: slug,
     });
   }
 

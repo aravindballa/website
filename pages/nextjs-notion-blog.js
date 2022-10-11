@@ -2,10 +2,9 @@ import { NextSeo } from 'next-seo';
 
 import { baseUrl } from '../seo.config';
 import Layout from '../components/Layout';
-import Image from '../components/Image';
-import getImageProps from '../lib/getImageProps';
+import ImagekitImage from '../components/ImagekitImage';
 
-export default function NotionNextBlog({ bannerImageProps }) {
+export default function NotionNextBlog() {
   return (
     <Layout>
       <NextSeo
@@ -28,9 +27,9 @@ export default function NotionNextBlog({ bannerImageProps }) {
         }}
       />
       <div className="mt-12 max-w-3xl mx-auto">
-        <Image
+        <ImagekitImage
           className="mx-auto rounded-md"
-          {...bannerImageProps}
+          src="next-notion-header.jpg"
           width={728}
           height={508}
           priority
@@ -111,13 +110,3 @@ export default function NotionNextBlog({ bannerImageProps }) {
     </Layout>
   );
 }
-
-export const getStaticProps = async () => {
-  const bannerImageProps = await getImageProps('/images/next-notion-header.jpg');
-
-  return {
-    props: {
-      bannerImageProps,
-    },
-  };
-};

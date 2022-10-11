@@ -4,7 +4,6 @@ import glob from 'glob';
 import matter from 'gray-matter';
 import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemote } from 'next-mdx-remote';
-import { promisify } from 'util';
 import { NextSeo, BlogJsonLd } from 'next-seo';
 import { format } from 'date-fns';
 
@@ -15,10 +14,7 @@ import Layout from '../../components/Layout';
 import Bio from '../../components/Bio';
 import Subscribe from '../../components/Subscribe';
 import components from '../../components/mdxComponents';
-import getImageProps from '../../lib/getImageProps';
-import Image from '../../components/Image';
-
-const sizeOf = promisify(require('image-size'));
+import ImagekitImage from '../../components/ImagekitImage';
 
 export default function WritingsPage({ source, slug, frontmatter }) {
   return (
@@ -59,14 +55,15 @@ export default function WritingsPage({ source, slug, frontmatter }) {
       <div className="md:mt-12 prose lg:prose-lg dark:prose-light">
         <h1>{frontmatter.title}</h1>
         {frontmatter.banner && !frontmatter.articleNoBanner && (
-          <Image
-            {...frontmatter.bannerImageProps}
-            className="rounded-md"
-            alt={`Banner image for ${frontmatter.title}`}
-            width={frontmatter.bannerWidth}
-            height={frontmatter.bannerHeight}
-            priority
-          />
+          <div className="relative w-full h-auto" style={{ aspectRatio: '16/9' }}>
+            <ImagekitImage
+              src={`${slug}-${frontmatter.banner}`}
+              className="rounded-md"
+              alt={`Banner image for ${frontmatter.title}`}
+              layout="fill"
+              priority
+            />
+          </div>
         )}
         {frontmatter.bannercaption && (
           <div className="mt-1 text-base italic opacity-60 text-center">
@@ -100,20 +97,6 @@ export const getStaticProps = async ({ params }) => {
       notFound: true,
     };
   }
-
-  if (data.banner) {
-    const imagePath = path.join('/images', possiblePostFile[0], '..', data.banner);
-    const { width, height } = await sizeOf(path.join('public', imagePath));
-    if (width && height) {
-      data.bannerWidth = width;
-      data.bannerHeight = height;
-    }
-
-    data.bannerImageProps = await getImageProps(imagePath);
-  }
-
-  // TODO calculate dimensions for pics in post as well
-  // TODO construct an image map for all the images
 
   return {
     props: {
