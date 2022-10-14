@@ -1,7 +1,7 @@
 ---
 title: 'Over optimization yields zero results'
 date: '2021-03-27'
-type: 'article'
+type: 'Post'
 description: 'A wood cutter who only sharps his axe does not make a dime.'
 banner: 'banner.jpeg'
 bannercaption: 'Photo by Gabriel Alenius on Unsplash'

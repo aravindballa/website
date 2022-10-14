@@ -1,8 +1,7 @@
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-  mode: 'jit',
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: 'class',
   theme: {
     fontFamily: {
@@ -103,14 +102,7 @@ module.exports = {
           opacityValue ? `rgba(var(--foreground), ${opacityValue})` : `rgb(var(--foreground))`,
         headings: ({ opacityValue }) =>
           opacityValue ? `rgba(var(--headings), ${opacityValue})` : `rgb(var(--headings))`,
-        gray: colors.trueGray,
-        yellow: colors.yellow,
       },
-    },
-  },
-  variants: {
-    extend: {
-      typography: ['dark'],
     },
   },
   plugins: [require('@tailwindcss/typography')],

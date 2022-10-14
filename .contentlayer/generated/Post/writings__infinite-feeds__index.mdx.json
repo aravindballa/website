@@ -1,0 +1,21 @@
+{
+  "title": "Infinite feeds are robbing the joy of your life",
+  "date": "2022-05-20T00:00:00.000Z",
+  "published": true,
+  "description": "You close Instagram. Go to the apps screen, open it again. Invoulantarily!",
+  "tags": "life",
+  "body": {
+    "raw": "\nYou get to switch contexts at an enormous pace and your brain gets hooked. Now, it always wants it, and we’re doomed!\n\nBut life happens in a slow pace.\n\nIt takes time for a flower to blossom\nIt takes time …\n\nIt takes time to brew coffee\nIt takes time to finish a book\nIt takes time enjoy your meal\n\nWhat do we do then? Pull out our phones and get back the dopamine kicking feeds. Insta & Twitter\n\nI find myself guilty of - closing the app and opening it again immediately unconsciously.\n\nHappens to you too?\n\nWhy are our brains wired like this? - Because we aren’t taking control\n\nWhat can we do?\n\n- Be okay with missing out\n- Embrace long form content like books, podcasts etc\n- Set your intentions with Social Media\n- Use Lists instead of Twitter's default feed\n\nAn excellent summary of Digital minimalism by the man himself, Cal Newport - https://www.youtube.com/watch?v=DsGKzjyj_6Q\n\nNo wonder why he isn't on social media.\n",
+    "code": "var Component=(()=>{var h=Object.create;var a=Object.defineProperty;var p=Object.getOwnPropertyDescriptor;var m=Object.getOwnPropertyNames;var u=Object.getPrototypeOf,f=Object.prototype.hasOwnProperty;var w=(n,e)=>()=>(e||n((e={exports:{}}).exports,e),e.exports),y=(n,e)=>{for(var i in e)a(n,i,{get:e[i],enumerable:!0})},r=(n,e,i,s)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let o of m(e))!f.call(n,o)&&o!==i&&a(n,o,{get:()=>e[o],enumerable:!(s=p(e,o))||s.enumerable});return n};var g=(n,e,i)=>(i=n!=null?h(u(n)):{},r(e||!n||!n.__esModule?a(i,\"default\",{value:n,enumerable:!0}):i,n)),b=n=>r(a({},\"__esModule\",{value:!0}),n);var c=w((D,l)=>{l.exports=_jsx_runtime});var I={};y(I,{default:()=>x,frontmatter:()=>k});var t=g(c()),k={title:\"Infinite feeds are robbing the joy of your life\",date:\"2022-05-20\",type:\"Post\",published:!0,description:\"You close Instagram. Go to the apps screen, open it again. Invoulantarily!\",tags:\"life\"};function d(n){let e=Object.assign({p:\"p\",ul:\"ul\",li:\"li\"},n.components);return(0,t.jsxs)(t.Fragment,{children:[(0,t.jsx)(e.p,{children:\"You get to switch contexts at an enormous pace and your brain gets hooked. Now, it always wants it, and we\\u2019re doomed!\"}),`\n`,(0,t.jsx)(e.p,{children:\"But life happens in a slow pace.\"}),`\n`,(0,t.jsx)(e.p,{children:`It takes time for a flower to blossom\nIt takes time \\u2026`}),`\n`,(0,t.jsx)(e.p,{children:`It takes time to brew coffee\nIt takes time to finish a book\nIt takes time enjoy your meal`}),`\n`,(0,t.jsx)(e.p,{children:\"What do we do then? Pull out our phones and get back the dopamine kicking feeds. Insta & Twitter\"}),`\n`,(0,t.jsx)(e.p,{children:\"I find myself guilty of - closing the app and opening it again immediately unconsciously.\"}),`\n`,(0,t.jsx)(e.p,{children:\"Happens to you too?\"}),`\n`,(0,t.jsx)(e.p,{children:\"Why are our brains wired like this? - Because we aren\\u2019t taking control\"}),`\n`,(0,t.jsx)(e.p,{children:\"What can we do?\"}),`\n`,(0,t.jsxs)(e.ul,{children:[`\n`,(0,t.jsx)(e.li,{children:\"Be okay with missing out\"}),`\n`,(0,t.jsx)(e.li,{children:\"Embrace long form content like books, podcasts etc\"}),`\n`,(0,t.jsx)(e.li,{children:\"Set your intentions with Social Media\"}),`\n`,(0,t.jsx)(e.li,{children:\"Use Lists instead of Twitter's default feed\"}),`\n`]}),`\n`,(0,t.jsx)(e.p,{children:\"An excellent summary of Digital minimalism by the man himself, Cal Newport - https://www.youtube.com/watch?v=DsGKzjyj_6Q\"}),`\n`,(0,t.jsx)(e.p,{children:\"No wonder why he isn't on social media.\"})]})}function j(n={}){let{wrapper:e}=n.components||{};return e?(0,t.jsx)(e,Object.assign({},n,{children:(0,t.jsx)(d,n)})):d(n)}var x=j;return b(I);})();\n;return Component;"
+  },
+  "_id": "writings/infinite-feeds/index.mdx",
+  "_raw": {
+    "sourceFilePath": "writings/infinite-feeds/index.mdx",
+    "sourceFileName": "index.mdx",
+    "sourceFileDir": "writings/infinite-feeds",
+    "contentType": "mdx",
+    "flattenedPath": "writings/infinite-feeds"
+  },
+  "type": "Post",
+  "slug": "/writings/infinite-feeds"
+}
