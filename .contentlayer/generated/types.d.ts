@@ -15,8 +15,8 @@ export type BookNote = {
   type: 'BookNote'
   /** The title of the post */
   title: string
-  /** MDX file body */
-  body: MDX
+  /** Markdown file body */
+  body: Markdown
   slug: string
 }
 

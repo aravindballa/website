@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import { format } from 'date-fns';
-import fetch from 'node-fetch';
 import Image from 'next/image';
 import { BookOpenIcon, BookmarkIcon } from '@heroicons/react/outline';
 import { motion } from 'framer-motion';

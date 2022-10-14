@@ -1,22 +1,25 @@
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import { format } from 'date-fns';
+import { allLetters, Letter } from 'contentlayer/generated';
+import { useMDXComponent } from 'next-contentlayer/hooks';
 
 import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
-import { hackletterPosts } from '../../lib/utils';
 import Subscribe from '../../components/Subscribe';
 
-export default function HackletterPost({ source, slug, frontmatter }) {
+export default function HackletterPost({ letter }: { letter: Letter }) {
+  const slug = letter.slug.replace('/hackletter/', '');
+  const MDXContent = useMDXComponent(letter.body.code);
   return (
     <Layout>
       <NextSeo
-        title={frontmatter.title}
+        title={letter.title}
         description={`Letter #${slug} from hackletter which is weekly newsletter for curious builders by Aravind Balla`}
         canonical={`${baseUrl}hackletter/${slug}/`}
         openGraph={{
           url: `${baseUrl}hackletter/${slug}/`,
-          title: frontmatter.title,
+          title: letter.title,
           description: `Letter #${slug} from hackletter which is weekly newsletter for curious builders by Aravind Balla`,
           images: [
             {
@@ -29,11 +32,11 @@ export default function HackletterPost({ source, slug, frontmatter }) {
         }}
       />
       <div className="mt-12 prose lg:prose-lg dark:prose-light">
-        <h1>{frontmatter.title}</h1>
+        <h1>{letter.title}</h1>
         <p className="text-md italic text-purple-500">
-          Sent on {format(new Date(frontmatter.date), 'MMMM do, yyy')}
+          Sent on {format(new Date(letter.date), 'MMMM do, yyy')}
         </p>
-        <div dangerouslySetInnerHTML={{ __html: source }} />
+        <MDXContent />
         <Subscribe
           className="mt-4"
           renderContent={() => (
@@ -59,41 +62,20 @@ export default function HackletterPost({ source, slug, frontmatter }) {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const hlPosts = await hackletterPosts();
-  if (parseInt(params.slug, 10) > hlPosts.length || parseInt(params.slug, 10) < 1) {
-    return {
-      notFound: true,
-    };
-  }
-
-  const currentPost = hlPosts[hlPosts.length - parseInt(params.slug, 10)];
-  if (!currentPost) {
-    return {
-      notFound: true,
-    };
-  }
+  const letter: Letter = allLetters.find((post) => post.slug === `/hackletter/${params.slug}`);
 
   return {
     props: {
-      frontmatter: {
-        title: currentPost.title,
-        date: currentPost.date,
-      },
-      source: currentPost.description,
-      slug: params.slug,
+      letter,
     },
   };
 };
 
 export const getStaticPaths = async () => {
-  const hlPosts = await hackletterPosts();
+  const letters = allLetters.map((letter) => letter.slug);
 
   return {
-    paths: hlPosts.map((post, index) => ({
-      params: {
-        slug: `${hlPosts.length - index}`,
-      },
-    })),
+    paths: letters,
     fallback: 'blocking',
   };
 };

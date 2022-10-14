@@ -1,22 +1,19 @@
-import fs from 'fs';
-import glob from 'glob';
-import path from 'path';
 import { NextSeo } from 'next-seo';
 import Image from 'next/image';
-import matter from 'gray-matter';
-import { serialize } from 'next-mdx-remote/serialize';
-import { MDXRemote } from 'next-mdx-remote';
+import { allBookNotes, BookNote } from 'contentlayer/generated';
+import { useMDXComponent } from 'next-contentlayer/hooks';
 
 import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
 import Subscribe from '../../components/Subscribe';
 import { ReadwiseBook } from '../../types';
 import { getOGImageWithDimensions } from '../../lib/getOGImageUrl';
-import { BOOKSHELF_PATH } from '../../lib/utils';
 import getReadwiseBooks from '../../lib/readwiseData';
+import { slugify } from 'lib/utils';
 
-export default function Book({ highlights, bookData, slug, source, pageTitle }) {
+export default function Book({ highlights, bookData, slug, bookNote, pageTitle }) {
   const pageHeading = pageTitle || `Highlights from "${bookData.title}"`;
+
   return (
     <Layout>
       <NextSeo
@@ -44,10 +41,8 @@ export default function Book({ highlights, bookData, slug, source, pageTitle }) 
           />
         </div>
 
-        {source && (
-          <div className="mt-12">
-            <MDXRemote {...source} />
-          </div>
+        {bookNote && (
+          <div className="mt-12" dangerouslySetInnerHTML={{ __html: bookNote.body.html }} />
         )}
 
         <div className="my-12">
@@ -87,20 +82,8 @@ export const getStaticProps = async ({ params }) => {
   const books = await getReadwiseBooks();
   const book = books.results.find((book: ReadwiseBook) => `${book.id}` === bookId);
 
-  const possibleFile = glob.sync(`${params.slug.replace(/-[0-9]+$/, '')}.*`, {
-    cwd: BOOKSHELF_PATH,
-  });
-
-  let source = null;
-  let summaryFrontmatter = null;
-  if (possibleFile?.length) {
-    const bookSummary = fs.readFileSync(path.join(BOOKSHELF_PATH, possibleFile[0]), {
-      encoding: 'utf-8',
-    });
-    const { content, data } = matter(bookSummary);
-    summaryFrontmatter = data;
-    source = await serialize(content);
-  }
+  const bookNote =
+    allBookNotes.find((bookNote) => bookNote.slug === `/bookshelf/${slugify(book.title)}`) || null;
 
   return {
     props: {
@@ -110,8 +93,8 @@ export const getStaticProps = async ({ params }) => {
         author: book.author,
         cover: book.cover_image_url,
       },
-      source,
-      pageTitle: summaryFrontmatter?.title || '',
+      bookNote,
+      pageTitle: bookNote?.title || '',
       slug: params.slug,
     },
     revalidate: 60 * 60, // 1 hour

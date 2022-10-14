@@ -108,8 +108,7 @@ const Letter = defineDocumentType(() => ({
 
 const BookNote = defineDocumentType(() => ({
   name: 'BookNote',
-  filePathPattern: `**/*.(mdx|md)`,
-  contentType: 'mdx',
+  filePathPattern: `**/*.md`,
   fields: {
     title: {
       type: 'string',

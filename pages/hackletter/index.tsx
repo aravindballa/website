@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
-import { format } from 'date-fns';
 
 import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
