@@ -1,4 +1,6 @@
-module.exports = {
+const { withContentlayer } = require('next-contentlayer');
+
+module.exports = withContentlayer({
   images: {
     domains: [
       'images-na.ssl-images-amazon.com',
@@ -8,28 +10,6 @@ module.exports = {
     ],
   },
   trailingSlash: true,
-  webpack: (config, { isServer, defaultLoaders }) => {
-    // Fixes npm packages that depend on `fs` module
-    if (!isServer) {
-      config.node = {
-        fs: 'empty',
-        child_process: 'empty',
-      };
-    }
-
-    // fixes error in console -> Module parse failed: Assigning to rvalue
-    config.module.rules.push({
-      test: /\.(md|mdx)/,
-      use: [
-        defaultLoaders.babel,
-        {
-          loader: '@mdx-js/loader',
-        },
-      ],
-    });
-
-    return config;
-  },
   headers() {
     return [
       {
@@ -68,4 +48,4 @@ module.exports = {
       },
     ];
   },
-};
+});
