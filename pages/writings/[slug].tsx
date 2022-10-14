@@ -1,4 +1,4 @@
-import { NextSeo } from 'next-seo';
+import { NextSeo, ArticleJsonLd } from 'next-seo';
 import { format } from 'date-fns';
 import { allPosts, Post } from 'contentlayer/generated';
 import { useMDXComponent } from 'next-contentlayer/hooks';
@@ -10,6 +10,7 @@ import Bio from '../../components/Bio';
 import Subscribe from '../../components/Subscribe';
 import components from '../../components/mdxComponents';
 import ImagekitImage from '../../components/ImagekitImage';
+import { normalizeUrl } from '../../lib/utils';
 
 function WritingPage({ post }: { post: Post }) {
   const MDXContent = useMDXComponent(post.body.code);
@@ -38,18 +39,18 @@ function WritingPage({ post }: { post: Post }) {
           },
         }}
       />
-      {/* <BlogJsonLd
+      <ArticleJsonLd
         url={`${baseUrl}writings/${post.slug}/`}
         title={post.title}
-        images={post.banner && [normalizeUrl(`${baseUrl}images/${post.slug}/${post.banner}`)]}
+        images={post.banner && [normalizeUrl(`${baseUrl}images/${post.slug}/${post.banner}`)]} // TODO check this
         datePublished={new Date(post.date).toISOString()}
         authorName="Aravind Balla"
         description={post.description}
-      /> */}
+      />
 
       <div className="md:mt-12 prose lg:prose-lg dark:prose-light">
         <h1>{post.title}</h1>
-        {post.banner && !post.articleNoBanner && (
+        {post.banner && (
           <div className="relative w-full h-auto" style={{ aspectRatio: '16/9' }}>
             <ImagekitImage
               src={`${post.slug.replace('/writings/', '')}-${post.banner}`}
