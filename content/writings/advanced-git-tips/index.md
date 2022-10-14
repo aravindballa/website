@@ -1,7 +1,7 @@
 ---
 title: 'Advanced git tips'
 date: '2018-09-23'
-type: 'article'
+type: 'Post'
 description: 'Some of the advanced git usage and tips for the pros. Things that I have learnt over the years of using git at work.'
 banner: 'git-330x478.png'
 ---

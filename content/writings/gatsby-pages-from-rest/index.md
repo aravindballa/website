@@ -1,7 +1,7 @@
 ---
 title: 'Build pages in Gatsby from Rest API'
 date: '2021-02-25'
-type: 'article'
+type: 'Post'
 published: true
 description: 'Its not that hard. We just have to hook into gatsby-node.'
 tags: 'gatsby, gatsbyjs, advanced gatsby, rest api, graphql, gatsby-source-api'

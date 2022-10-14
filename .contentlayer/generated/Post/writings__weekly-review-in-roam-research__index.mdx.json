@@ -1,0 +1,20 @@
+{
+  "title": "Weekly reviews in Roam Research [Plugin]",
+  "date": "2021-07-27T00:00:00.000Z",
+  "description": "I built a Roam Research plugin to help me review time I spent in the week. Takes advantage of Interstitial Journaling.",
+  "banner": "roam-daylog.png",
+  "body": {
+    "raw": "\nI wanted something that tracks where I spend my time. I've tried various apps to do it, but nothing clicked. I often forget to stop the timers. 🤦🏻‍♂️ ⏲\n\nAt last, I found the sweet spot for it in [Roam Research](https://roamresearch.com/). I use it for **Interstitial Journaling** already. So I built a plugin which analyses those logs and gives me a summary of my time in the current week.\n\nDemo video (2min 46sec) 👇\n\nhttps://www.youtube.com/watch?v=shbnd29-wIo\n\nI've put the source code on Gumroad. It's basically FREE but you can pay-what-you-want if you want to support me for the time spent.\n\n<script src=\"https://gumroad.com/js/gumroad.js\"></script>\n\n<div class=\"text-center\">\n  <a class=\"gumroad-button\" href=\"https://gumroad.com/l/DViZI\">\n    Check it out\n  </a>\n</div>\n",
+    "code": "var Component=(()=>{var l=Object.create;var s=Object.defineProperty;var u=Object.getOwnPropertyDescriptor;var d=Object.getOwnPropertyNames;var p=Object.getPrototypeOf,g=Object.prototype.hasOwnProperty;var w=(e,t)=>()=>(t||e((t={exports:{}}).exports,t),t.exports),f=(e,t)=>{for(var o in t)s(e,o,{get:t[o],enumerable:!0})},i=(e,t,o,a)=>{if(t&&typeof t==\"object\"||typeof t==\"function\")for(let r of d(t))!g.call(e,r)&&r!==o&&s(e,r,{get:()=>t[r],enumerable:!(a=u(t,r))||a.enumerable});return e};var y=(e,t,o)=>(o=e!=null?l(p(e)):{},i(t||!e||!e.__esModule?s(o,\"default\",{value:e,enumerable:!0}):o,e)),I=e=>i(s({},\"__esModule\",{value:!0}),e);var h=w((R,c)=>{c.exports=_jsx_runtime});var j={};f(j,{default:()=>x,frontmatter:()=>b});var n=y(h()),b={title:\"Weekly reviews in Roam Research [Plugin]\",date:\"2021-07-27\",type:\"Post\",description:\"I built a Roam Research plugin to help me review time I spent in the week. Takes advantage of Interstitial Journaling.\",banner:\"roam-daylog.png\"};function m(e){let t=Object.assign({p:\"p\",a:\"a\",strong:\"strong\"},e.components);return(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(t.p,{children:\"I wanted something that tracks where I spend my time. I've tried various apps to do it, but nothing clicked. I often forget to stop the timers. \\u{1F926}\\u{1F3FB}\\u200D\\u2642\\uFE0F \\u23F2\"}),`\n`,(0,n.jsxs)(t.p,{children:[\"At last, I found the sweet spot for it in \",(0,n.jsx)(t.a,{href:\"https://roamresearch.com/\",children:\"Roam Research\"}),\". I use it for \",(0,n.jsx)(t.strong,{children:\"Interstitial Journaling\"}),\" already. So I built a plugin which analyses those logs and gives me a summary of my time in the current week.\"]}),`\n`,(0,n.jsx)(t.p,{children:\"Demo video (2min 46sec) \\u{1F447}\"}),`\n`,(0,n.jsx)(t.p,{children:\"https://www.youtube.com/watch?v=shbnd29-wIo\"}),`\n`,(0,n.jsx)(t.p,{children:\"I've put the source code on Gumroad. It's basically FREE but you can pay-what-you-want if you want to support me for the time spent.\"}),`\n`,(0,n.jsx)(\"script\",{src:\"https://gumroad.com/js/gumroad.js\"}),`\n`,(0,n.jsx)(\"div\",{class:\"text-center\",children:(0,n.jsx)(\"a\",{class:\"gumroad-button\",href:\"https://gumroad.com/l/DViZI\",children:(0,n.jsx)(t.p,{children:\"Check it out\"})})})]})}function v(e={}){let{wrapper:t}=e.components||{};return t?(0,n.jsx)(t,Object.assign({},e,{children:(0,n.jsx)(m,e)})):m(e)}var x=v;return I(j);})();\n;return Component;"
+  },
+  "_id": "writings/weekly-review-in-roam-research/index.mdx",
+  "_raw": {
+    "sourceFilePath": "writings/weekly-review-in-roam-research/index.mdx",
+    "sourceFileName": "index.mdx",
+    "sourceFileDir": "writings/weekly-review-in-roam-research",
+    "contentType": "mdx",
+    "flattenedPath": "writings/weekly-review-in-roam-research"
+  },
+  "type": "Post",
+  "slug": "/writings/weekly-review-in-roam-research"
+}

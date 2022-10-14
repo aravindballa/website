@@ -1,5 +1,6 @@
 ---
 title: 'Show Your Work! Book Summary'
+type: 'BookNote'
 ---
 
 I'd say this is a short book packed with immense value. I could not not take notes and write down thoughts while reading this book.
