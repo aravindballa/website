@@ -29,7 +29,7 @@ export default function TalkPage({ talk }: { talk: Talk }) {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const post: Talk = allTalks.find((post) => post.slug === `/talks/${params.slug}`);
+  const talk: Talk = allTalks.find((post) => post.slug === `/talks/${params.slug}`);
 
   return {
     props: {
