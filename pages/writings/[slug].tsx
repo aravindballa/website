@@ -27,7 +27,7 @@ function WritingPage({ post }: { post: Post }) {
             {
               url: `${baseUrl}api/og?slug=${encodeURIComponent(post.slug)}`,
               width: 1200,
-              height: 630,
+              height: 600,
               alt: `Card for ${post.title} page`,
             },
           ],

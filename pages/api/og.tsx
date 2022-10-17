@@ -49,7 +49,7 @@ export default async function (req: NextRequest) {
               objectFit: 'cover',
               opacity: 0.3,
               width: 1200,
-              height: 630,
+              height: 600,
               borderRadius: '8px',
             }}
             src={imageKitLoader({
@@ -95,7 +95,7 @@ export default async function (req: NextRequest) {
     ),
     {
       width: 1200,
-      height: 630,
+      height: 600,
       fonts: [
         {
           name: 'Poppins',
