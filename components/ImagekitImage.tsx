@@ -1,6 +1,6 @@
 import Image, { ImageProps } from 'next/image';
 
-const imageKitLoader = ({ src, width, quality }) => {
+export const imageKitLoader = ({ src, width, quality }) => {
   if (src[0] === '/') src = src.slice(1);
   const params = [`w-${width}`];
   if (quality) {

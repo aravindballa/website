@@ -1,17 +1,29 @@
 import GrayBlock from './GrayBlock';
 import CodeBlock from './CodeBlock';
-import ImagekitImage from './ImagekitImage';
+import { imageKitLoader } from './ImagekitImage';
 
 const components = (slug) => ({
-  code: CodeBlock,
+  pre: CodeBlock,
   img: ({ src, alt }) => {
-    // return <img alt={alt} src={src.startsWith('http') ? src : `/images/${slug}/${src}`} />;
-    // TODO doesn't work well
     return (
-      <div className="relative max-w-full h-auto" style={{ aspectRatio: '16/9' }}>
-        <ImagekitImage src={`${slug}-${src}`} alt={alt} layout="fill" objectFit="cover" />
-      </div>
+      <img
+        className="rounded"
+        alt={alt}
+        src={imageKitLoader({ src: `${slug.replace('/writings/', '')}-${src}`, width: '1460px' })}
+      />
     );
+    // TODO doesn't work well
+    // return (
+    //   <div className="relative max-w-full h-auto" style={{ aspectRatio: '16/9' }}>
+    //     <ImagekitImage
+    //       className="rounded"
+    //       src={`${slug.replace('/writings/', '')}-${src}`}
+    //       alt={alt}
+    //       layout="fill"
+    //       objectFit="contain"
+    //     />
+    //   </div>
+    // );
   },
   GrayBlock,
   Toggle: ({ title, children }) => {
