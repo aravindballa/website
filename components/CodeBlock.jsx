@@ -3,7 +3,7 @@ import oceanicNext from 'prism-react-renderer/themes/oceanicNext';
 
 const CodeBlock = ({
   children: {
-    props: { children, className },
+    props: { children, className = '' },
   },
 }) => {
   const language = className.replace(/language-/, '');
