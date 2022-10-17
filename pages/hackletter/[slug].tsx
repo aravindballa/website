@@ -7,6 +7,7 @@ import { useMDXComponent } from 'next-contentlayer/hooks';
 import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
 import Subscribe from '../../components/Subscribe';
+import { normalizeUrl } from 'lib/utils';
 
 export default function HackletterPost({ letter }: { letter: Letter }) {
   const slug = letter.slug.replace('/hackletter/', '');
@@ -16,9 +17,9 @@ export default function HackletterPost({ letter }: { letter: Letter }) {
       <NextSeo
         title={letter.title}
         description={`Letter #${slug} from hackletter which is weekly newsletter for curious builders by Aravind Balla`}
-        canonical={`${baseUrl}hackletter/${slug}/`}
+        canonical={normalizeUrl(`${baseUrl}${slug}/`)}
         openGraph={{
-          url: `${baseUrl}hackletter/${slug}/`,
+          url: normalizeUrl(`${baseUrl}${slug}/`),
           title: letter.title,
           description: `Letter #${slug} from hackletter which is weekly newsletter for curious builders by Aravind Balla`,
           images: [

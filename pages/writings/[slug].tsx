@@ -8,6 +8,7 @@ import Bio from '../../components/Bio';
 import Subscribe from '../../components/Subscribe';
 import components from '../../components/mdxComponents';
 import ImagekitImage, { imageKitLoader } from '../../components/ImagekitImage';
+import { normalizeUrl } from 'lib/utils';
 
 function WritingPage({ post }: { post: Post }) {
   const MDXContent = useMDXComponent(post.body.code);
@@ -17,9 +18,9 @@ function WritingPage({ post }: { post: Post }) {
       <NextSeo
         title={post.title}
         description={post.description}
-        canonical={`${baseUrl}${post.slug}/`}
+        canonical={normalizeUrl(`${baseUrl}${post.slug}/`)}
         openGraph={{
-          url: `${baseUrl}${post.slug}/`,
+          url: normalizeUrl(`${baseUrl}${post.slug}/`),
           title: post.title,
           description: post.description,
           images: [
@@ -39,7 +40,7 @@ function WritingPage({ post }: { post: Post }) {
         }}
       />
       <ArticleJsonLd
-        url={`${baseUrl}${post.slug}/`}
+        url={normalizeUrl(`${baseUrl}${post.slug}/`)}
         title={post.title}
         images={
           post.banner && [
