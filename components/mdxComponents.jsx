@@ -3,7 +3,7 @@ import CodeBlock from './CodeBlock';
 import ImagekitImage from './ImagekitImage';
 
 const components = (slug) => ({
-  code: CodeBlock,
+  pre: CodeBlock,
   img: ({ src, alt }) => {
     // return <img alt={alt} src={src.startsWith('http') ? src : `/images/${slug}/${src}`} />;
     // TODO doesn't work well
