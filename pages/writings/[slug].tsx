@@ -1,16 +1,13 @@
 import { NextSeo, ArticleJsonLd } from 'next-seo';
-import { format } from 'date-fns';
 import { allPosts, Post } from 'contentlayer/generated';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 
 import { baseUrl } from '../../seo.config';
-import { getOGImageWithDimensions } from '../../lib/getOGImageUrl';
 import Layout from '../../components/Layout';
 import Bio from '../../components/Bio';
 import Subscribe from '../../components/Subscribe';
 import components from '../../components/mdxComponents';
-import ImagekitImage from '../../components/ImagekitImage';
-import { normalizeUrl } from '../../lib/utils';
+import ImagekitImage, { imageKitLoader } from '../../components/ImagekitImage';
 
 function WritingPage({ post }: { post: Post }) {
   const MDXContent = useMDXComponent(post.body.code);
@@ -20,16 +17,18 @@ function WritingPage({ post }: { post: Post }) {
       <NextSeo
         title={post.title}
         description={post.description}
-        canonical={`${baseUrl}writings/${post.slug}/`}
+        canonical={`${baseUrl}${post.slug}/`}
         openGraph={{
-          url: `${baseUrl}writings/${post.slug}/`,
+          url: `${baseUrl}${post.slug}/`,
           title: post.title,
           description: post.description,
           images: [
-            getOGImageWithDimensions({
-              title: post.title,
-              dateString: format(new Date(post.date), 'MMMM dd yyy'),
-            }),
+            {
+              url: `${baseUrl}api/og?slug=${encodeURIComponent(post.slug)}`,
+              width: 1200,
+              height: 630,
+              alt: `Card for ${post.title} page`,
+            },
           ],
           type: 'article',
           article: {
@@ -40,9 +39,17 @@ function WritingPage({ post }: { post: Post }) {
         }}
       />
       <ArticleJsonLd
-        url={`${baseUrl}writings/${post.slug}/`}
+        url={`${baseUrl}${post.slug}/`}
         title={post.title}
-        images={post.banner && [normalizeUrl(`${baseUrl}images/${post.slug}/${post.banner}`)]} // TODO check this
+        images={
+          post.banner && [
+            imageKitLoader({
+              src: `${post.slug.replace('/writings/', '')}-${post.banner}`,
+              width: '1000px',
+              quality: '100',
+            }),
+          ]
+        }
         datePublished={new Date(post.date).toISOString()}
         authorName="Aravind Balla"
         description={post.description}
