@@ -35,6 +35,7 @@ export default async function (req: NextRequest) {
           color: 'white',
           position: 'relative',
           border: '16px solid #151515',
+          boxSizing: 'border-box',
         }}
       >
         {post?.banner && (
@@ -45,12 +46,11 @@ export default async function (req: NextRequest) {
               left: 0,
               right: 0,
               bottom: 0,
-              inset: 0,
               objectFit: 'cover',
               opacity: 0.3,
-              width: 1200,
-              height: 600,
-              borderRadius: '8px',
+              width: 1200 - 32,
+              height: 'auto',
+              borderRadius: 8,
             }}
             src={imageKitLoader({
               src: `${post.slug.replace('/writings/', '')}-${post.banner}`,
