@@ -65,6 +65,7 @@ function WritingPage({ post }: { post: Post }) {
               className="rounded-md"
               alt={`Banner image for ${post.title}`}
               layout="fill"
+              objectFit="cover"
               priority
             />
           </div>
