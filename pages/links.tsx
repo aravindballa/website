@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Layout from '../components/Layout';
 
 const links = {
+  'Letterhive - Newsletter to Blog': 'https://letterhive.com',
   Website: 'https://aravindballa.com',
   Twitter: 'https://twitter.com/aravindballa',
   Linkedin: 'https://www.linkedin.com/in/aravindballa/',
