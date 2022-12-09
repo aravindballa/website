@@ -11,6 +11,7 @@ import { ReadwiseBook } from '../../types';
 import { getOGImageWithDimensions } from '../../lib/getOGImageUrl';
 import { slugify } from '../../lib/utils';
 import getReadwiseBooks from '../../lib/readwiseData';
+import BooksBunny from 'components/BooksBunny';
 
 const bookWrapVariants = {
   visible: (i) => ({
@@ -57,6 +58,7 @@ export default function Bookshelf({ books }) {
         }}
       />
       <h1 className="text-headings text-5xl font-bold">Book shelf 📚</h1>
+      <BooksBunny />
       <div className="mt-12 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         {books.results
           .filter((book) => book.author !== null && book.num_highlights > 0)

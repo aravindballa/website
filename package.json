@@ -17,6 +17,7 @@
     "contentlayer": "^0.2.8",
     "date-fns": "^2.21.3",
     "esm": "^3.2.25",
+    "express-rate-limit": "^6.7.0",
     "framer-motion": "^4.1.17",
     "next": "^12.3.1",
     "next-contentlayer": "^0.2.8",
