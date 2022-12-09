@@ -1,14 +1,14 @@
-import applyRateLimit from 'lib/rate-limit';
+// import applyRateLimit from 'lib/rate-limit';
 import { NextRequest } from 'next/server';
 
 const API = 'https://askbrain.balla.dev/api';
 
 export default async function booksBunny(req: NextRequest, res) {
-  try {
-    await applyRateLimit(req, res);
-  } catch {
-    return res.status(429).send('Too Many Requests');
-  }
+  // try {
+  //   await applyRateLimit(req, res);
+  // } catch {
+  //   return res.status(429).send('Too Many Requests');
+  // }
 
   if (req.method === 'POST') {
     // @ts-ignore
