@@ -126,5 +126,6 @@ const BookNote = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: 'content',
+  contentDirExclude: ['.obsidian/**'],
   documentTypes: [Post, Letter, BookNote, Talk],
 });
