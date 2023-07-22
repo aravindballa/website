@@ -13,7 +13,7 @@ module.exports = withContentlayer({
   headers() {
     return [
       {
-        source: '/rss.xml',
+        source: '/api/rss.xml',
         headers: [
           {
             key: 'content-type',
