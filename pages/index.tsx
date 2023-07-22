@@ -34,31 +34,28 @@ export default function Home({ allPosts }: { allPosts: Post[] }) {
           <h2 className="text-3xl font-bold mt-12 mb-4 text-headings">
             Few things I've wrote recently
           </h2>
-          <Link href="/writings">
-            <a className="mb-4">See all</a>
+          <Link className="mb-4" href="/writings">
+            See all
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 gap-y-8 max-w-5xl mx-auto">
           {allPosts.map((post) => (
             <div className="mt-4" key={post.slug}>
               <Link href={post.slug}>
-                <a>
-                  {!!post.banner && (
-                    <div className="aspect-w-16 aspect-h-9 relative w-full h-32">
-                      <ImagekitImage
-                        src={`${post.slug.replace('/writings/', '')}-${post.banner}`}
-                        className="rounded-md w-full h-32"
-                        alt={`Banner image for ${post.title}`}
-                        layout="fill"
-                        objectFit="cover"
-                      />
-                    </div>
-                  )}
-                </a>
+                {!!post.banner && (
+                  <div className="aspect-w-16 aspect-h-9 relative w-full h-32">
+                    <ImagekitImage
+                      src={`${post.slug.replace('/writings/', '')}-${post.banner}`}
+                      className="rounded-md w-full h-32 object-cover"
+                      alt={`Banner image for ${post.title}`}
+                      fill
+                    />
+                  </div>
+                )}
               </Link>
               <h3 className="text-xl font-bold mt-2">
-                <Link href={post.slug}>
-                  <a className="no-underline text-headings">{post.title}</a>
+                <Link className="no-underline text-headings" href={post.slug}>
+                  {post.title}
                 </Link>
               </h3>
               <p
@@ -79,7 +76,13 @@ export default function Home({ allPosts }: { allPosts: Post[] }) {
               Learning Curve Podcast
             </a>
           </p>
-          <ImagekitImage className="rounded-md" src="lc-logo.png" height={250} width={250} />
+          <ImagekitImage
+            alt="Learning Curve logo"
+            className="rounded-md"
+            src="lc-logo.png"
+            height={250}
+            width={250}
+          />
         </div>
 
         <h2>Speaking</h2>
@@ -96,9 +99,7 @@ export default function Home({ allPosts }: { allPosts: Post[] }) {
             </a>
           </li>
           <li>
-            <Link href="/talks/devfest-19/">
-              <a>Oct 2019: Build Blazing Fast Portfolios</a>
-            </Link>
+            <Link href="/talks/devfest-19/">Oct 2019: Build Blazing Fast Portfolios</Link>
           </li>
           <li>
             <a href="https://www.meetup.com/coderplex/events/263195332/">

@@ -19,10 +19,10 @@
     "esm": "^3.2.25",
     "express-rate-limit": "^6.7.0",
     "framer-motion": "^4.1.17",
-    "next": "^12.3.1",
+    "next": "^13.4.12",
     "next-contentlayer": "^0.2.8",
-    "next-seo": "^5.5.0",
-    "next-sitemap": "^1.6.192",
+    "next-seo": "^6.1.0",
+    "next-sitemap": "^4.1.8",
     "node-fetch": "^2.6.1",
     "prism-react-renderer": "^1.2.0",
     "react": "^18.2.0",
@@ -34,7 +34,7 @@
     "use-dark-mode": "^2.3.1"
   },
   "devDependencies": {
-    "@types/react": "^17.0.5",
+    "@types/react": "^18.2.15",
     "autoprefixer": "^10.4.12",
     "image-size": "^1.0.0",
     "postcss": "^8.4.18",

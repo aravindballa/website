@@ -56,16 +56,15 @@ function WritingPage({ post }: { post: Post }) {
         description={post.description}
       />
 
-      <div className="md:mt-12 prose lg:prose-lg dark:prose-light">
+      <div className="md:mt-12 mx-auto prose lg:prose-lg dark:prose-light">
         <h1>{post.title}</h1>
         {post.banner && (
-          <div className="relative w-full h-auto" style={{ aspectRatio: '16/9' }}>
+          <div className="relative w-full h-auto rounded-md" style={{ aspectRatio: '16/9' }}>
             <ImagekitImage
               src={`${post.slug.replace('/writings/', '')}-${post.banner}`}
-              className="rounded-md"
+              className="rounded-md object-cover"
               alt={`Banner image for ${post.title}`}
-              layout="fill"
-              objectFit="cover"
+              fill
               priority
             />
           </div>
@@ -74,7 +73,9 @@ function WritingPage({ post }: { post: Post }) {
           <div className="mt-1 text-base italic opacity-60 text-center">{post.bannercaption}</div>
         )}
         <MDXContent components={components(post.slug)} />
-        <Bio />
+      </div>
+      <Bio />
+      <div className="md:mt-12 mx-auto prose lg:prose-lg dark:prose-light">
         <Subscribe />
       </div>
     </Layout>

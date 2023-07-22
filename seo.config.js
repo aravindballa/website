@@ -1,4 +1,4 @@
-import { getOGImageWithDimensions } from './lib/getOGImageUrl';
+import { getOGImageWithDimensions } from './lib/getOGImageUrl.js';
 
 export const baseUrl = 'https://aravindballa.com/';
 

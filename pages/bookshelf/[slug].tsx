@@ -38,6 +38,7 @@ export default function Book({ highlights, bookData, slug, bookNote, pageTitle }
             height={200}
             layout="fixed"
             quality={100}
+            alt={`Cover of the book ${bookData.title}`}
           />
         </div>
 

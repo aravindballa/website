@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function Bio() {
   return (
-    <div className="flex py-6 mt-8 border-t-2 border-gray-500 items-center">
+    <div className="flex py-6 mt-8 border-t-2 border-gray-500 items-center max-w-[65ch]">
       <div className="rounded-full border-2 border-purple-500 h-16 w-16">
         <Image
           className="rounded-full"

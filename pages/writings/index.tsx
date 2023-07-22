@@ -31,23 +31,23 @@ export default function WritingsPage({ allPosts }: { allPosts: Post[] }) {
                 key={post.slug}
               >
                 <Link href={post.slug}>
-                  <a>
-                    {!!post.banner && (
-                      <div className="aspect-w-16 aspect-h-9 relative w-full h-64">
-                        <ImagekitImage
-                          src={`${post.slug.replace('/writings/', '')}-${post.banner}`}
-                          className="rounded-md w-full h-64"
-                          alt={`Banner image for ${post.title}`}
-                          layout="fill"
-                          objectFit="cover"
-                        />
-                      </div>
-                    )}
-                  </a>
+                  {!!post.banner && (
+                    <div className="aspect-w-16 aspect-h-9 relative w-full h-64">
+                      <ImagekitImage
+                        src={`${post.slug.replace('/writings/', '')}-${post.banner}`}
+                        className="rounded-md w-full h-64 object-cover"
+                        alt={`Banner image for ${post.title}`}
+                        fill
+                      />
+                    </div>
+                  )}
                 </Link>
                 <h3 className="text-lg font-bold mt-4">
-                  <Link href={post.slug}>
-                    <a className="no-underline text-headings group-hover:underline">{post.title}</a>
+                  <Link
+                    className="no-underline text-headings group-hover:underline"
+                    href={post.slug}
+                  >
+                    {post.title}
                   </Link>
                 </h3>
                 <p

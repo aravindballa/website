@@ -115,6 +115,10 @@ const BookNote = defineDocumentType(() => ({
       description: 'The title of the post',
       required: true,
     },
+    published: {
+      type: 'boolean',
+      description: 'Whether the note is published',
+    },
   },
   computedFields: {
     slug: {

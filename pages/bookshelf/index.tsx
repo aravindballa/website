@@ -67,8 +67,9 @@ export default function Bookshelf({ books }) {
               new Date(b.last_highlight_at).getTime() - new Date(a.last_highlight_at).getTime()
           )
           .map((book: ReadwiseBook, i: number) => (
-            <Link key={book.id} href={`/bookshelf/${slugify(book.title)}-${book.id}`}>
+            <motion.div key={book.id}>
               <motion.a
+                href={`/bookshelf/${slugify(book.title)}-${book.id}`}
                 role="button"
                 tabIndex={0}
                 className={`p-4 rounded-md border-2 border-gray-300 dark:border-gray-700`}
@@ -93,6 +94,7 @@ export default function Bookshelf({ books }) {
                       src={book.cover_image_url}
                       width={132}
                       height={200}
+                      alt={`Cover of the book ${book.title}`}
                     />
                   </motion.div>
                   <div className="flex-1 ml-4">
@@ -111,7 +113,7 @@ export default function Bookshelf({ books }) {
                   </div>
                 </div>
               </motion.a>
-            </Link>
+            </motion.div>
           ))}
       </div>
       <div className=" max-w-5xl my-8 text-base bg-gray-100 dark:bg-gray-800 p-4 rounded text-gray-600 dark:text-gray-300">

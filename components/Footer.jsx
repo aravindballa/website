@@ -14,10 +14,8 @@ export default function Footer() {
       <div className="block text-center mx-auto md:text-left md:flex justify-between text-gray-500 w-full max-w-5xl px-8">
         <div>
           <p className="mb-4">
-            <Link href="/">
-              <a className="hover:text-gray-600 dark:hover:text-gray-400">
-                <Logo className="mx-auto md:m-0" width={25} height={18.5} />
-              </a>
+            <Link className="hover:text-gray-600 dark:hover:text-gray-400" href="/">
+              <Logo className="mx-auto md:m-0" width={25} height={18.5} />
             </Link>
           </p>
           <p>Copyright &copy; {new Date().getFullYear()}</p>
@@ -61,8 +59,8 @@ export default function Footer() {
             </a>
           </li>
           <li>
-            <Link href="/rss.xml">
-              <a className="hover:text-gray-600 dark:hover:text-gray-400">RSS</a>
+            <Link className="hover:text-gray-600 dark:hover:text-gray-400" href="/rss.xml">
+              RSS
             </Link>
           </li>
           <li>

@@ -25,6 +25,7 @@ export default function HackletterPage() {
       />
       <div className="mt-12 max-w-3xl mx-auto">
         <ImagekitImage
+          alt="Hackletter logo"
           className="mx-auto rounded-md"
           src="hl-header.jpg"
           width={728}
@@ -33,8 +34,8 @@ export default function HackletterPage() {
         />
         <p className="text-lg mt-4">
           Hi 👋. I'm{' '}
-          <Link href="/">
-            <a className="underline">Aravind Balla</a>
+          <Link className="underline" href="/">
+            Aravind Balla
           </Link>
           , a Web Developer working remotely from Hyderabad, India. I love JS and CSS 💛 and build
           stuff to solve my problems.

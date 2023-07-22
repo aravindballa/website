@@ -1,11 +1,9 @@
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import oceanicNext from 'prism-react-renderer/themes/oceanicNext';
 
-const CodeBlock = ({
-  children: {
-    props: { children, className = '' },
-  },
-}) => {
+const CodeBlock = (props) => {
+  const { children, className = '' } = props.children.props;
+
   const language = className.replace(/language-/, '');
   return (
     <Highlight

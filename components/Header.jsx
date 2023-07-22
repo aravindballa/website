@@ -22,17 +22,20 @@ export default function Header() {
   }, [darkMode.value]);
 
   const navLinks = [
-    <Link href="/writings">
-      <a className={headerLinksClasses}>Writings</a>
+    <Link className={headerLinksClasses} href="/writings">
+      Writings
     </Link>,
-    <Link href="/bookshelf">
-      <a className={headerLinksClasses}>Bookshelf</a>
+    <Link className={headerLinksClasses} href="/bookshelf">
+      Bookshelf
     </Link>,
-    <Link href="https://hackletter.email/">
-      <a className={headerLinksClasses}>Newsletter ↗</a>
+    <Link className={headerLinksClasses} href="https://hackletter.email/">
+      Newsletter ↗
     </Link>,
-    <Link href="https://learningcurve.dev/?utm_source=aravindballa.com">
-      <a className={headerLinksClasses}>Podcast ↗</a>
+    <Link
+      className={headerLinksClasses}
+      href="https://learningcurve.dev/?utm_source=aravindballa.com"
+    >
+      Podcast ↗
     </Link>,
   ];
 
@@ -41,10 +44,8 @@ export default function Header() {
       <header className="w-full py-4 px-8 text-lg text-headings fixed top-0 bg-background bg-opacity-70 backdrop-filter backdrop-blur z-10 border-b dark:border-gray-700 border-gray-200">
         <nav className="flex justify-between items-center max-w-5xl mx-auto">
           <div className="flex items-center flex-1">
-            <Link href="/">
-              <a className="block mr-8">
-                <Logo width={28} height={20.56} />
-              </a>
+            <Link className="block mr-8" href="/">
+              <Logo width={28} height={20.56} />
             </Link>
             <div className="hidden md:flex">
               {navLinks.map((navLink, i) => (
