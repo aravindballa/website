@@ -1,5 +1,5 @@
 import Rss from 'rss';
-import { allPosts } from 'contentlayer/generated';
+import { allPosts, allMemos } from 'contentlayer/generated';
 
 import seoConfig, { baseUrl } from '../../../seo.config.js';
 import { normalizeUrl } from 'lib/utils.js';
@@ -15,7 +15,7 @@ export async function GET(request: Request) {
     pubDate: new Date().toUTCString(),
   });
 
-  allPosts.forEach((post) => {
+  [...allPosts, ...allMemos].forEach((post) => {
     if ('published' in post && post.published === false) return;
 
     feed.item({

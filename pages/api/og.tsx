@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import { NextRequest } from 'next/server';
 
 export const config = {
-  runtime: 'experimental-edge',
+  runtime: 'edge',
 };
 
 const font = fetch(new URL('../../public/fonts/Poppins-Bold.ttf', import.meta.url)).then((res) =>
