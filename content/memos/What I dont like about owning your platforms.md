@@ -15,6 +15,8 @@ Building your own blogging platform, or building anything for that matter, is CO
 
 **Yes, in the JavaScript ecosystem, tech expires.**
 
+![death by deprecation sticker](https://ik.imagekit.io/aravindballa/website/death-by-deprication.jpeg?updatedAt=1690119338668)
+
 Maintaining your existing codebase and projects starts becoming a chore. I cannot value the time spent on just upgrading a framework version. The end-user doesn't see any change. Only you spend time re-writing modules in different way.
 
 If you are not on the latest versions of everything, it doesn't work. Slowly, companies like Vercel / Netlify stop supporting older versions. Which means, you have to be constantly be on the edge–learning whatever is being released.
