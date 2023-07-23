@@ -3,7 +3,7 @@ import { NextSeo } from 'next-seo';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { BookOpenIcon, BookmarkIcon } from '@heroicons/react/outline';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 
 import { baseUrl } from '../../seo.config';
 import Layout from '../../components/Layout';
@@ -12,6 +12,8 @@ import { getOGImageWithDimensions } from '../../lib/getOGImageUrl';
 import { slugify } from '../../lib/utils';
 import getReadwiseBooks from '../../lib/readwiseData';
 import BooksBunny from 'components/BooksBunny';
+
+const MotionLink = motion(Link);
 
 const bookWrapVariants = {
   visible: (i) => ({
@@ -24,9 +26,9 @@ const bookWrapVariants = {
   hidden: { x: -10, opacity: 0 },
 };
 
-const bookCoverVariants = {
+const bookCoverVariants: Variants = {
   initial: {
-    boxShadow: null,
+    boxShadow: '',
   },
   hover: {
     scale: 1.05,
@@ -67,53 +69,52 @@ export default function Bookshelf({ books }) {
               new Date(b.last_highlight_at).getTime() - new Date(a.last_highlight_at).getTime()
           )
           .map((book: ReadwiseBook, i: number) => (
-            <motion.div key={book.id}>
-              <motion.a
-                href={`/bookshelf/${slugify(book.title)}-${book.id}`}
-                role="button"
-                tabIndex={0}
-                className={`p-4 rounded-md border-2 border-gray-300 dark:border-gray-700`}
-                custom={i}
-                initial="hidden"
-                animate="visible"
-                variants={bookWrapVariants}
-                whileHover="hover"
-              >
-                <div className="flex">
+            <MotionLink
+              key={book.id}
+              href={`/bookshelf/${slugify(book.title)}-${book.id}`}
+              role="button"
+              tabIndex={0}
+              className={`p-4 rounded-md border-2 border-gray-300 dark:border-gray-700`}
+              custom={i}
+              initial="hidden"
+              animate="visible"
+              variants={bookWrapVariants}
+              whileHover="hover"
+            >
+              <div className="flex">
+                <motion.div
+                  className="md:-mt-8 flex rounded border-2 border-gray-500 relative w-[67px] h-[100px] mt-0 md:w-auto md:h-auto"
+                  variants={bookCoverVariants}
+                >
                   <motion.div
-                    className="md:-mt-8 flex rounded border-2 border-gray-500 relative w-[67px] h-[100px] mt-0 md:w-auto md:h-auto"
-                    variants={bookCoverVariants}
-                  >
-                    <motion.div
-                      className="hidden md:block bg-gray-500 rounded absolute w-[134px] h-[200px] top-2 left-[1px]"
-                      variants={bookBorderVariants}
-                    ></motion.div>
-                    <Image
-                      className=""
-                      quality={100}
-                      src={book.cover_image_url}
-                      width={132}
-                      height={200}
-                      alt={`Cover of the book ${book.title}`}
-                    />
-                  </motion.div>
-                  <div className="flex-1 ml-4">
-                    <h2 className="font-2xl font-bold">{book.title}</h2>
-                    <p className="font-lg">{book.author}</p>
-                    <div className="mt-2 text-gray-400 flex items-center">
-                      <BookOpenIcon className="w-5 h-5 mr-2 inline" />
-                      <p className="flex-1">
-                        Last read in {format(new Date(book.last_highlight_at), 'MMMM, yyyy')}
-                      </p>
-                    </div>
-                    <div className="text-gray-400 flex items-center">
-                      <BookmarkIcon className="w-5 h-5 mr-2 inline" />
-                      <p className="flex-1">{book.num_highlights} highlights</p>
-                    </div>
+                    className="hidden md:block bg-gray-500 rounded absolute w-[134px] h-[200px] top-2 left-[1px]"
+                    variants={bookBorderVariants}
+                  ></motion.div>
+                  <Image
+                    className=""
+                    quality={100}
+                    src={book.cover_image_url}
+                    width={132}
+                    height={200}
+                    alt={`Cover of the book ${book.title}`}
+                  />
+                </motion.div>
+                <div className="flex-1 ml-4">
+                  <h2 className="font-2xl font-bold">{book.title}</h2>
+                  <p className="font-lg">{book.author}</p>
+                  <div className="mt-2 text-gray-400 flex items-center">
+                    <BookOpenIcon className="w-5 h-5 mr-2 inline" />
+                    <p className="flex-1">
+                      Last read in {format(new Date(book.last_highlight_at), 'MMMM, yyyy')}
+                    </p>
+                  </div>
+                  <div className="text-gray-400 flex items-center">
+                    <BookmarkIcon className="w-5 h-5 mr-2 inline" />
+                    <p className="flex-1">{book.num_highlights} highlights</p>
                   </div>
                 </div>
-              </motion.a>
-            </motion.div>
+              </div>
+            </MotionLink>
           ))}
       </div>
       <div className=" max-w-5xl my-8 text-base bg-gray-100 dark:bg-gray-800 p-4 rounded text-gray-600 dark:text-gray-300">

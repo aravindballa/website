@@ -35,7 +35,7 @@ function WritingPage({ post }: { post: Post }) {
           article: {
             authors: ['Aravind Balla'],
             publishedTime: new Date(post.date).toISOString(),
-            tags: !!post.tags && post.tags.split(',').map((t) => t.trim()),
+            tags: !!post.tags ? post.tags.split(',').map((t) => t.trim()) : [],
           },
         }}
       />
@@ -43,13 +43,15 @@ function WritingPage({ post }: { post: Post }) {
         url={normalizeUrl(`${baseUrl}${post.slug}/`)}
         title={post.title}
         images={
-          post.banner && [
-            imageKitLoader({
-              src: `${post.slug.replace('/writings/', '')}-${post.banner}`,
-              width: '1000px',
-              quality: '100',
-            }),
-          ]
+          post.banner
+            ? [
+                imageKitLoader({
+                  src: `${post.slug.replace('/writings/', '')}-${post.banner}`,
+                  width: '1000px',
+                  quality: '100',
+                }),
+              ]
+            : []
         }
         datePublished={new Date(post.date).toISOString()}
         authorName="Aravind Balla"
@@ -83,7 +85,13 @@ function WritingPage({ post }: { post: Post }) {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const post: Post = allPosts.find((post) => post.slug === `/writings/${params.slug}`);
+  const post = allPosts.find((post) => post.slug === `/writings/${params.slug}`);
+
+  if (!post) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {

@@ -63,7 +63,13 @@ export default function HackletterPost({ letter }: { letter: Letter }) {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const letter: Letter = allLetters.find((post) => post.slug === `/hackletter/${params.slug}`);
+  const letter = allLetters.find((post) => post.slug === `/hackletter/${params.slug}`);
+
+  if (!letter) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
