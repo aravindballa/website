@@ -11,6 +11,7 @@ import components from '../../components/mdxComponents';
 import ImagekitImage, { imageKitLoader } from '../../components/ImagekitImage';
 import { normalizeUrl } from 'lib/utils';
 import Chip from 'components/Chip';
+import Link from 'next/link';
 
 function MemoPage({ memo }: { memo: Memo }) {
   const MDXContent = useMDXComponent(memo.body.code);
@@ -60,9 +61,12 @@ function MemoPage({ memo }: { memo: Memo }) {
         description={memo.description}
       />
 
+      <div className="mx-auto prose lg:prose-lg dark:prose-light">
+        <Link href="/writings?filter=memo">🗒️ All Memos</Link>
+      </div>
       <div className="md:mt-12 mx-auto prose lg:prose-lg dark:prose-light">
         <h1>{memo.title}</h1>
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center mb-12 text-gray-600 dark:text-gray-400">
           <span>{format(new Date(memo.date), 'do MMMM, yyyy')}</span>
           <span>&middot;</span>
           <Chip>Memo</Chip>
