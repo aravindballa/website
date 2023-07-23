@@ -1,4 +1,5 @@
 import { defineDocumentType, makeSource } from 'contentlayer/source-files';
+import slugify from 'slugify';
 
 const Post = defineDocumentType(() => ({
   name: 'Post',
@@ -49,6 +50,58 @@ const Post = defineDocumentType(() => ({
     slug: {
       type: 'string',
       resolve: (doc) => `/${doc._raw.flattenedPath}`,
+    },
+  },
+}));
+
+const Memo = defineDocumentType(() => ({
+  name: 'Memo',
+  filePathPattern: `**/*.(mdx|md)`,
+  contentType: 'mdx',
+  fields: {
+    title: {
+      type: 'string',
+      description: 'The title of the post',
+    },
+    date: {
+      type: 'date',
+      description: 'The date of the post',
+      required: true,
+    },
+    published: {
+      type: 'boolean',
+      description: 'Whether the post is published',
+    },
+    description: {
+      type: 'string',
+      description: 'The description of the post',
+      required: true,
+    },
+    tags: {
+      type: 'string',
+      description: 'The tags of the post',
+    },
+    banner: {
+      type: 'string',
+      description: 'The banner of the post',
+    },
+    bannercaption: {
+      type: 'string',
+      description: 'The caption of the post banner',
+    },
+    bannerFullWidth: {
+      type: 'boolean',
+      description: 'Whether the banner should be full width',
+    },
+  },
+  computedFields: {
+    slug: {
+      type: 'string',
+      resolve: (doc) =>
+        `/memos/${slugify(doc._raw.sourceFileName.replace(/\.(md|mdx)$/, ''), {
+          remove: new RegExp(`('|")`),
+          lower: true,
+        })}`,
     },
   },
 }));
@@ -131,5 +184,5 @@ const BookNote = defineDocumentType(() => ({
 export default makeSource({
   contentDirPath: 'content',
   contentDirExclude: ['.obsidian/**'],
-  documentTypes: [Post, Letter, BookNote, Talk],
+  documentTypes: [Post, Letter, BookNote, Talk, Memo],
 });

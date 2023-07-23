@@ -1,13 +1,25 @@
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
-import { allPosts, Post } from 'contentlayer/generated';
+import { allPosts, allMemos, Post, Memo } from 'contentlayer/generated';
+import { isToday, formatDistanceToNow } from 'date-fns';
+import { useSearchParams } from 'next/navigation';
 
 import Layout from '../../components/Layout';
 import ImagekitImage from '../../components/ImagekitImage';
 import { getOGImageWithDimensions } from '../../lib/getOGImageUrl';
 import { baseUrl } from '../../seo.config';
+import Chip from 'components/Chip';
 
-export default function WritingsPage({ allPosts }: { allPosts: Post[] }) {
+export default function WritingsPage({ allPosts }: { allPosts: (Post | Memo)[] }) {
+  const params = useSearchParams();
+  const filter = params?.get('filter') || 'blog';
+
+  const postsToShow = allPosts.filter((post) => {
+    if (filter === 'all') return true;
+    if (filter === 'memo') return post.type === 'Memo';
+    if (filter === 'blog') return post.type === 'Post';
+  });
+
   return (
     <Layout>
       <NextSeo
@@ -20,9 +32,31 @@ export default function WritingsPage({ allPosts }: { allPosts: Post[] }) {
         }}
       />
       <div className="md:mt-12">
-        <h1 className="text-5xl mb-12 font-bold text-headings">Writings</h1>
+        <div className="mb-12 flex flex-col md:flex-row gap-8 items-center justify-between">
+          <h1 className="text-5xl font-bold text-headings">Writings</h1>
+          <div className="flex gap-4">
+            <Link
+              className={filter === 'all' ? 'text-headings underline' : 'hover:text-headings'}
+              href="/writings?filter=all"
+            >
+              All
+            </Link>
+            <Link
+              className={filter === 'blog' ? 'text-headings underline' : 'hover:text-headings'}
+              href="/writings"
+            >
+              Blog posts
+            </Link>
+            <Link
+              className={filter === 'memo' ? 'text-headings underline' : 'hover:text-headings'}
+              href="/writings?filter=memo"
+            >
+              Memos
+            </Link>
+          </div>
+        </div>
         <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-2 gap-x-12 gap-y-16 max-w-6xl mx-auto">
-          {allPosts.map((post) => {
+          {postsToShow.map((post) => {
             return (
               <div
                 className={`${
@@ -50,6 +84,17 @@ export default function WritingsPage({ allPosts }: { allPosts: Post[] }) {
                     {post.title}
                   </Link>
                 </h3>
+                {post.type === 'Memo' && (
+                  <div className="flex gap-2 items-center mt-2">
+                    <span>
+                      {isToday(new Date(post.date))
+                        ? 'Today'
+                        : formatDistanceToNow(new Date(post.date), { addSuffix: true })}
+                    </span>
+                    <span>&middot;</span>
+                    <Chip>Memo</Chip>
+                  </div>
+                )}
                 <p
                   className="text-lg mt-4 block max-w-full break-all group-hover:text-headings"
                   dangerouslySetInnerHTML={{ __html: post.body.raw.slice(0, 150) + '...' }}
@@ -64,9 +109,10 @@ export default function WritingsPage({ allPosts }: { allPosts: Post[] }) {
 }
 
 export const getStaticProps = async () => {
+  const allItems = [...allMemos, ...allPosts];
   return {
     props: {
-      allPosts: allPosts
+      allPosts: allItems
         .filter((post) => ('published' in post ? post.published : true))
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
     },
