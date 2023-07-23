@@ -55,7 +55,10 @@ export default function WritingsPage({ allPosts }: { allPosts: (Post | Memo)[] }
             </Link>
           </div>
         </div>
-        <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-2 gap-x-12 gap-y-16 max-w-6xl mx-auto">
+        {filter === 'memo' && (
+          <p className="text-lg">🗒️ These memos are a collection of short almost-daily rambles</p>
+        )}
+        <div className="mt-8 grid grid-cols-1 grid-rows-2 md:grid-cols-2 gap-x-12 gap-y-16 max-w-6xl mx-auto">
           {postsToShow.map((post) => {
             return (
               <div

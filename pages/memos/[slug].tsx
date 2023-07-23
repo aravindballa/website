@@ -72,7 +72,7 @@ function MemoPage({ memo }: { memo: Memo }) {
           <Chip>Memo</Chip>
         </div>
         {/* {post.banner && (
-          <div className="relative w-full h-auto rounded-md" style={{ aspectRatio: '16/9' }}>
+          <div className="relative w-full h-auto rounded-md overflow-hidden" style={{ aspectRatio: '16/9' }}>
             <ImagekitImage
               src={`${post.slug.replace('/memos/', '')}-${post.banner}`}
               className="rounded-md object-cover"

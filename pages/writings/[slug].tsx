@@ -61,7 +61,10 @@ function WritingPage({ post }: { post: Post }) {
       <div className="md:mt-12 mx-auto prose lg:prose-lg dark:prose-light">
         <h1>{post.title}</h1>
         {post.banner && (
-          <div className="relative w-full h-auto rounded-md" style={{ aspectRatio: '16/9' }}>
+          <div
+            className="relative w-full h-auto rounded-md overflow-hidden"
+            style={{ aspectRatio: '16/9' }}
+          >
             <ImagekitImage
               src={`${post.slug.replace('/writings/', '')}-${post.banner}`}
               className="rounded-md object-cover"
