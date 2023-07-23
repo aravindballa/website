@@ -14,7 +14,7 @@ const font = fetch(new URL('../../public/fonts/Poppins-Bold.ttf', import.meta.ur
 
 export default async function (req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const slug = searchParams.get('slug');
+  const slug = searchParams.get('slug') || '';
   const post = allPosts.find((post) => post.slug === slug);
 
   const fontData = await font;
