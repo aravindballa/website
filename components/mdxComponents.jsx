@@ -1,16 +1,17 @@
 import GrayBlock from './GrayBlock';
 import CodeBlock from './CodeBlock';
-import { imageKitLoader } from './ImagekitImage';
+import { IMAGEKIT_ENDPOINT, imageKitLoader } from './ImagekitImage';
 
 const components = (slug) => ({
   pre: CodeBlock,
   img: ({ src, alt }) => {
+    let imageUrl = src.startsWith('/') ? `${slug.replace('/writings/', '')}-${src}` : src;
+    if (src.startsWith('https://ik.imagekit.io')) {
+      imageUrl = src.replace(IMAGEKIT_ENDPOINT, '').replace(/\?.*?$/, '');
+    }
+
     return (
-      <img
-        className="rounded"
-        alt={alt}
-        src={imageKitLoader({ src: `${slug.replace('/writings/', '')}-${src}`, width: '1460px' })}
-      />
+      <img className="rounded" alt={alt} src={imageKitLoader({ src: imageUrl, width: '1460px' })} />
     );
     // TODO doesn't work well
     // return (

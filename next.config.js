@@ -53,6 +53,7 @@ module.exports = withContentlayer({
       {
         source: '/memos',
         destination: '/writings?filter=memo',
+        permanent: true,
       },
     ];
   },
