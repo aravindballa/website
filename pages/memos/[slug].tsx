@@ -90,27 +90,24 @@ function MemoPage({ memo, backlinks }: { memo: Memo; backlinks: ReturnType<typeo
         )} */}
         <MDXContent components={components(memo.slug)} />
         {backlinks.length > 0 && (
-          <>
-            <hr />
-            <h3>Referred in</h3>
-            <div>
+          <div className="bg-foreground bg-opacity-10 rounded-md p-4">
+            <div className="font-bold text-headings text-2xl">Referred in</div>
+            <div className="">
               {backlinks.map((link) => (
-                <Link
-                  className="flex flex-col no-underline bg-foreground bg-opacity-10 rounded-md p-4 hover:bg-opacity-20"
-                  key={link.slug}
-                  href={link.slug}
-                >
+                <Link className="mt-4 flex flex-col no-underline" key={link.slug} href={link.slug}>
                   <div className="">
-                    <span className="font-bold text-headings text-xl">{link.title}</span>
+                    <span className="font-bold text-foreground hover:text-headings text-lg">
+                      {link.title}
+                    </span>
                   </div>
-                  <div className="mt-2">
+                  <div className="text-base mt-2 text-foreground">
                     <span dangerouslySetInnerHTML={{ __html: link.excerpt || '' }} />
                     ...
                   </div>
                 </Link>
               ))}
             </div>
-          </>
+          </div>
         )}
       </div>
       <Bio />
@@ -130,7 +127,10 @@ export const getStaticProps = async ({ params }) => {
     };
   }
 
-  const backlinks = getBacklinks(memo.title || memo.slug);
+  const backlinks = getBacklinks(
+    memo.title || memo.slug,
+    memo._raw.sourceFileName.replace(/\.(md|mdx)$/, '')
+  );
 
   return {
     props: {

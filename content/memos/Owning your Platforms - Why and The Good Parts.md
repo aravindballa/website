@@ -15,7 +15,7 @@ This website is exactly. To be honest, I wasn't even an average developer before
 
 What I like the most - **customisability**.
 
-If I want a feature, I can spend some time writing code and add that gets added. Not always true (see [[What I dont like about owning your platforms]])
+If I want a feature, I can spend some time writing code and add that gets added. Not always true (See: [[What I dont like about owning your platforms]]).
 
 For example, yesterday I was thinking it would be nice to show the time it takes to read for these memos. Today we have it!
 

@@ -27,4 +27,4 @@ I planned to write daily starting yesterday, but these upgrading and getting up 
 
 But why don't I switch to something like that then?
 
-I wrote about it in [[Owning your platforms - the good parts]].
+I wrote about it in [[Owning your Platforms - Why and The Good Parts]].
