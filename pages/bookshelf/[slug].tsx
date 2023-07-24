@@ -81,7 +81,9 @@ export const getStaticProps = async ({ params }) => {
   const highlights = await highlightsResponse.json();
 
   const books = await getReadwiseBooks();
-  const book = books.results.find((book: ReadwiseBook) => `${book.id}` === bookId);
+  const book = books.results
+    .filter((post) => ('published' in post ? post.published : true))
+    .find((book: ReadwiseBook) => `${book.id}` === bookId);
 
   const bookNote =
     allBookNotes.find((bookNote) => bookNote.slug === `/bookshelf/${slugify(book.title)}`) || null;
