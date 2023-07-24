@@ -1,5 +1,14 @@
 import { defineDocumentType, makeSource } from 'contentlayer/source-files';
 import slugify from 'slugify';
+import readingTime from 'reading-time';
+import rehypeSlug from 'rehype-slug';
+import { remarkWikiLink } from '@portaljs/remark-wiki-link';
+
+const slugifyMemo = (name: string) =>
+  slugify(name.replace(/\.(md|mdx)$/, ''), {
+    remove: new RegExp(`('|")`),
+    lower: true,
+  });
 
 const Post = defineDocumentType(() => ({
   name: 'Post',
@@ -95,13 +104,13 @@ const Memo = defineDocumentType(() => ({
     },
   },
   computedFields: {
+    readingTime: {
+      type: 'json',
+      resolve: (doc) => readingTime(doc.body.raw),
+    },
     slug: {
       type: 'string',
-      resolve: (doc) =>
-        `/memos/${slugify(doc._raw.sourceFileName.replace(/\.(md|mdx)$/, ''), {
-          remove: new RegExp(`('|")`),
-          lower: true,
-        })}`,
+      resolve: (doc) => `/memos/${slugifyMemo(doc._raw.sourceFileName)}`,
     },
   },
 }));
@@ -185,4 +194,18 @@ export default makeSource({
   contentDirPath: 'content',
   contentDirExclude: ['.obsidian/**'],
   documentTypes: [Post, Letter, BookNote, Talk, Memo],
+  mdx: {
+    rehypePlugins: [rehypeSlug],
+    remarkPlugins: [
+      [
+        remarkWikiLink,
+        {
+          // permalinks,
+          wikiLinkResolver: (name) => {
+            return [`/memos/${slugifyMemo(name)}`];
+          },
+        },
+      ],
+    ],
+  },
 });

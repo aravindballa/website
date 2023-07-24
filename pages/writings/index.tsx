@@ -96,6 +96,8 @@ export default function WritingsPage({ allPosts }: { allPosts: (Post | Memo)[] }
                     </span>
                     <span>&middot;</span>
                     <Chip>Memo</Chip>
+                    <span>&middot;</span>
+                    <span>{post.readingTime.text}</span>
                   </div>
                 )}
                 <p

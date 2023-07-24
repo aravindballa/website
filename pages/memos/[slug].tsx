@@ -12,8 +12,9 @@ import ImagekitImage, { imageKitLoader } from '../../components/ImagekitImage';
 import { normalizeUrl } from 'lib/utils';
 import Chip from 'components/Chip';
 import Link from 'next/link';
+import { getBacklinks } from 'lib/backlinks';
 
-function MemoPage({ memo }: { memo: Memo }) {
+function MemoPage({ memo, backlinks }: { memo: Memo; backlinks: ReturnType<typeof getBacklinks> }) {
   const MDXContent = useMDXComponent(memo.body.code);
 
   return (
@@ -70,6 +71,8 @@ function MemoPage({ memo }: { memo: Memo }) {
           <span>{format(new Date(memo.date), 'do MMMM, yyyy')}</span>
           <span>&middot;</span>
           <Chip>Memo</Chip>
+          <span>&middot;</span>
+          <span>{memo.readingTime.text}</span>
         </div>
         {/* {post.banner && (
           <div className="relative w-full h-auto rounded-md overflow-hidden" style={{ aspectRatio: '16/9' }}>
@@ -86,6 +89,29 @@ function MemoPage({ memo }: { memo: Memo }) {
           <div className="mt-1 text-base italic opacity-60 text-center">{post.bannercaption}</div>
         )} */}
         <MDXContent components={components(memo.slug)} />
+        {backlinks.length > 0 && (
+          <>
+            <hr />
+            <h3>Referred in</h3>
+            <div>
+              {backlinks.map((link) => (
+                <Link
+                  className="flex flex-col no-underline bg-foreground bg-opacity-10 rounded-md p-4 hover:bg-opacity-20"
+                  key={link.slug}
+                  href={link.slug}
+                >
+                  <div className="">
+                    <span className="font-bold text-headings text-xl">{link.title}</span>
+                  </div>
+                  <div className="mt-2">
+                    <span dangerouslySetInnerHTML={{ __html: link.excerpt || '' }} />
+                    ...
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </>
+        )}
       </div>
       <Bio />
       <div className="md:mt-12 mx-auto prose lg:prose-lg dark:prose-light">
@@ -104,9 +130,12 @@ export const getStaticProps = async ({ params }) => {
     };
   }
 
+  const backlinks = getBacklinks(memo.title || memo.slug);
+
   return {
     props: {
       memo,
+      backlinks,
     },
   };
 };

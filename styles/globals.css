@@ -63,4 +63,8 @@
   .prose a {
     @apply break-all;
   }
+
+  .prose .highlight {
+    @apply bg-yellow-400 bg-opacity-30 px-1 rounded;
+  }
 }
