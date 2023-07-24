@@ -5,7 +5,7 @@ type: 'Memo'
 description: 'If I am being honest, building your own platforms for blogging is a pain in the wrong place'
 ---
 
-If I'm being honest, building your own platforms for blogging is a pain in the wrong place.
+If I'm being honest, building your own platform for blogging is pain in the wrong place.
 
 I wouldn't want to spend my Saturday afternoon, sitting at the computer, figuring out why my blog is not getting updated, what's wrong with an older NodeJS version, why should I use all the latest versions of the frameworks - the list goes on. Argh!
 

@@ -7,11 +7,11 @@ description: 'Things I enjoy about building a platform (blog in this case)'
 
 Platforms is a fairly wide term. I will stick to the example of my website in this post.
 
-My beef with taking your content and putting it on platforms controlled by huge companies is that the content becomes theirs and not yours. They can run ads in between your blog posts, put a paywall against your readers, or sometimes the platform gets [shut down](https://killedby.tech). You can say they give you a share in their revenue, but how much are they profitting from your content? You literally have no control in your hands.
+My beef with taking your content and putting it on platforms controlled by huge companies is that the content becomes theirs and not yours. They own it. They can run ads in between your blog posts, put a paywall against your readers, or sometimes the platform gets [shut down](https://killedby.tech). You can say they give you a share in their revenue, but, how much are they profitting from your content? You literally have no control in your hands.
 
-That's why I like to build my solutions, tailored to my needs.
+That's why I like to build my own solutions, tailored to my needs.
 
-This website is exactly. To be honest, I wasn't even an average developer before building this site. I learnt ReactJS with a goal of building this site. What you are looking at is 6 years [in](https://github.com/aravindballa/website/commit/e05587df5d1b2b71b9141b970ef78063bb7b79fb) [the](https://github.com/aravindballa/website2017/commit/0f02adb6c22bf79299f533a2a05fc2d414778c7e) making.
+This website is exactly that. To be honest, I wasn't even an average developer before building this site. I learnt ReactJS with a goal of building this site. What you are looking at is 6 years [in](https://github.com/aravindballa/website/commit/e05587df5d1b2b71b9141b970ef78063bb7b79fb) [the](https://github.com/aravindballa/website2017/commit/0f02adb6c22bf79299f533a2a05fc2d414778c7e) making.
 
 What I like the most - **customisability**.
 
