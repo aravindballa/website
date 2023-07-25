@@ -5,13 +5,13 @@ type: 'Memo'
 description: 'The real reason for writing these memos'
 ---
 
-When I started, 2 days ago, I didn't know what the actual goal with them is.
+When I started, 2 days ago, I didn't know what the actual goal with them is. I generally have my **why** figured out before even I start something. Like the case with [podcast](https://aravindballa.com/writings/starting-podcast/) or my [side-project](https://aravindballa.com/writings/conversation-on-why-stackblocks/).
 
-I just did it because my friends [Sreekar](https://sreekarscribbles.com) and [Vidya](https://personal.vidya.so) were doing it. And they would make wonderful accountability partner.
+I just did it because my friends [Sreekar](https://sreekarscribbles.com) and [Vidya](https://personal.vidya.so) were doing it. And they would make wonderful accountability partners.
 
-Although, this wasn't the sole reason. There were times in the past that I had thoughts of publishing daily. My friends doing it gave me the right push.
+Although, this wasn't the sole reason. There were times in the past when I had thoughts of publishing daily. My friends doing it gave me the right push.
 
-Main goal with this is to build that publishing muscle. We consume a cot of info but fail to produce or put out our thoughts. We don't express as much.
+Main goal with this is to build that publishing muscle. We consume a lot of info but fail to produce or put out our thoughts. We don't express as much.
 
 This is an outlet, a way to express.
 
