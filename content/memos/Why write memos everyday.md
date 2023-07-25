@@ -1,9 +1,24 @@
 ---
 title: Why write memos everyday
-date: '2023-07-24'
+date: '2023-07-25'
 type: 'Memo'
-description: ''
-published: false
+description: 'The real reason for writing these memos'
 ---
 
-I dont know what the actual goal with them is. This can make a good post/memo. I think it is to build that publishing muscle. we consume a cot ofinto but fail to or donit put out our thoughts ora to the people. This is an outlet, a way to exprers. Tiago also talus about CODE framewon where. E referg to express inthe last step. What he really means s blog posts, yt videos and the tarets. But I gues this also posses the bar.
+When I started, 2 days ago, I didn't know what the actual goal with them is.
+
+I just did it because my friends [Sreekar](https://sreekarscribbles.com) and [Vidya](https://personal.vidya.so) were doing it. And they would make wonderful accountability partner.
+
+Although, this wasn't the sole reason. There were times in the past that I had thoughts of publishing daily. My friends doing it gave me the right push.
+
+Main goal with this is to build that publishing muscle. We consume a cot of info but fail to produce or put out our thoughts. We don't express as much.
+
+This is an outlet, a way to express.
+
+The last step in Tiago's CODE framework (from Building a Second Brain book) is E for Express.
+
+I don't want to gain a huge popularity or following by doing this. I just want to attract the right kind of minds that spark with the ideas I put out and be sparked my the conversations that could take place.
+
+Writing and publishing daily would mean an opportunity everyday to do that.
+
+I'm just [increasing my surface area for luck](https://buttondown.email/aravindballa/archive/increasing-your-luck/).
