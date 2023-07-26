@@ -2,7 +2,7 @@
 title: I asked Speakers what makes a good Tech Talk
 date: '2023-07-26'
 type: 'Memo'
-description: 'I was at tech conference where I got to meet amazing people...'
+description: 'I was at tech conference where I got to meet amazing people'
 ---
 
 I was at React Nexus, a tech conference, recently which took place at Bengaluru in the first week of this month.
@@ -35,7 +35,7 @@ That was the main crux of his advice.
 
 He actually recorded a YouTube video during his dry run and thats a wonderful video if you want to look at a good talk being delivered.
 
-https://www.youtube.com/watch?v=F83wMYl9GWM
+[YouTube - Write React Server Components from Scratch](https://www.youtube.com/watch?v=F83wMYl9GWM)
 
 ---
 
