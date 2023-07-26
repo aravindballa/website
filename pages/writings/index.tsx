@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import { allPosts, allMemos, Post, Memo } from 'contentlayer/generated';
-import { isToday, formatDistanceToNow } from 'date-fns';
+import { isToday, formatDistanceStrict, subDays } from 'date-fns';
 import { useSearchParams } from 'next/navigation';
 
 import Layout from '../../components/Layout';
@@ -92,7 +92,10 @@ export default function WritingsPage({ allPosts }: { allPosts: (Post | Memo)[] }
                     <span>
                       {isToday(new Date(post.date))
                         ? 'Today'
-                        : formatDistanceToNow(new Date(post.date), { addSuffix: true })}
+                        : formatDistanceStrict(new Date(post.date), subDays(new Date(), 1), {
+                            addSuffix: true,
+                            unit: 'day',
+                          })}
                     </span>
                     <span>&middot;</span>
                     <Chip>Memo</Chip>
