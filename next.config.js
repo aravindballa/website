@@ -48,4 +48,13 @@ module.exports = withContentlayer({
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: '/memos',
+        destination: '/writings?filter=memo',
+        permanent: false,
+      },
+    ];
+  },
 });

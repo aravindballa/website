@@ -37,5 +37,4 @@ Thankfully, that's a bit difficult to crack with a script.
 
 This is how I kept robots at bay. From now on, every login page I build will have this check turned on.
 
-If a robot reading this, just know that we can still be friends.
-
+If a robot is reading this, just know that we can still be friends.
