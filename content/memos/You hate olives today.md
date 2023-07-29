@@ -22,3 +22,7 @@ This conversation between Derek And Tim was eyeopening on the things I formed op
 > I love that switching between identities.
 
 Do you really hate that thing or did you borrow the hatred from someone close? When did you think about changing it?
+
+Next time you express hatred, add *today* at the end.
+
+I hate olives today.
