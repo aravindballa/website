@@ -9,7 +9,7 @@ When you become rigid about the things you love and hate, it becomes hard to cha
 
 This conversation between Derek And Tim was eyeopening on the things I formed opinions on and was strict about not changing.
 
-> **Derek Sivers: **Well, there's a tiny idea around the identity, which is to just admit that whatever you are is now and whatever your preference is now.
+> **Derek Sivers:** Well, there's a tiny idea around the identity, which is to just admit that whatever you are is now and whatever your preference is now.
 > 
 > So when my kid says "I hate tomatoes," I say "today." And he goes, "Oh, right, I hate tomatoes today!"
 >
@@ -20,6 +20,8 @@ This conversation between Derek And Tim was eyeopening on the things I formed op
 > He ate it and loved it! And he goes, "I like olives now." I was like, "Yes."
 >
 > I love that switching between identities.
+
+Source: [YouTube - Derek Sivers — The Joys of an Un-Optimized Life…](https://youtu.be/0BaDQCjqUHU)
 
 Do you really hate that thing or did you borrow the hatred from someone close? When did you think about changing it?
 
