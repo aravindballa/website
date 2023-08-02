@@ -13,7 +13,7 @@ Why? Because the rewards stop coming in.
 
 This conversation, between Derek and Tim, reminded me of that.
 
-https://youtube.com/shorts/Lt-tkioOkpY
+[https://youtube.com/shorts/Lt-tkioOkpY](https://youtube.com/shorts/Lt-tkioOkpY)
 
 As I grew up, I forgot how to play.
 
