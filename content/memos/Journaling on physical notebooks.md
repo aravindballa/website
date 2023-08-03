@@ -25,7 +25,7 @@ The advantage in those previous setups, while writing digitally on the apps, was
 
 But guess what–I **hardly searched** old entries.
 
-Anyhow, the thoughts that come while journaling are **fleeting** anyways. They aren't of any value e most of the times. And when they are, I can easily ily transfer/copy them to my PKM (Personal Knowledge Management) apps.
+Anyhow, the thoughts that come while journaling are **fleeting** anyways. They aren't of any value e most of the times. And when they are, I can easily transfer/copy them to my PKM (Personal Knowledge Management) apps.
 
 ---
 
@@ -35,7 +35,7 @@ I like to fit in tech where ever possible. The problem I wanted to solve here wa
 
 But yeah, I have to take pictures of it after writing my journal do this processing manually everyday.
 
-Along with this - the s text is then analysed by ChatGPT which summarizes, find actionable items from my journal.
+Along with this - the text is then analysed by ChatGPT which summarizes, find actionable items from my journal.
 
 It was nice and fun for a few days but that quickly added up friction and I stopped doing it.
 

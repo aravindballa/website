@@ -17,4 +17,4 @@ This conversation, between Derek and Tim, reminded me of that.
 
 As I grew up, I forgot how to play.
 
-What games you have been playing that you have won already and not getting rewards anymore?
+What games have you been playing that you won already and not getting rewards anymore?
