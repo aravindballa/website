@@ -17,7 +17,7 @@ Came across the below excerpt from Will Smith in his book "Will". I was listenin
 > 
 > Peoples advice is based on their fears, their experiences, their prejudices. And at the end of the day, their advice is just that–it's theirs. Not yours.
 > 
-> When poeple give advice, they are basing it on what they would do, what they can perceive, and what they think you can do.
+> When people give advice, they are basing it on what they would do, what they can perceive, and what they think you can do.
 > 
 > But the bottom line is, ... , you are the first time you have ever happened. **YOU and NOW are a unique occurrence** of which you are the most reliable measure of all the possibilities.
 
