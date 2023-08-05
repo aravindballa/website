@@ -7,7 +7,7 @@ description: '... is a double edged sword.'
 
 We all look for advice from friends and family. We fear we might take a wrong step. And we want the confidence that we are on the right path. Even if it's not, we just want validation.
 
-Came across the below excerpt from Will Smith in his book "Will". I was listening to the audiobook in the gym today, and I had to stop my workout and not this down.
+Came across the below excerpt from Will Smith in his book "Will". I was listening to the audiobook in the gym today, and I had to stop my workout and note this down.
 
 *By the way, I highly recommend the audiobook version, its narrated by Will himself and he sings and raps in between the lines. It's a fun listen.*
 
