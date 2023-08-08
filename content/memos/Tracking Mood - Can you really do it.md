@@ -1,9 +1,8 @@
 ---
 title: Tracking Mood - Can you really do it
-date: '2023-08-06'
+date: '2023-08-08'
 type: 'Memo'
-description: ''
-published: false
+description: 'What gets measured, gets improved'
 ---
 
 **What gets measured, gets improved**.
@@ -18,13 +17,13 @@ I realised I didn't need extreme tracking mechanisms–just the overall mood for
 
 I tracked the last 7 days.
 
-- [ ] photo
+![phone with 7 days tracking](https://ik.imagekit.io/aravindballa/website/tracking-8days.jpg?updatedAt=1691509596984)
 
 I'm using the same [app](https://daylio.net/) that Matt uses. I like the ability to write a summary of the day. Initially did it on Apple Health app (you can log mood from iOS 17 which is currently in beta) but this didn't have a place to write summary. (Might change in the future)
 
 How its affecting me - I'm more conscious of how my day is. Instead of just experiencing the day as it is, I am putting efforts to make it better.
 
-- [ ] photo
+![](https://ik.imagekit.io/aravindballa/website/mood-journal.jpg?updatedAt=1691509214294)
 
 When I keep up with this habit and add more days, I will have few insights. For example, [Vidya](https://twitter.com/learnwithvidya/status/1619964161919946754) found out she is least productive / energetic on Tuesdays.
 
