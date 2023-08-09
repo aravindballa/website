@@ -21,11 +21,11 @@ Make an agenda. Write it down in your TODO app, or notebook, or stick a PostIt o
 
 ## At the cafe
 
-Pomodoro schedule–25 min of focused work followed by 5-10 min break helps you get some work done.
+Pomodoro schedule–25 min of focused work followed by 5-10 min break helps you get work done.
 
-If you are with a bunch of friends, make sure you all are on the same page and all of you are going there to get some work done. Or chill. Just know what you are planing to do.
+If you are with a bunch of friends, make sure you all are on the same page and want to get some work done. Or chill. Just know what you are planing to do.
 
-Focusing in scheduled time blocks requires practice. It will be tough in the beginning. You will start building the skill slowly to get into the work zone whenever you decide to.
+Focusing in scheduled time blocks requires practice. It will be tough in the beginning. You will slowly start building the skill to get into the work-zone whenever you decide to.
 
 This is something you can take home. Focusing is an essential skill for knowledge workers like us. Multi tasking is a myth. You are try to context switch very fast.
 
