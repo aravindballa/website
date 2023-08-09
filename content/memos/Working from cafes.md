@@ -1,6 +1,6 @@
 ---
 title: Working from cafes
-date: '2023-08-03'
+date: '2023-08-09'
 type: 'Memo'
 description: 'Working from anywhere is a skill that can be built'
 ---
@@ -11,12 +11,24 @@ Ability get stuff done while roaming around is a skill which can be built. I've 
 
 I feel the main thing we miss when we are not at a designated place to work, be it a room at your home or your office, is a structure. Getting into the zone gets difficult.
 
-*🚧 This post is still a work in progress. It's late in the night and I don't want to compromise on sleep for this article. I will finish this soon.*
+## Before visiting the cafe
 
-- Make an agenda before you go to the cafe
-- Follow Pomodoro schedule to work in time blocks
-- If you are with a bunch of friends, make sure you all are on the same page and all of you are going there to get some work done
-- Focusing in scheduled time requires practice. It will be tough in the beginning
-- Work only in the scheduled pomodoro blocks. Giving yourself less time for a task makes sure you are focused and not distracted.
-- Enjoy good food.
-- Enjoy your time with friends - this keeps you recharged for a few days.
+Whether you are in a new city or in your hometown, doing a good prep before going to the cafe matters a lot.
+
+**What would you like to get done?**
+
+Make an agenda. Write it down in your TODO app, or notebook, or stick a PostIt on your laptop. Just this one trick will let you be on track. When you strike things off, it will make you feel good for the progress you are making.
+
+## At the cafe
+
+Pomodoro schedule–25 min of focused work followed by 5-10 min break helps you get some work done.
+
+If you are with a bunch of friends, make sure you all are on the same page and all of you are going there to get some work done. Or chill. Just know what you are planing to do.
+
+Focusing in scheduled time blocks requires practice. It will be tough in the beginning. You will start building the skill slowly to get into the work zone whenever you decide to.
+
+This is something you can take home. Focusing is an essential skill for knowledge workers like us. Multi tasking is a myth. You are try to context switch very fast.
+
+Finally, I don't have to really say this, but let me say it anyways–enjoy some coffee and food. And your time with friends. This keeps you recharged / energized for the upcoming days.
+
+Enjoy.
