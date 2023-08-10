@@ -5,7 +5,7 @@ type: 'Memo'
 description: 'Working from anywhere is a skill that can be built'
 ---
 
-A friend recently asked me how I get work done when I roam around, hopping in cafes. I jotting down my experiences here.
+A friend recently asked me how I get work done when I roam around, hopping in cafes. I'm jotting down my experiences here.
 
 Ability get stuff done while roaming around is a skill which can be built. I've been practising this for almost 4 years.
 
