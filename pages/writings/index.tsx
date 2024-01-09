@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import { allPosts, allMemos, Post, Memo } from 'contentlayer/generated';
-import { isToday, formatDistanceStrict, subDays } from 'date-fns';
+import { isToday, formatRelative } from 'date-fns';
+import { enIN } from 'date-fns/locale';
 import { useSearchParams } from 'next/navigation';
 
 import Layout from '../../components/Layout';
@@ -12,7 +13,7 @@ import Chip from 'components/Chip';
 
 export default function WritingsPage({ allPosts }: { allPosts: (Post | Memo)[] }) {
   const params = useSearchParams();
-  const filter = params?.get('filter') || 'blog';
+  const filter = params?.get('filter') || 'all';
 
   const postsToShow = allPosts.filter((post) => {
     if (filter === 'all') return true;
@@ -43,7 +44,7 @@ export default function WritingsPage({ allPosts }: { allPosts: (Post | Memo)[] }
             </Link>
             <Link
               className={filter === 'blog' ? 'text-headings underline' : 'hover:text-headings'}
-              href="/writings"
+              href="/writings?filter=blog"
             >
               Blog posts
             </Link>
@@ -92,10 +93,11 @@ export default function WritingsPage({ allPosts }: { allPosts: (Post | Memo)[] }
                     <span>
                       {isToday(new Date(post.date))
                         ? 'Today'
-                        : formatDistanceStrict(new Date(post.date), subDays(new Date(), 1), {
-                            addSuffix: true,
-                            unit: 'day',
-                          })}
+                        : formatRelative(new Date(post.date), new Date(), { locale: enIN })
+                            .replace(/at .*/, '')
+                            // capitalize first letter
+                            .replace(/^\w/, (c) => c.toUpperCase())
+                            .trim()}
                     </span>
                     <span>&middot;</span>
                     <Chip>Memo</Chip>

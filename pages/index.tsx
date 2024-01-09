@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { allPosts, Post } from 'contentlayer/generated';
+import { allMemos, allPosts, Post } from 'contentlayer/generated';
 
 import Layout from '../components/Layout';
 import ImagekitImage from '../components/ImagekitImage';
@@ -118,9 +118,10 @@ export default function Home({ allPosts }: { allPosts: Post[] }) {
 }
 
 export const getStaticProps = async () => {
+  const allItems = [...allMemos, ...allPosts];
   return {
     props: {
-      allPosts: allPosts
+      allPosts: allItems
         .filter((post) => ('published' in post ? post.published : true))
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
         .slice(0, 3),
