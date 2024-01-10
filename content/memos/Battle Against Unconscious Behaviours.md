@@ -9,7 +9,7 @@ I've tried to get rid of unconscious behaviours like opening Instagram automatic
 
 I used to do this a lot. When hit enter and the code is compiling, I pull up the phone. When waiting in a line, I pull up the phone. Opening Insta was an un-mindful act.
 
-Its no more fun, mainly because [[Infinite feeds are robbing the joy of your life]].
+Its no more fun, mainly because \[\[Infinite feeds are robbing the joy of your life\]\].
 
 What worked in the past was uninstalling it completely. But its extremes.
 
