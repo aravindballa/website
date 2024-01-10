@@ -21,7 +21,7 @@ I tracked the last 7 days.
 
 I'm using the same [app](https://daylio.net/) that Matt uses. I like the ability to write a summary of the day. Initially did it on Apple Health app (you can log mood from iOS 17 which is currently in beta) but this didn't have a place to write summary. (Might change in the future)
 
-UPDATE: 
+UPDATE: Now using `How we feel` app.
 
 How its affecting me - I'm more conscious of how my day is. Instead of just experiencing the day as it is, I am putting efforts to make it better.
 
