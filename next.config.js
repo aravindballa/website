@@ -35,16 +35,8 @@ module.exports = withContentlayer({
   async rewrites() {
     return [
       {
-        source: '/js/script.js',
-        destination: 'https://plausible.io/js/plausible.js',
-      },
-      {
         source: '/js/script-u.js',
-        destination: 'https://analytics.balla.dev/umami.js',
-      },
-      {
-        source: '/api/event/',
-        destination: 'https://plausible.io/api/event',
+        destination: 'https://analytics.balla.dev/script.js',
       },
     ];
   },
