@@ -26,6 +26,7 @@ class MyDocument extends Document {
             async
             defer
             data-website-id="095774e4-c3ec-46a2-8e72-7ad0c3674ef1"
+            data-host-url="https://analytics.balla.dev/"
             src="/js/script-u.js"
           ></script>
         </Head>
