@@ -69,7 +69,7 @@ I call this **Intermittent feed fasting**.
 This makes the work look more interesting and fulfilling for me.
 Urge to check feeds, that constant need of stimulation is reduced.
 
-I've been three weeks into this now and this is whats working for me.
+I've been more than a month into this now and this is whats working for me.
 Everything I mention here might work for you or you might not need to do all the things I do.
 
 Remember, in this day and age, your ability to focus defines what you can achieve.
