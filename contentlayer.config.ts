@@ -3,6 +3,7 @@ import slugify from 'slugify';
 import readingTime from 'reading-time';
 import rehypeSlug from 'rehype-slug';
 import { remarkWikiLink } from '@portaljs/remark-wiki-link';
+import remarkGfm from 'remark-gfm';
 
 const slugifyMemo = (name: string) =>
   slugify(name.replace(/\.(md|mdx)$/, ''), {
@@ -198,6 +199,7 @@ export default makeSource({
     rehypePlugins: [rehypeSlug],
     remarkPlugins: [
       [
+        remarkGfm,
         remarkWikiLink,
         {
           // permalinks,
