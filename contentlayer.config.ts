@@ -116,6 +116,55 @@ const Memo = defineDocumentType(() => ({
   },
 }));
 
+/** Handwritten Note */
+const Note = defineDocumentType(() => ({
+  name: 'Note',
+  filePathPattern: `**/*.(mdx|md)`,
+  contentType: 'mdx',
+  fields: {
+    title: {
+      type: 'string',
+      description: 'The title of the post',
+    },
+    date: {
+      type: 'date',
+      description: 'The date of the post',
+      required: true,
+    },
+    published: {
+      type: 'boolean',
+      description: 'Whether the post is published',
+    },
+    description: {
+      type: 'string',
+      description: 'The description of the post',
+      required: true,
+    },
+    tags: {
+      type: 'string',
+      description: 'The tags of the post',
+    },
+    images: {
+      type: 'list',
+      of: {
+        type: 'string',
+      },
+      required: true,
+      description: 'Handwritten note images',
+    },
+  },
+  computedFields: {
+    readingTime: {
+      type: 'json',
+      resolve: (doc) => readingTime(doc.body.raw),
+    },
+    slug: {
+      type: 'string',
+      resolve: (doc) => `/notes/${slugifyMemo(doc._raw.sourceFileName)}`,
+    },
+  },
+}));
+
 const Talk = defineDocumentType(() => ({
   name: 'Talk',
   filePathPattern: `**/*.(mdx|md)`,
@@ -194,7 +243,7 @@ const BookNote = defineDocumentType(() => ({
 export default makeSource({
   contentDirPath: 'content',
   contentDirExclude: ['.obsidian/**'],
-  documentTypes: [Post, Letter, BookNote, Talk, Memo],
+  documentTypes: [Post, Letter, BookNote, Talk, Memo, Note],
   mdx: {
     rehypePlugins: [rehypeSlug],
     remarkPlugins: [
