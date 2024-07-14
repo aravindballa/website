@@ -1,8 +1,8 @@
 import { NextSeo } from 'next-seo';
 
-import { baseUrl } from '../seo.config';
-import Layout from '../components/Layout';
-import ImagekitImage from '../components/ImagekitImage';
+import { baseUrl } from '../../seo.config';
+import Layout from '../Layout';
+import ImagekitImage from '../ImagekitImage';
 
 export default function NotionNextBlog() {
   return (
