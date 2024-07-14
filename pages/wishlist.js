@@ -20,13 +20,20 @@ const gifts = {
         price: '300',
         active: true,
       },
-
       {
         title: 'AEROPRESS Metal Filter',
         link: 'https://www.benkibrewingtools.com/collections/filters/products/benki-aeropress-metal-filter',
         description:
           'The Benki Aeropress Metal Filter is a durable, reusable filter for AeroPress Coffee Makers, offering a fuller-bodied coffee and eliminating the need for paper filters. Perfect for travel and heavy use.',
         price: '610',
+        active: true,
+      },
+      {
+        title: 'Coffee Beans from Devans',
+        link: 'https://www.devans.in/collections/our-blends',
+        description:
+          'The Benki Aeropress Metal Filter is a durable, reusable filter for AeroPress Coffee Makers, offering a fuller-bodied coffee and eliminating the need for paper filters. Perfect for travel and heavy use.',
+        price: '360 - ₹810',
         active: true,
       },
     ],
@@ -67,6 +74,14 @@ const gifts = {
         price: '1496',
         active: true,
       },
+      {
+        title: 'Red Rising: An explosive dystopian sci-fi novel',
+        link: 'https://amzn.to/3S4Xppk',
+        description:
+          "Dive into Pierce Brown's gripping dystopian world where class struggles and epic battles shape the fate of society. A must-read for sci-fi fans!",
+        price: '276',
+        active: true,
+      },
     ],
   },
   Stationery: {
@@ -86,6 +101,14 @@ const gifts = {
         description:
           'The Pentel Refillable Pocket Brush Pen is perfect for artists seeking thin to thick lines with fade-resistant, waterproof ink. Ideal for creating beautiful strokes of pure black lines, it comes with 4 FP10 ink cartridge refills.',
         price: '630',
+        active: true,
+      },
+      {
+        title: 'LAMY vista Fountain pen',
+        link: 'https://www.lamyshop.in/in_en/fountain-pen-lamy-vista.html',
+        description:
+          'The LAMY vista Fountain Pen offers a clear view of its inner workings with its transparent design. It features a polished steel nib, ergonomic grip, and includes an ink cartridge and converter. Perfect for young enthusiasts!',
+        price: '3,105',
         active: true,
       },
     ],
