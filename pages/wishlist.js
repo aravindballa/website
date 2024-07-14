@@ -1,7 +1,12 @@
+import { useEffect, useState } from 'react';
 import { NextSeo } from 'next-seo';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { baseUrl } from '../seo.config';
 import Layout from '../components/Layout';
+
+const unallowedPeople = ['gautami', 'krushi'];
 
 const gifts = {
   'Coffee Stuff': {
@@ -88,6 +93,25 @@ const gifts = {
 };
 
 export default function WishlistPage() {
+  const searchParams = useSearchParams();
+  const show = searchParams.get('show');
+
+  const router = useRouter();
+
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    if (show === 'true') {
+      const wishlistName = localStorage.getItem('wishlistName');
+      if (!wishlistName) {
+        router.push({
+          pathname: '/wishlist',
+          search: ``,
+        });
+      }
+    }
+  }, [show]);
+
   return (
     <Layout>
       <NextSeo
@@ -103,28 +127,97 @@ export default function WishlistPage() {
 
       <div className="mt-12 prose lg:prose-lg dark:prose-light">
         <h1>Wishlist 2024</h1>
-        <p>
-          <i>A surprise gift is best, but it should not go unused.</i>
-        </p>
 
-        {Object.entries(gifts).map(([category, { subheading, items }]) => (
-          <div key={category}>
-            <h2>{category}</h2>
-            {subheading && <p>{subheading}</p>}
-            <ul>
-              {items.map((item) => (
-                <li key={item.title}>
-                  <a href={item.link} target="_blank" rel="noopener noreferrer">
-                    {item.title}
-                  </a>{' '}
-                  - ₹{item.price}
-                  {/* <br /> */}
-                  {/* {item.description} */}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        {show === 'true' ? (
+          <>
+            <p>
+              <i>A surprise gift is best, but it should not go unused.</i>
+            </p>
+            <p>If you pick something, let Aravind know so he can strike it off here.</p>
+            {Object.entries(gifts).map(([category, { subheading, items }]) => (
+              <div key={category}>
+                <h2>{category}</h2>
+                {subheading && <p>{subheading}</p>}
+                <ul>
+                  {items.map((item) => (
+                    <li key={item.title}>
+                      <a href={item.link} target="_blank" rel="noopener noreferrer">
+                        {item.title}
+                      </a>{' '}
+                      - ₹{item.price}
+                      {/* <br /> */}
+                      {/* {item.description} */}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </>
+        ) : (
+          <form
+            className="flex items-start flex-col mt-12 px-4 pb-4 border border-gray-200 dark:border-gray-700 rounded-md"
+            onSubmit={(e) => {
+              e.preventDefault();
+
+              if (unallowedPeople.includes(name.toLowerCase())) {
+                alert(
+                  'Sorry, you are not allowed to see the list. You might have already gifted something.'
+                );
+              } else {
+                localStorage.setItem('wishlistName', name);
+                router.push({
+                  pathname: '/wishlist',
+                  search: `show=true`,
+                });
+              }
+            }}
+          >
+            <div className="flex gap-y-4 flex-col w-full">
+              <p>
+                There no pressure to gift anything. Having you in his life is itself a gift for
+                Aravind. If you still insist, please proceed.
+              </p>
+              <input
+                type="text"
+                className="px-3 py-1 dark:bg-purple-800 dark:bg-opacity-50 bg-purple-200 placeholder-purple-400 text-base rounded"
+                placeholder="Your name"
+                required
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+              />
+
+              <div className="relative flex items-start">
+                <div className="flex h-6 items-center">
+                  <input
+                    id="agree"
+                    name="agree"
+                    required
+                    type="checkbox"
+                    aria-describedby="agree-description"
+                    className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-600"
+                  />
+                </div>
+                <div className="ml-3 text-sm leading-6">
+                  <label htmlFor="agree" className="">
+                    I agree that I will share my wishlist with Aravind before my birthday this year.
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <button
+                  type="submit"
+                  className="dark:bg-purple-50 bg-purple-900 dark:text-purple-900 text-purple-50 text-base font-bold px-6 py-2 md:py-0 rounded"
+                  data-umami-event={name ? `wishlist:show` : undefined}
+                  data-umami-event-name={name}
+                >
+                  Show
+                </button>
+              </div>
+            </div>
+          </form>
+        )}
       </div>
     </Layout>
   );
