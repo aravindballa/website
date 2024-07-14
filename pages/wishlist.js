@@ -195,7 +195,7 @@ export default function WishlistPage() {
             onSubmit={(e) => {
               e.preventDefault();
 
-              if (unallowedPeople.includes(name.toLowerCase())) {
+              if (unallowedPeople.some((up) => name.toLowerCase().includes(up))) {
                 alert(
                   'Sorry, you are not allowed to see the list. You might have already gifted something.'
                 );
