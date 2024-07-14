@@ -113,6 +113,19 @@ const gifts = {
       },
     ],
   },
+  Other: {
+    description: 'If none of the above interest you, here are a few other things you can gift.',
+    items: [
+      {
+        title: 'Send any amount as a contribution to his monthly EMI',
+        link: '',
+        description:
+          'Experience smooth writing with the uni-ball Kuru Toga M7-450T 0.7mm Mechanical Pencil. Its unique rotating lead mechanism ensures a consistent, sharp point. Perfect for students and professionals alike!',
+        price: '-',
+        active: true,
+      },
+    ],
+  },
 };
 
 export default function WishlistPage() {
@@ -164,7 +177,7 @@ export default function WishlistPage() {
                 <ul>
                   {items.map((item) => (
                     <li key={item.title}>
-                      <a href={item.link} target="_blank" rel="noopener noreferrer">
+                      <a href={item.link || '#'} target="_blank" rel="noopener noreferrer">
                         {item.title}
                       </a>{' '}
                       - ₹{item.price}
@@ -197,7 +210,7 @@ export default function WishlistPage() {
           >
             <div className="flex gap-y-4 flex-col w-full">
               <p>
-                There no pressure to gift anything. Having you in his life is itself a gift for
+                There is no pressure to gift anything. Having you in his life is itself a gift for
                 Aravind. If you still insist, please proceed.
               </p>
               <input
