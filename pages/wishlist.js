@@ -109,7 +109,7 @@ const gifts = {
         description:
           'The LAMY vista Fountain Pen offers a clear view of its inner workings with its transparent design. It features a polished steel nib, ergonomic grip, and includes an ink cartridge and converter. Perfect for young enthusiasts!',
         price: '3,105',
-        active: true,
+        active: false,
       },
     ],
   },
@@ -176,7 +176,7 @@ export default function WishlistPage() {
                 {subheading && <p>{subheading}</p>}
                 <ul>
                   {items.map((item) => (
-                    <li key={item.title}>
+                    <li key={item.title} className={item.active ? '' : 'line-through'}>
                       <a href={item.link || '#'} target="_blank" rel="noopener noreferrer">
                         {item.title}
                       </a>{' '}
