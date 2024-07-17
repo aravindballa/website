@@ -51,6 +51,13 @@ const gifts = {
         active: true,
       },
       {
+        title: 'The Creative Act: A Way of Being',
+        link: 'https://amzn.to/467f7OM',
+        description: "",
+        price: '975',
+        active: true,
+      },
+      {
         title: 'Mind Magic: The Neuroscience of Manifestation and How It Changes Everything',
         link: 'https://amzn.to/3Y39H5s',
         description:
