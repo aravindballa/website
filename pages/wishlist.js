@@ -26,7 +26,7 @@ const gifts = {
         description:
           'The Benki Aeropress Metal Filter is a durable, reusable filter for AeroPress Coffee Makers, offering a fuller-bodied coffee and eliminating the need for paper filters. Perfect for travel and heavy use.',
         price: '610',
-        active: true,
+        active: false,
       },
       {
         title: 'Coffee Beans from Devans',
