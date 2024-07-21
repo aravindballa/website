@@ -108,7 +108,7 @@ const gifts = {
         description:
           'The Pentel Refillable Pocket Brush Pen is perfect for artists seeking thin to thick lines with fade-resistant, waterproof ink. Ideal for creating beautiful strokes of pure black lines, it comes with 4 FP10 ink cartridge refills.',
         price: '630',
-        active: true,
+        active: false,
       },
       {
         title: 'LAMY vista Fountain pen',
