@@ -38,6 +38,14 @@ module.exports = withContentlayer({
         source: '/js/script-u.js',
         destination: 'https://analytics.balla.dev/script.js',
       },
+      {
+        source: '/rss.xml',
+        destination: '/api/rss.xml',
+      },
+      {
+        source: '/feed',
+        destination: '/api/rss.xml',
+      },
     ];
   },
   async redirects() {

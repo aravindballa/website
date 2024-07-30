@@ -59,7 +59,7 @@ export default function Footer() {
             </a>
           </li>
           <li>
-            <Link className="hover:text-gray-600 dark:hover:text-gray-400" href="/api/rss.xml">
+            <Link className="hover:text-gray-600 dark:hover:text-gray-400" href="/rss.xml">
               RSS
             </Link>
           </li>
