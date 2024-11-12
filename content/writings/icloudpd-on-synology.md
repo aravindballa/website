@@ -3,8 +3,6 @@ title: Setting up icloudpd on Synology NAS
 date: 2024-11-12
 type: Post
 description: In this article I document how I setup backups for iCloud library in a Synology NAS.
-banner: 
-bannercaption: ""
 published: true
 ---
 *Last Updated on 12/11/2024*
