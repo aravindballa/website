@@ -29,6 +29,22 @@ class MyDocument extends Document {
             data-host-url="https://analytics.balla.dev/"
             src="/js/script-u.js"
           ></script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+      (function () {
+        window.counterscale = {
+          q: [['set', 'siteId', 'your-unique-site-id'], ['trackPageview']]
+        };
+      })();
+    `,
+            }}
+          />
+          <script
+            id="counterscale-script"
+            src="https://counterscale-ct6.pages.dev/tracker.js"
+            defer
+          ></script>
         </Head>
         <body>
           <script src="/noflash.js" />
