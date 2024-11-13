@@ -34,7 +34,7 @@ class MyDocument extends Document {
               __html: `
       (function () {
         window.counterscale = {
-          q: [['set', 'siteId', 'your-unique-site-id'], ['trackPageview']]
+          q: [['set', 'siteId', 'aravindballa.com'], ['trackPageview']]
         };
       })();
     `,
