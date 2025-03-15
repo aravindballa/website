@@ -28,12 +28,15 @@ export default function Header() {
     <Link className={headerLinksClasses} href="/bookshelf">
       Bookshelf
     </Link>,
+    <Link className={headerLinksClasses} href="https://letter.coffee/?utm_source=aravindballa.com">
+      caffeineletter ↗
+    </Link>,
     <Link className={headerLinksClasses} href="https://hackletter.email/">
       Newsletter ↗
     </Link>,
     <Link
       className={headerLinksClasses}
-      href="https://learningcurve.dev/?utm_source=aravindballa.com"
+      href="https://learningcurve.pages.dev/?utm_source=aravindballa.com"
     >
       Podcast ↗
     </Link>,
