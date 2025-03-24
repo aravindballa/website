@@ -87,7 +87,7 @@ export default function Bookshelf({ books }) {
                   variants={bookCoverVariants}
                 >
                   <motion.div
-                    className="hidden md:block -z-1 bg-gray-500 rounded absolute w-[134px] h-[200px] top-2 left-[1px]"
+                    className="hidden md:block -z-10 bg-gray-500 rounded absolute w-[134px] h-[200px] top-2 left-[1px]"
                     variants={bookBorderVariants}
                   ></motion.div>
                   <Image
