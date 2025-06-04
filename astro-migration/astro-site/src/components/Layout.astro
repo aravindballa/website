@@ -1,0 +1,27 @@
+---
+import Footer from './Footer.jsx';
+import Header from './Header.jsx';
+// Props can be defined here if needed, e.g.,
+// const { title = 'My Astro Site' } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  {/* <title>{title}</title> */}
+  {/* Astro injects styles here, or you can add <style> tags or <link rel="stylesheet"> */}
+  {/* Tailwind base styles are usually handled by the integration,
+      but if you have global styles: import '../styles/global.css'; */}
+</head>
+<body>
+  <div class="flex flex-col items-center justify-center min-h-screen">
+    <Header client:load />
+    <main class="px-8 flex-1 mt-24 w-full max-w-5xl mx-auto"> {/* Added w-full and max-w for better centering and width control */}
+      <slot />
+    </main>
+    <Footer />
+  </div>
+</body>
+</html>

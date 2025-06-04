@@ -1,0 +1,120 @@
+---
+import Layout from '../../../components/Layout.astro';
+import Bio from '../../../components/Bio.tsx';
+import ImagekitImage, { imageKitLoader } from '../../../components/ImagekitImage.tsx';
+import { default as mdxComponents } from '../../../components/mdxComponents.jsx';
+
+export async function getStaticPaths() {
+  const allMemoFiles = await Astro.glob('../../../content/memos/**/*.{md,mdx}');
+  const publishedMemos = allMemoFiles.filter(post =>
+    post.frontmatter.published !== false &&
+    post.frontmatter.draft !== true &&
+    !post.frontmatter.archived
+  );
+  return publishedMemos.map(post => ({
+    params: { slug: post.slug }, // post.slug is 'my-memo-slug' from filename
+    props: { post }, // Pass the full post object as props
+  }));
+}
+
+const { post } = Astro.props; // Contains the full post object from getStaticPaths
+const { Content } = post; // Astro provides the <Content /> component for rendering MDX
+
+const pageTitle = post.frontmatter.title;
+const pageDescription = post.frontmatter.description || post.rawContent().slice(0, 150); // Fallback for description
+const siteUrl = Astro.site ? Astro.site.toString() : Astro.url.origin;
+const canonicalUrl = new URL(`memos/${post.slug}`, siteUrl).toString();
+
+const bannerFileName = post.frontmatter.banner ? `${post.slug}-${post.frontmatter.banner}` : null;
+const ogImageUrl = bannerFileName
+  ? imageKitLoader({ src: bannerFileName, width: 1200, quality: 90 })
+  : new URL('/default-og-image.png', siteUrl).toString(); // Ensure default OG image path
+
+const ldJson = {
+  "@context": "https://schema.org",
+  "@type": "Article", // Memos are also articles
+  "headline": post.frontmatter.title,
+  "image": bannerFileName ? imageKitLoader({src: bannerFileName, width: 1000, quality: 100}) : [],
+  "datePublished": new Date(post.frontmatter.date).toISOString(),
+  "author": {
+    "@type": "Person",
+    "name": "Aravind Balla"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Aravind Balla",
+    "logo": {
+      "@type": "ImageObject",
+      "url": new URL('/logo-for-schema.png', siteUrl).toString()
+    }
+  },
+  "description": pageDescription,
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": canonicalUrl
+  }
+};
+---
+
+<Layout>
+  <title slot="head">{pageTitle}</title>
+  <meta slot="head" name="description" content={pageDescription} />
+  <link slot="head" rel="canonical" href={canonicalUrl} />
+
+  {/* Open Graph / Facebook */}
+  <meta slot="head" property="og:type" content="article" />
+  <meta slot="head" property="og:url" content={canonicalUrl} />
+  <meta slot="head" property="og:title" content={pageTitle} />
+  <meta slot="head" property="og:description" content={pageDescription} />
+  <meta slot="head" property="og:image" content={ogImageUrl} />
+  {post.frontmatter.date && <meta slot="head" property="article:published_time" content={new Date(post.frontmatter.date).toISOString()} />}
+  {post.frontmatter.updatedAt && <meta slot="head" property="article:modified_time" content={new Date(post.frontmatter.updatedAt).toISOString()} />}
+
+  {/* Twitter */}
+  <meta slot="head" property="twitter:card" content="summary_large_image" />
+  <meta slot="head" property="twitter:url" content={canonicalUrl} />
+  <meta slot="head" property="twitter:title" content={pageTitle} />
+  <meta slot="head" property="twitter:description" content={pageDescription} />
+  <meta slot="head" property="twitter:image" content={ogImageUrl} />
+
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(ldJson)} />
+
+  <article class="prose lg:prose-lg dark:prose-light max-w-3xl mx-auto py-8">
+    <header class="mb-8">
+      <h1 class="text-4xl font-extrabold tracking-tight !mb-3">{post.frontmatter.title}</h1>
+      <p class="text-gray-600 dark:text-gray-400 text-sm !mt-0">
+        Memo on {new Date(post.frontmatter.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+        {post.frontmatter.updatedAt && (
+          <span> | Updated on {new Date(post.frontmatter.updatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+        )}
+      </p>
+    </header>
+
+    {bannerFileName && (
+      <div class="mb-8">
+        <div class="relative w-full h-auto rounded-lg overflow-hidden shadow-lg" style="aspect-ratio: 16/9;">
+          <ImagekitImage
+            src={bannerFileName}
+            alt={`Banner for ${post.frontmatter.title}`}
+            className="rounded-lg object-cover w-full h-full"
+            width={768}
+            height={432}
+            priority={true}
+            loading="eager"
+          />
+        </div>
+        {post.frontmatter.bannercaption && (
+          <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-2" set:html={post.frontmatter.bannercaption} />
+        )}
+      </div>
+    )}
+
+    <Content components={mdxComponents(post.slug)} />
+
+    <hr class="my-12" />
+
+    <Bio client:visible />
+
+  </article>
+</Layout>
+```

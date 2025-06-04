@@ -1,0 +1,156 @@
+---
+import Layout from '../components/Layout.astro';
+import ImagekitImage from '../components/ImagekitImage.tsx'; // Assuming .tsx extension is correct and Astro handles it.
+
+// Fetch writings and memos
+const allContentFiles = await Astro.glob('../content/(writings|memos)/**/*.{md,mdx}');
+
+const publishedContent = allContentFiles
+  .filter(item => item.frontmatter.published !== false && item.frontmatter.draft !== true && !item.frontmatter.archived) // Added check for archived
+  .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
+
+const recentPosts = publishedContent.slice(0, 3);
+
+const baseUrl = Astro.url.origin; // Or your production URL Astro.site.href
+const pageTitle = "Aravind Balla";
+const pageDescription = "Hi 👋 I am Software Developer working remotely from Hyderabad, India. I love JS and CSS 💛. I like to build stuff, document the process and share the knowledge I gain.";
+
+// Helper function to generate slug for banner images, similar to Next.js version
+// Assumes post.file is like '/path/to/repo/src/content/writings/my-post.mdx'
+// And post.slug from Astro.glob might be 'writings/my-post' or just 'my-post' depending on collection setup.
+// For Astro.glob, file URL gives the full path. We need to derive the collection and slug.
+// A more robust slug for banner might be needed based on actual Astro.glob output.
+// For now, let's assume `item.url` can be used for links and `item.frontmatter.slug` if it exists, or derive from file path.
+// The original used `post.slug.replace('/writings/', '')`.
+// `Astro.glob` returns `url` which is the path from `src/pages` or `src/content`.
+// For content collections, `post.slug` is usually the filename without extension or folder structure.
+// Let's refine how `postLink` and `bannerSrc` are created.
+
+const getPostLink = (post) => {
+  if (post.url) return post.url; // Astro.glob provides URL relative to pages/ or content/
+  // Fallback if url isn't what we expect for linking directly
+  const collection = post.file.includes('/writings/') ? 'writings' : 'memos';
+  const filename = post.file.split('/').pop().replace(/\.(md|mdx)$/, '');
+  return `/${collection}/${filename}`;
+};
+
+const getBannerSrc = (post) => {
+  if (!post.frontmatter.banner) return null;
+  // Example: post.file = ".../src/content/writings/post-slug.mdx"
+  // We need "post-slug-banner.jpg"
+  // Astro's `post.slug` for content collections is usually the filename or folder structure.
+  // If post.slug = "post-slug" for src/content/writings/post-slug.mdx
+  // If post.slug = "subfolder/post-slug" for src/content/writings/subfolder/post-slug.mdx
+  // The original logic was: `${post.slug.replace('/writings/', '')}-${post.frontmatter.banner}`
+  // Let's try to replicate that assuming post.slug from frontmatter or derived from file path
+
+  let slugPart = '';
+  if (post.frontmatter.slug) {
+    slugPart = post.frontmatter.slug;
+  } else {
+    // Derive from file path: e.g. ../content/writings/my-post.mdx -> my-post
+    slugPart = post.file.split('/').pop().replace(/\.(md|mdx)$/, '');
+  }
+  return `${slugPart}-${post.frontmatter.banner}`;
+};
+
+---
+
+<Layout>
+  <title>{pageTitle}</title>
+  <meta name="description" content={pageDescription} slot="head" />
+  <link rel="canonical" href={baseUrl} slot="head" />
+
+  <div class="space-y-12 prose lg:prose-lg dark:prose-light max-w-none">
+    <div class="flex items-center">
+      <div class="mr-6">
+        <ImagekitImage
+          src="/avatar-home.jpg"
+          alt="Aravind Balla"
+          width={120}
+          height={120}
+          className="rounded-full"
+          quality={100}
+        />
+      </div>
+      <div>
+        <h1 class="text-4xl font-bold !mb-2">Hi, I'm Aravind Balla</h1>
+        <p class="!mt-0">
+          Software Developer working remotely from Hyderabad, India. I love JS and CSS 💛.
+          <br />
+          I like to build stuff, document the process and share the knowledge I gain.
+        </p>
+        <div class="flex space-x-4 mt-4">
+          <a href="https://twitter.com/aravindballa" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">Twitter</a>
+          <a href="https://github.com/aravindballa" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">GitHub</a>
+          <a href="https://linkedin.com/in/aravindballa" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+
+    <section>
+      <h2 class="text-2xl font-bold">Few things I've wrote recently</h2>
+      <ul class="space-y-8 mt-4">
+        {recentPosts.map((post) => {
+          const postUrl = getPostLink(post);
+          const bannerSrc = getBannerSrc(post);
+          return (
+            <li class="grid md:grid-cols-3 gap-6 items-start">
+              {bannerSrc && (
+                <div class="md:col-span-1">
+                  <a href={postUrl}>
+                    <ImagekitImage
+                      src={bannerSrc}
+                      alt={post.frontmatter.title || 'Post banner'}
+                      width={720} // Example width, adjust as needed
+                      height={400} // Example height, adjust
+                      className="rounded-lg object-cover aspect-video"
+                    />
+                  </a>
+                </div>
+              )}
+              <div class={bannerSrc ? "md:col-span-2" : "md:col-span-3"}>
+                <h3 class="text-xl font-semibold !mb-1">
+                  <a href={postUrl} class="hover:underline">{post.frontmatter.title}</a>
+                </h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400 !mt-0">
+                  {new Date(post.frontmatter.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </p>
+                <div class="mt-2 text-sm" set:html={post.rawContent().slice(0, 150) + '...'}></div>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+      <div class="mt-6">
+        <a href="/writings" class="text-blue-500 hover:underline">Read all writings &rarr;</a>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-bold">Speaking</h2>
+      <ul class="list-disc pl-5 space-y-2 mt-4">
+        <li>
+          <strong>React Nexus 2023:</strong> End to End type safety with tRPC
+          <span class="ml-2 text-sm text-gray-500">(March 2023)</span>
+        </li>
+        <li>
+          <strong>DevFest '19 Hyderabad:</strong> Incremental Static Site Generation with Gatsby & Next.js
+          <a href="/talks/devfest-19" class="ml-2 text-blue-500 hover:underline text-sm">[Slides]</a>
+          <span class="ml-2 text-sm text-gray-500">(November 2019)</span>
+        </li>
+      </ul>
+    </section>
+
+    {/* Add other sections like "Projects", "Books I Read" if they were in the original index.tsx */}
+    {/* For example:
+    <section>
+      <h2 class="text-2xl font-bold">Projects</h2>
+      <p>Details about projects...</p>
+      <a href="/projects" class="text-blue-500 hover:underline">More projects &rarr;</a>
+    </section>
+    */}
+
+  </div>
+</Layout>
+```
