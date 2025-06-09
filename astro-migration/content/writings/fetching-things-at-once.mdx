@@ -1,0 +1,95 @@
+---
+title: 'Fetch so many things, at once'
+date: '2019-04-20'
+type: 'Post'
+published: true
+description: 'There is the fetch API in Node, which allows us to make a HTTP request and get some information from the servers. We can use that to make REST calls, get HTML content of a webpage and many more things.'
+tags: 'node,javascript,fetch,async await'
+banner: 'hero.jpg'
+---
+
+There is the `fetch` API in Node, which allows us to make a HTTP request and get some information from the servers. We can use that to make REST calls, get HTML content of a webpage(if we are using node for scraping) and many more things.
+
+> This article is valid for any function that returns a promise.
+
+An example of such call goes like this
+
+```js
+fetch('/url')
+  .then((res) => res.json())
+  .then((data) => console.log(data));
+```
+
+# The Async way
+
+We could do the same thing, using async and await.
+
+```js
+const result = await fetch('/url');
+const data = await result.json();
+
+console.log(data);
+
+// Or, a one-liner
+// const data = await (await fetch('/url')).json(); 😉
+```
+
+# I have so many things to fetch!
+
+Okay fine. We can do that over a classic for loop. The synchronous nature will be preserved. I mean, we can fetch one after the other, synchronously.
+
+```js
+const urls = [...];
+for(const url of urls) {
+    const result = await fetch(url);
+    const data = await result.json();
+
+    console.log(data);
+}
+```
+
+But what if, the order does not matter? We can fetch them all at once. Yes, all at once, using the Promise API. After all, `fetch` returns a promise and that's why we `await` for it to be resolved.
+
+Promise API has this method `Promise.all()` , which can be awaited on for all the promises that it accepts as an argument to be resolved.
+
+```js
+const urls = [...];
+const promises = urls.map(url => fetch(url));
+
+await Promise.all(promises);
+
+for (const promise of promises) {
+    const data = await promise.json();
+    console.log(data);
+}
+```
+
+This will save us a lot of time. Imagine we want to parse many webpages, around 100, and each webpage takes 2 seconds to be fetched and scraped for information we need. If we fetch it one after the other, it will take us around 200 seconds, which is over 3 minutes. But if we fetch all at once, it will take under a minute.
+
+# Like, really SO MANY!
+
+What is we have over 10000 urls to fetch. If we do the same thing as above, we will most probably not make it. We will have to face some weird socket hangup error. What can we do about it?
+
+There is a node package called `Bluebird` which has its own Promise API and it functions the same. It has this method called `map`, which takes an extra options argument where we can set concurrency.
+
+`Promise.map(urls => fetch(url), { concurrency: 100 });`
+
+This will, as we can infer from the line, concurrently fetch 100 requests at a time. This will save a significant load on CPU.
+
+```js
+const Promise = require('bluebird').Promise;
+const urls = [...];
+const promises = await Promise.map(
+    urls => fetch(url),
+    { concurrency: 100 }
+);
+
+for (const promise of promises) {
+    const data = await promise.json();
+    console.log(data);
+}
+```
+
+Thanks for making it till the end.
+
+Keep on Hacking! ✌

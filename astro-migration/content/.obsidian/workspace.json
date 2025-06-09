@@ -1,0 +1,249 @@
+{
+  "main": {
+    "id": "9a8286f902b98a85",
+    "type": "split",
+    "children": [
+      {
+        "id": "7a4bc3aeae351e71",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6a5b3f3d944c2d55",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "The Stackblocks Story.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "The Stackblocks Story"
+            }
+          },
+          {
+            "id": "501d8c203ed54714",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "writings/icloudpd-on-synology.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "icloudpd-on-synology"
+            }
+          },
+          {
+            "id": "61cdeb63056534e0",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.7.6"
+              },
+              "icon": "lucide-file",
+              "title": "Release Notes 1.7.6"
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "6b1a46020382a246",
+    "type": "split",
+    "children": [
+      {
+        "id": "38cc554af4c39662",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4069c396f9bd1821",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "byCreatedTime"
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "2498c536ca93d3f1",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "ddf262666efa3265",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          },
+          {
+            "id": "6e7e0ec2fa817a09",
+            "type": "leaf",
+            "state": {
+              "type": "mk-file-view",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "Plugin no longer active"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 261.5
+  },
+  "right": {
+    "id": "a50a0de73a28a309",
+    "type": "split",
+    "children": [
+      {
+        "id": "6fcb16c9840c7141",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c706abca8835b3f9",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "2cb9dce3bbf659ad",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "a4c31fa5abe7f086",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "9273fda8549a59ca",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {},
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          },
+          {
+            "id": "766b237eda7b6bb5",
+            "type": "leaf",
+            "state": {
+              "type": "copilot-chat-view",
+              "state": {},
+              "icon": "message-square",
+              "title": "Copilot"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 402.5,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "copilot:Copilot Chat": false
+    }
+  },
+  "active": "61cdeb63056534e0",
+  "lastOpenFiles": [
+    "writings/polyphasic-sleep.md",
+    "writings/icloudpd-on-synology.md",
+    "writings/indie-development-freedom.md",
+    "writings/hyping-up.md",
+    "The Stackblocks Story.md",
+    "writings/getting-work-done.md",
+    "writings/react-nexus-2023.md",
+    "writings/getting-out-of-perfectionism-and-shipping.md",
+    "writings/jealous-of-others-shipping.md",
+    "writings/coffee.mdx",
+    "notes/on-authenticity.md",
+    "writings/niche-down.md",
+    "writings/old-macbook-home-server.md",
+    "memos/Working from cafes.md",
+    "hackletter/22.md",
+    "hackletter/16.md",
+    "hackletter/09.md",
+    "memos/State of Time Tracking.md",
+    "memos/Maximizing Deep Work Hours - A Personal Experiment.md",
+    "memos/Battle Against Unconscious Behaviours.md",
+    "memos/Fine Tuning misconception.md",
+    "memos/Owning your Platforms - Why and The Good Parts.md",
+    "memos/Why write memos everyday.md",
+    "memos/I asked Speakers what makes a good Tech Talk.md",
+    "memos/Had to limit my side projects to only humans.md",
+    "memos/You hate olives today.md",
+    "memos/Journaling on physical notebooks.md",
+    "writings/ai-coworker.mdx",
+    "memos",
+    "writings/weekly-review-in-roam-research.mdx",
+    "writings/tweet-using-github-actions.mdx",
+    "writings/starting-podcast.mdx",
+    "writings/prioritization-for-side-projects.mdx",
+    "writings/preact-ssr.mdx",
+    "writings/position-yourself-for-remote-work.mdx",
+    "writings/talk-to-notes.mdx",
+    "Untitled.canvas"
+  ]
+}
