@@ -1,0 +1,82 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Get all talks
+const talks = await getCollection('talks');
+
+// Filter published talks and sort by date
+const publishedTalks = talks
+  .filter(({ data }) => data.published !== false)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Helper function to format date
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
+}
+---
+
+<Layout title="Talks" description="Conference talks and presentations by Aravind Balla">
+  <div class="space-y-8">
+    <div>
+      <h1 class="text-4xl font-bold font-poppins mb-4">Talks</h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400">
+        Conference talks and presentations I've given at various events.
+      </p>
+    </div>
+
+    <!-- Talks List -->
+    <div class="space-y-6">
+      {publishedTalks.length > 0 ? (
+        publishedTalks.map((talk) => (
+          <article class="border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold font-poppins mb-2">
+              <a href={`/talks/${talk.slug}`} class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                {talk.data.title}
+              </a>
+            </h3>
+            
+            {talk.data.venue && (
+              <p class="text-gray-600 dark:text-gray-400 mb-2">
+                at {talk.data.venue}
+              </p>
+            )}
+            
+            {talk.data.description && (
+              <p class="text-gray-600 dark:text-gray-400 mb-3">
+                {talk.data.description}
+              </p>
+            )}
+            
+            <div class="flex items-center justify-between">
+              <time datetime={talk.data.date.toISOString()} class="text-sm text-gray-500 dark:text-gray-500">
+                {formatDate(talk.data.date)}
+              </time>
+              
+              <div class="flex items-center gap-4">
+                {talk.data.slides && (
+                  <a href={talk.data.slides} target="_blank" rel="noopener noreferrer" 
+                     class="text-blue-600 dark:text-blue-400 hover:underline text-sm">
+                    Slides
+                  </a>
+                )}
+                {talk.data.video && (
+                  <a href={talk.data.video} target="_blank" rel="noopener noreferrer" 
+                     class="text-blue-600 dark:text-blue-400 hover:underline text-sm">
+                    Video
+                  </a>
+                )}
+              </div>
+            </div>
+          </article>
+        ))
+      ) : (
+        <p class="text-gray-600 dark:text-gray-400">No talks yet. Coming soon!</p>
+      )}
+    </div>
+  </div>
+</Layout>

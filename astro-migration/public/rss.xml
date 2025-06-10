@@ -1,0 +1,2477 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[Aravind Balla's RSS Feed']]></title>
+        <description><![CDATA[Discoveries and rants of a indie maker while building solutions that he and his friends face.]]></description>
+        <link>https://aravindballa.com/</link>
+        <image>
+            <url>https://aravindballa.com/logo.png</url>
+            <title>Aravind Balla&apos;s RSS Feed&apos;</title>
+            <link>https://aravindballa.com/</link>
+        </image>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Sat, 22 Jul 2023 13:50:04 GMT</lastBuildDate>
+        <atom:link href="https://aravindballa.com/rss.xml" rel="self" type="application/rss+xml"/>
+        <pubDate>Sat, 22 Jul 2023 13:50:04 GMT</pubDate>
+        <language><![CDATA[en]]></language>
+        <item>
+            <title><![CDATA[Advanced git tips]]></title>
+            <description><![CDATA[Some of the advanced git usage and tips for the pros. Things that I have learnt over the years of using git at work.]]></description>
+            <link>https://aravindballa.com/writings/advanced-git-tips/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/advanced-git-tips/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Sun, 23 Sep 2018 00:00:00 GMT</pubDate>
+            <content:encoded>
+Git is amazing and you will learn only by using it. Try to learn the commands, you will forget if you don&apos;t use them. The same is the case for GUIs (like Tower or Source Tree). You might not have to learn the commands, but you will forget the process.
+
+**The solution is very simple. Learn what you need. Google what you don&apos;t. Try remembering if you are googling the same thing often.** 😁
+
+After using Git for more than 2 years and teaching it to people, there are few tip that I would like to share.
+
+(I use command-line and not a GUI. I feel more comfortable like this.)
+
+# Aliases
+
+Git allows you to have aliases for commands, which we are long or are frequently-used. There will a `~/.gitconfig` file where you can specify them. (If you don&apos;t find the file, I think you can create it at HOME path).
+
+These are the aliases I have.
+
+```bash
+[alias]
+    pl = pull --rebase
+    cm = commit -m
+```
+
+The most frequently used, as you can guess is `git cm`.
+
+# Rebase
+
+That leads us to the other alias that I have, `pull —rebase`. This is useful mostly when you work on open-source, or with a lot of branches in your projects. So you make a branch, add a new feature, or fix a bug and make a pull request. By the time you do this, you discover that the `master` was updated and has bunch of commits that are not in your branch.
+
+In this scenario, —rebase allows you to replay your work on top of master, as if you have created the branch now. Dealing with merge conflicts is also easier this way. If there are any, you can fix them, and `git merge —continue` to continue the rebase of `—abort` to stop it. I use VS Code to fix the conflicts. Its pretty easy.
+
+# Multiple SSH keys
+
+What do you do when you have separate accounts for work and personal stuff? Ideally, you should not. The work ones will be private anyways. So maintain only one Github account. But imagine you have two.
+
+I was like this for an year. And switching the accounts is time consuming and a pain if you do it frequently. SSH keys to the rescue! ✌🏻
+
+You can generate multiple SSH keys with different mail ids(`id_rsa` and `id_rsa_work`) and register them with the Github accounts. When you are accessing the Github, you can give custom URLs for the remotes. For example,
+
+```bash
+git clone git@github.com-me:aravindballa/preact-ssr.git
+git clone git@github.com-work:sencha/extjs-reactor.git
+```
+
+(P.S. Yes, I worked for Sencha for short period of time, on the [open-source tooling](http://docs.sencha.com/extjs/6.6.0/guides/getting_started/open_tooling.html) that they released in ExtJS 6.6. I no longer work for them.)
+
+Notice `github.com-me` and `github.com-work`. These are Hostnames that we provide in the ssh config.
+
+```bash
+# ~/.ssh/config
+
+Host github.com-me
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_rsa
+
+Host github.com-work
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_rsa_work
+```
+
+One thing, that you have to keep in mind, is the **Author**.
+
+For the work repos, you will need to manually set the [user.email](http://user.email) to the work email.
+
+```bash
+git config user.email &quot;aravind@awesome-company.com&quot;
+```
+
+Or else, your commits at work will be by your personal account.
+
+Peace out.
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Playing with AI - Can it become your coworker?]]></title>
+            <description><![CDATA[Over the past couple of days, I have toyed around with all this cool AI stuff and this is my documentation on things I enjoyed.]]></description>
+            <link>https://aravindballa.com/writings/ai-coworker/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/ai-coworker/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Mon, 17 Oct 2022 00:00:00 GMT</pubDate>
+            <content:encoded>
+Is AI taking over the world?
+
+That&apos;s the biggest question everyone has.
+I&apos;d say not yet.
+But, for now, it&apos;s great at solving, making art, suggesting code, etc.
+
+Over the past couple of days, I&apos;ve toyed around with all this cool AI stuff and this is my documentation on things I enjoyed.
+
+## Personal Pair Progammer
+
+Github&apos;s [Copilot](https://github.com/features/copilot) is really helpful in cases where you are writing boilerplate code that follows the same pattern. For example, to do something with Redux, it involves writing an action, a reducer and a side effect. Copilot suggests you some of it.
+
+Quick regex checks are a time saver with Copilot. No need to go to stack overflow and search. You write a comment and it tell you what you need to write.
+
+![valid email check sugession](valid-email.png)
+
+Copilot saves a lot of back and forth.
+
+Sometimes, it even teaches you new things by suggesting something you don&apos;t know.
+
+AI Teacher?
+
+[GPT-3 playground](https://beta.openai.com/playground) is great as well. Once I took help for a bash command that I didn&apos;t know how to write.
+
+![thanks GPT](thanks-gpt.jpeg)
+
+## Making Art
+
+You can become a graphic designer with no skills.
+
+If you know how to describe the picture you want, get the AI to draw/make it for you not that difficult.
+
+If you want to try, you can go to [Dall E](https://openai.com/dall-e-2/) and give a few prompts.
+They give you some free credits every month.
+
+[Stable Diffusion](https://github.com/CompVis/stable-diffusion) is another option.
+You can run this locally, for free, unlimited number of times.
+If you are on an M1 mac, this app [Diffusion Bee](https://diffusionbee.com/) can take care of the setup and downloading the model so you run it directly without touching the terminal.
+
+Some the stuff that I liked from the generated pieces of art.
+
+![Art by AI](art.png)
+
+## Better transcrption
+
+There are services which do transcribe the audio to text for you.
+
+Honestly, they aren&apos;t perfect, especially for Indian accents like mine. We need to spend time fixing mistakes. And we need to spend money if you hit the free limits.
+
+Enter Open AI&apos;s [whisper](https://github.com/openai/whisper).
+
+It&apos;s open-source, free, runs locally, does a great job at recognizing accents. It even translates your regional voice to English.
+
+It has different models that get the job done. I felt the `base` model is good for my voice.
+
+[This packages](https://github.com/m1guelpf/auto-subtitle) adds subtitles to videos.
+
+---
+
+These are the major areas I get help from AI in. It has really become my coworker in the past couple of weeks.
+
+We recently recorded an episode in the Learning Curve podcast on [AI for Indian developers](https://open.spotify.com/episode/61Ub7gTPaj0cCREzMtXf0F?nd=1) which is so much related to this post.
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Do Boring Things]]></title>
+            <description><![CDATA[You read that right. Let me explain.]]></description>
+            <link>https://aravindballa.com/writings/boring-things/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/boring-things/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Tue, 03 May 2022 00:00:00 GMT</pubDate>
+            <content:encoded>
+You read that right. In order to become better, do boring things **consistently**.
+
+Let me explain.
+
+The boring stuff, things which are not Snapchat-able or Instagram-able, are the ones that make you better.
+
+Eating at home is boring. Working out is boring. Reading a book is boring. Journaling is boring.
+
+Note that every activity is not boring to every person. It differs.
+
+## Why is it hard to do these things?
+
+We are **dopamine junkies**. That&apos;s the reason behind scrolling these infinite feeds all day. Apps from the big companies, like Instagram, Twitter etc, have properly taken advantage of this.
+
+They don&apos;t do you any good other than stimulating you.
+
+But the boring activities don&apos;t give you the dopamine. So it&apos;s not interesting.
+
+## Why should you still do them?
+
+Because you want to become a better you. No kidding.
+
+Have you heard about compounding? It&apos;s where your results in turn help you get more of them. For example, profits from you financial investments help you earn more profits when reinvested.
+
+Most of the boring activities compound.
+
+If you workout every day, which is boring, you get healthier and stronger. The stronger you can lift even heavier weights making you more stronger.
+See?
+
+## But, how can you keep doing them?
+
+**Reward yourself frequently.** After you eat home cooked boring food all week, reward yourself with a cheat meal.
+
+Constantly ask yourself how can I make this interesting? For example - Journaling everyday is boring. You can make it interesting by keeping a list of prompts and choosing to journal about a random prompt.
+
+That&apos;s all for now.
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Process of making my Coffee]]></title>
+            <description><![CDATA[This is how I make my coffee in 2022]]></description>
+            <link>https://aravindballa.com/writings/coffee/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/coffee/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Tue, 01 Nov 2022 00:00:00 GMT</pubDate>
+            <content:encoded>
+I wake up every morning so that I can drink a fresh cup of coffee. _Okay that&apos;s a bit of exaggeration._ But yeah, I drink a cup almost every day.
+
+My go to brewing method is v60 these days. I rarely enjoy coffee with milk. It&apos;s mostly black.
+
+It takes around 10 mins from the start to finish. I like it that way as it has become a routine which puts me in the work mode for the day.
+
+## Grinding beans
+
+I use a hand grinder to grind my beans.
+
+One thing that made a good difference is using a burr (ceramic) grinder instead of a stainless steel one. A proper grinder makes sure the grind size is equal, which lets you extract coffee uniformly.
+
+I don&apos;t have my favourite beans yet. I&apos;m still exploring beans from different roasters in India.
+
+## The technique
+
+I used an Aeropress earlier. It is more forgiving with the unequal grid size that I used to get with a stainless steel grinder.
+Now that I use a manual burr grinder, v60 is my go to method. This is also know as **Pour Over Coffee**.
+
+I feel this does a good job of extracting the rich flavour of the beans without making it too bitter.
+
+Being able to taste coffee and judge what you like is a skill in itself. It takes time to develop it. A good resource to start is [this video](https://www.youtube.com/watch?v=kEZZCQTSSAg).
+
+## Brewing it
+
+![beans in v60 filter](v60-square.jpeg)
+
+1:18 is the ratio I enjoy. Which means 18g of water for every 1g of ground coffee. And I typically use 14g of coffee and 252g of water.
+
+Yes, I measure it.
+
+The technique I generally do is a slightly modified version of the one described in [this video](https://www.youtube.com/watch?v=AI4ynXzkSQo) by James Hoffmann.
+
+In ~2 minutes, I have a cup of coffee ready.
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Do productive work by keeping a consistent place to note down]]></title>
+            <description><![CDATA[Note taking makes you a better developer]]></description>
+            <link>https://aravindballa.com/writings/consistent-place-to-write/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/consistent-place-to-write/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Tue, 10 May 2022 00:00:00 GMT</pubDate>
+            <content:encoded>
+If there is anything that has helped me directly in building apps and do my day job, it is this - **a consistent place to note down**.
+
+Something that is always available for you write or scribble.
+
+What I use depends on the work I&apos;m doing. I use a notebook and pen for day job which lies just beside my mouse on the table. It&apos;s always open - I make todos and do my thinking there.
+
+When it comes to [working on side projects](https://hackletter.email/22), I use Notion as you can properly organize things there.
+
+I don&apos;t need it for work as the tasks are already on a Jira board (or something similar) but for the side projects it&apos;s my job to organize.
+
+## Collect
+
+Ideas pop up at weird times. Luckily I have my phone around and I quickly open Notion and add it to relevant board. I can organize it later when I&apos;m at the computer.
+
+## Keeping yourself posted
+
+I have my tasks as pages in a kanban board in Notion. When I&apos;m working, I update the page. Not every task is small. Not every task can be complete in one go. So I keep updating the page.
+T
+his single thing has kept me productive I can say.
+
+## Brain time
+
+It also help me think better. [Starting with code](https://hackletter.email/21) is not always best. I can write down ideas in the card or brainstorm in it. There are some tasks that need you to come up with words and sentences. Writing copy for your website, for example.
+
+When you get some free time, you might not have the time to completely code that or even no access to a computer. You can just open the card on phone or iPad and make some progress.
+
+This also makes it &quot;not overwhelming&quot; when you are at computer to do the work.
+
+That&apos;s all I have. Do you write things down?
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Conversation on Why I am building Stackblocks]]></title>
+            <description><![CDATA[Complete transript of the conversation on Racket I had with Reddy about Stackblocks.]]></description>
+            <link>https://aravindballa.com/writings/conversation-on-why-stackblocks/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/conversation-on-why-stackblocks/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Mon, 16 Aug 2021 00:00:00 GMT</pubDate>
+            <content:encoded>
+Couple of days ago, I had a conversation with [Reddy](https://reddy2go.com) where we talked about why I&apos;m building [Stackblocks](https://stackblocks.app)
+on the side, the progress and the future of this product.
+
+You can listen to it here - [https://racket.com/reddy2go/rG58n](https://racket.com/reddy2go/rG58n)
+
+Or directly delow
+
+&lt;audio controls=&quot;controls&quot; id=&quot;post_ryYeL&quot; poster=&quot;&quot; preload=&quot;none&quot;&gt;
+  &lt;source src=&quot;https://static.racket.com/recordings/9995-reddy2go16896_enhanced.mp3&quot; /&gt;
+&lt;/audio&gt;
+
+&gt; Aravind: And that&apos;s what I am trying to not solve completely but at least move in a step towards that goal to have everything on your website, which is your digital home.
+
+## Complete transcript
+
+Reddy: Aravind, Welcome on board. How are you doing?
+
+Aravind: Thanks for having me again today. I am doing great. How are you doing?
+
+Reddy: I am so happy and excited to know that you&apos;re launching your product and but before we jump in on that, let us keep the supplies a little while longer and you can introduce yourself in the meanwhile to our listeners.
+
+Aravind: My name is aravind, and I am a software developer.
+
+Aravind: I like solving problems jumping in and finding hacks and solutions for things that are not really there yet, but can be done.
+
+Aravind: So, that&apos;s my forte.
+
+Aravind: I have been on this racket before. So if you&apos;re curious you can go [check that episode](https://racket.com/reddy2go/re22y) out.
+
+Aravind: So yeah, what I am building right now is called [Stackblocks](https://stackblocks.app), which it&apos;s a, it&apos;s a tool that allows people who write Substack newsletters embed the archive, in their websites.
+
+Aravind: I have seen a lot of people, just have a subscribe box wherein they ask for an email and then just there is a button but there is no way to know what that person has sent before or has written before.
+
+Aravind: So this tool will allow the visitor to see the archive like last posts or last five posts or even the top performing substack posts on the website.
+
+Aravind: Even before they give you the email ID email address, so that&apos;s what I am trying to solve.
+
+Reddy: That&apos;s really cool.
+
+Reddy: So, in a way, because I personally hate putting myself stack, embed form anywhere because it just doesn&apos;t fit into the design and I will probably change the design of my website five times in the last five months.
+
+Reddy: But not one says, it&apos;s kind of like harmoniously fitted in to the overall design aesthetic of the website.
+
+Reddy: So I usually, I am just like, you know, just at the most Dropping a link and I say ho follow this link and go there and subscribe. Like I hate embedding that form because it just doesn&apos;t look good.
+
+Reddy: This is really cool.
+
+Reddy: Because if you have done this, this can love me to not just present that singular form, which says, hey, this is op stack, and we can connect.
+
+Reddy: But also, like you said, it drops draws people in with some sort of Snippets, not only of the latest issue but even the best issues.
+
+Reddy: So how do you see this? You know, like do you see this as something that Can be enabled on anyone&apos;s website regardless of the platform?
+
+Aravind: Yes. Right now it supports normal HTML code. I mean if someone has used Jekyll or writes in markdown and built website using Gatsby NextJS all this modern tools, then HTML should suffice and then I have a tab for Webflow how to do it on Webflow, how to embed it in Notion because I&apos;ve seen a lot of tools
+these days are built on top of Notion, and we have a lot of site generators which use Notion as the CMS.
+
+Aravind: So it supports Notion, which means it supports a whole lot of stuff out there.
+
+Reddy: This is so good.
+
+Reddy: Like you&apos;re tempting me to actually go back to using sub stack as a medium because I am always looking for the next new thing.
+
+Reddy: You know, old and boring sub stack, at least to me.
+
+Aravind: So as you talked about the styling thing, so what I am trying to do now, like right now is to allow people to customize the background color and the font color of the embedded.
+
+Aravind: So that it looks like it&apos;s in your site and not just a piece of paper that is stuck out in your site.
+
+Aravind: I want it to blend in into the users web sites. That&apos;s what I am working on right now.
+
+Aravind: The next would be to add support for custom fonts if that&apos;s possible so that it has the same aesthetic.
+
+Reddy: Wow, looks like you&apos;re offering more customization than sub stack itself. Yeah, but this is cool because I think, you know, one of the things that&apos;s missing because I have always been looking around on this.
+
+Reddy: You know what, I call like a Holy Grail? This quest for you know, finding us a unified space where I can have some sort of website or web presence and also a Blog specially to garden and a new salon.
+
+Reddy: The closest had come to Was Ghost which offers me to write in the same space and essentially send out the same things that I write on the website to someone&apos;s inbox.
+
+Reddy: And I think this is taking a step further in that direction because people coming to my website, if they see the page where all my substitute posts are, they can get a feel of my writing, which is on sub stack, without leaving my home page. And I think that&apos;s very valuable to keep people because it&apos;s easy to lose an audience.
+
+Reddy: You know, you have one Platform. And then there&apos;s another platform you use for sending things out. So it&apos;s difficult for people to know exactly where you decide.
+
+Aravind: Yeah, and guess what, not just substack I am planning to like extend the features for other services, like Revuew or Tinymail or all these modern, things buttondown email and I figured out how to do that for a few providers. So after I build things for sub stack end-to-end, then it should be easy to add in.
+
+Reddy: Look for other providers as well was also incredible news and think a lot of people were very happy about this cuz I think especially does the idea of having two separate spaces is so difficult to reconcile with on the internet today because otherwise everything kind of like fits in, right?
+
+Reddy: We have this whole concept of apis and everything is connected with Zapier over the integral method Etc. And yet we have to like run around to different URLs just to access the content from a single person that seems so counterproductive to me.
+
+Aravind: And that&apos;s what I am trying to not solve completely but at least move in a step towards that goal to have everything on your website, which is your digital home.
+
+Reddy: Nice.
+
+Reddy: So what&apos;s what do you see in the future for this particular product? And you already have some sort of another project in the making which you have already started ideating brainstorming about now.
+
+Aravind: This project actually I started ideating it in January or February, but it took me this long to know that it&apos;s a valid problem and start work on it. I wish I should have talked to people earlier and then figured out that this is a valid problem. And I wish, I wish I started early.
+
+Aravind: And right now I don&apos;t have anything else in mind, but as I do things and as I progress in my life, I am sure I will find some other problem, which I can provide a small solution to.
+
+Reddy: Yeah, and do you, do you work on all of these entirely alone? Or is there some sort of team or you like working with someone on this project?
+
+Aravind: It&apos;s completely me. It&apos;s just me completely.
+
+Aravind: It&apos;s me who is designing the pages. It&apos;s me who is writing the code me who is setting up the emails. It&apos;s all just one person team for now, but I would love to get someone to Do things that I know how to do. I mean that just makes the process a little easier for me. But right now I am a single person team.
+
+Reddy: Yeah that&apos;s cooler. Is this what people call the full stack developer where you do everything yourself?
+
+Aravind: Yes, full stackdeveloper is basically a person who knows front-end and back-end and but this involves design and ideating and marketing as well. So, I don&apos;t know what this is called.
+
+Reddy: Okay. Well, I wish you all the best.
+
+Reddy: Thank you for hopping on and wish you all the best in the next project for the coming up with, and we would love to share this link. So just tell us how, you know, there&apos;s no scan find that URL fine, how to sign up for this etcetera.
+
+Aravind: The website is called stack blocks and the URL is stack blocks and Dot app. That&apos;s where you can go to sign up and hop into the Early Access list.
+
+Reddy: Sweet. So you heard it here and all the best elements you. Thank you.
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Custom React hook for websocket updates]]></title>
+            <description><![CDATA[With the power of React Context, create re-usable hooks to give your components the ability to listen to websocket events.]]></description>
+            <link>https://aravindballa.com/writings/custom-hook-to-listen-websockets/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/custom-hook-to-listen-websockets/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Tue, 11 May 2021 00:00:00 GMT</pubDate>
+            <content:encoded>
+Creating reusable components is the main plus point when we are working with React. And hooks let us sprinkle powers to those components. Adding some state to the component, for example.
+
+In this article, we will look at how we can create a custom hook, which powers the component to subscribe and unsubscribe to a websocket so that it can listen to all the events in a channel.
+
+&gt; We will be using [socket.io](https://socket.io/docs/v4/) library. And we don&apos;t cover the steps involved to build a server which accepts socket connections.
+
+The actual process of building a socket client is very simple. We have to create a socket and initialize it, and then add listeners to the channels which respond to events.
+
+```js
+const socket = io(&apos;https://server-domain.com&apos;);
+
+// assuming details is the channel we want to listen to
+socket.on(&apos;details&apos;, (...args) =&gt; {
+  // a callback function
+});
+```
+
+When it comes to doing this in React, we might have some decisions to make:
+
+- Do we store the socket instance in state?
+- Or a ref because we wont have to update it.
+- What if I have multiple components that want to use the socket? Maybe I store near the root and pass the socket via props to the components that need it.
+- A lot of passing props. Should I use context now?
+
+That was exactly my thought process and this is solution I ended up with - we store the socket instance in the context and let the components subscribe using hooks.
+
+&gt; The pattern we use here is inspired by Kent&apos;s [How to use Context effectively](https://kentcdodds.com/blog/how-to-use-react-context-effectively) post. You might want to have a look for extra clarity.
+
+## Creating the context
+
+Lets kick things off by creating the context and exporting the Provider and the hooks so that the components can use them.
+
+```jsx
+// SocketProvider.jsx
+
+import React from &apos;react&apos;;
+import socketIOClient from &apos;socket.io-client&apos;;
+
+export const SocketContext = React.createContext({ socket: null });
+```
+
+That&apos;s our Context and we initialize the socket in the context with `null`.
+
+Now let&apos;s create the Provider, the component which is responsible for initializing the socket and putting it in the context so that the other components can use.
+
+```jsx
+// SocketProvider.jsx
+
+import socketIOClient from &apos;socket.io-client&apos;;
+
+const SocketProvider: React.FC = ({ children }) =&gt; {
+  // we use a ref to store the socket as it won&apos;t be updated frequently
+  const socket = useRef(socketIOClient(&apos;https://server-domain.com&apos;));
+
+  // When the Provider mounts, initialize it 👆
+  // and register a few listeners 👇
+
+  useEffect(() =&gt; {
+    socket.current.on(&apos;connect&apos;, () =&gt; {
+      console.log(&apos;SocketIO: Connected and authenticated&apos;);
+    });
+
+    socket.current.on(&apos;error&apos;, (msg: string) =&gt; {
+      console.error(&apos;SocketIO: Error&apos;, msg);
+    });
+
+    // Remove all the listeners and
+    // close the socket when it unmounts
+    return () =&gt; {
+      if (socket &amp;&amp; socket.current) {
+        socket.current.removeAllListeners();
+        socket.current.close();
+      }
+    };
+  }, []);
+
+  return (
+    &lt;SocketContext.Provider value={{ socket: socket.current }}&gt;{children}&lt;/SocketContext.Provider&gt;
+  );
+};
+
+export default SocketProvider;
+```
+
+We haven&apos;t added all the listeners yet. We need to let **components listen to the websocket updates**. So lets create a **custom hook**.
+
+```jsx
+
+// SocketProvider.jsx
+
+export const useSocketSubscribe = (eventName, eventHandler) =&gt; {
+	// Get the socket instance
+	const { socket } = useContext(SocketContext);
+
+	// when the component, *which uses this hook* mounts,
+	// add a listener.
+	useEffect(() =&gt; {
+		console.log(&apos;SocketIO: adding listener&apos;, eventName);
+		socket.on(eventName, eventHandler);
+
+		// Remove when it unmounts
+		return () \=&gt; {
+			console.log(&apos;SocketIO: removing listener&apos;, eventName);
+			socket?.off(eventName, eventHandler);
+		};
+
+	// Sometimes the handler function gets redefined
+	// when the component using this hook updates (or rerenders)
+	// So adding a dependency makes sure the handler is
+	// up to date!
+	}, [eventHandler]);
+
+};
+```
+
+`useSocketSubscribe()` is our hook. And now, components can just import this hook and use it to add listeners to the global socket.
+
+```jsx
+// ExampleComponent.jsx
+
+import React from &apos;react&apos;;
+
+import { useSocketSubscribe } from &apos;./SocketProvder&apos;;
+
+export default function ExampleComponent() {
+  const [someState, setSomeState] = useState(&apos;&apos;);
+
+  const handleSocketUpdate = (message) =&gt; {
+    setSomeState(message);
+  };
+
+  useSocketSubscribe(&apos;update&apos;, handleSocketUpdate);
+
+  return &lt;div&gt;{someState}&lt;/div&gt;;
+}
+```
+
+There is one last step. We wrap the complete App in the provider.
+
+```jsx
+// App.jsx
+
+import React from &apos;react&apos;;
+import ReactDOM from &apos;react-dom&apos;;
+
+import SocketProvider from &apos;./components/SocketProvider&apos;;
+import ExampleComponent from &apos;./components/ExampleComponent&apos;;
+
+const App = () =&gt; (
+  &lt;SocketProvider&gt;
+    {/* the actual app */}
+    &lt;ExampleComponent /&gt;
+  &lt;/SocketProvider&gt;
+);
+
+ReactDOM.render(&lt;App /&gt;, document.getElementById(&apos;app&apos;));
+```
+
+That&apos;s all. You now have a frontend where the components can choose to listen to the socket updates using the custom hook we built.
+
+Hope that helps.
+
+Have a good day.
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Don`t Fetch JSON]]></title>
+            <description><![CDATA[It is a small experiment to check whether you can directly get the `html` for the component instead of fetching the JSON data and populating it in the React Component.]]></description>
+            <link>https://aravindballa.com/writings/dont-fetch-json/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/dont-fetch-json/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Tue, 05 Feb 2019 00:00:00 GMT</pubDate>
+            <content:encoded>
+Why should you though? This is not intended if you have an API endpoint (backend) serving multiple types of clients(like mobile and web).
+
+&gt; **Don&apos;t use this in production.** It&apos;s just an experiment.
+
+It is a small experiment to check whether you can directly get the `html` for the component instead of fetching the JSON data and populating it in the React Component. Express is used for server rendered React output.
+
+Generally in SSR, we have the routing logic in the React application, using `react-router` or some similar kind of library. The server (Express in our case) returns the complete React application for all routes and does not worry about routing.
+
+```javascript
+app.get(&apos;*&apos;, (req, res, next) =&gt; {
+  // ...
+  // res.send(renderToString(&lt;App /&gt;)
+});
+```
+
+Let&apos;s build a special route, say `/getRenderedComponent`, to give the rendered HTML as a response, as a middleware.
+
+```javascript
+// middleware.js
+exports.renderedCompMiddleware = (req, res, next) =&gt; {
+  const items = [&apos;Milk&apos;, &apos;Coffee&apos;];
+  const html = `
+&lt;h2&gt;Server rendered component&lt;/h2&gt;
+&lt;ul&gt;
+  ${items.map((item) =&gt; `&lt;li&gt;${item}&lt;/li&gt;`)}
+&lt;/ul&gt;
+`;
+
+  if (req.path.match(/\/getcomp/)) {
+    res.send({ html });
+    return;
+  }
+  next();
+};
+
+// server.js
+app.get(&apos;*&apos;, renderedCompMiddleware, (req, res, next) =&gt; {
+  // ...
+  // res.send(renderToString(&lt;App /&gt;)
+});
+```
+
+We included it as a middleware, so the request will pass through it. (This might not be the correct way of doing this. We should have a separate route for this).
+
+At the middleware, we render the HTML. We can even use `react-dom/renderToString` and render a React component to send as a response.
+
+This response can be consumed in a React component easily. Something which can fetch and render HTML inside it will do the job. Like our `SSRComp`.
+
+```javascript
+import React from &apos;react&apos;;
+import { fetchComp } from &apos;./api&apos;;
+
+function createMarkup(text) {
+  return { __html: text };
+}
+
+class SSRComp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      html: &apos;&lt;p&gt;loading&lt;p&gt;&apos;,
+    };
+  }
+
+  componentDidMount() {
+    fetchComp().then((html) =&gt; this.setState({ html }));
+  }
+
+  render() {
+    const { html } = this.state;
+
+    return &lt;div dangerouslySetInnerHTML={createMarkup(html)} /&gt;;
+  }
+}
+
+export default SSRComp;
+```
+
+```javascript
+export function fetchComp() {
+  return fetch(&apos;/getcomp&apos;)
+    .then((data) =&gt; data.json())
+    .then((comp) =&gt; comp.html)
+    .catch((error) =&gt; {
+      console.warn(error);
+      return null;
+    });
+}
+```
+
+I don&apos;t have an exact idea of where this can be put to a real production environment but was a successful fun experiment.
+
+Thanks for reading through. Good day 👋
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Over optimization yields zero results]]></title>
+            <description><![CDATA[A wood cutter who only sharps his axe does not make a dime.]]></description>
+            <link>https://aravindballa.com/writings/dont-optimize-early/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/dont-optimize-early/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Sat, 27 Mar 2021 00:00:00 GMT</pubDate>
+            <content:encoded>
+&gt; A wood cutter who only sharps his axe doesn&apos;t make a dime.
+&gt; – Aravind
+
+We are generally obsessed with optimizing every part of our lives. In my case, I want the perfect setup to write blogs. I’ve been working on this for weeks trying different setups and apps for writings. I dreamed of a writing setup where I would write on the iPad and it automatically gets built and deployed to my website. I went through [setups](https://francescodilorenzo.com/blog-setup) of people who did this. **But you can only get inspired by other setups as they generally don’t fit perfectly in your routine.**
+
+Instead of doing that, I could have written more than 5 articles if I shifted my focus and energy to producing instead of optimizing. I finally ditched it and move back to [writing markdown in my website’s repository](/writings/perfect-writing-setup/) which then gets built and deployed. This might not be the most efficient, but this allows me produce content faster without thinking/figuring out much.
+
+Similar thing happened with [my newsletter](/hackletter/). I wanted to start one back in January. But then, I spent a lot of time researching on various options, trying to build tools that allow me to get the dream setup. At least here I’m happy that I have a working setup to send newsletters to subscribers.
+
+So the moral of the story is try producing content first and then optimize, instead of doing it the other way. It doesn’t make sense to think about an edge case which has very less probability of occuring.
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Dont wait till you are ready]]></title>
+            <description><![CDATA[you will never be]]></description>
+            <link>https://aravindballa.com/writings/dont-wait/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/dont-wait/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Wed, 05 Feb 2020 00:00:00 GMT</pubDate>
+            <content:encoded>
+&gt; You will never be
+
+# We weren&apos;t ready
+
+We had a lot of un-figured-out stuff that could keep us from starting [our podcast](http://learningcurve.dev) last year in December. _But it didn&apos;t._ We recorded and published 6 episodes till now and are going to keep doing it.
+
+_Yeaaaaaa_ 🤸‍♂️
+
+[Brittik](https://twitter.com/brittikbasu) and I decided to start a podcast and we began by recording the episode instead of figuring out things like publishing and creating a website for it first.
+
+We decided on the topic and started recording it the next day. Mic&apos;s were not proper. My audio was bad. _But this is the episode with highest listens!_
+
+# But we could figure things out
+
+We did not know anything about publishing audio. Luckily, Brittik knew a thing about editing, so at least that was in place.
+
+After we recorded the first episode, we had 4 days to figure out things like publishing and creating a landing page, and this deadline helped us put in the work and launch. **We wouldn&apos;t have launched if we had to get everything ready before we recorded.** Yes, the first episode wasn&apos;t perfect, the audio wasn&apos;t clear but guess what, we launched. The website had a single page with a form to collect mail id of interested people.
+
+[Anchor](http://anchor.fm) app made it easy for us to upload audio and publish it across platforms, which was great. It handles all the distribution now and gives us good analytics on how the audience is. We didn&apos;t know about Anchor earlier.
+
+I used Gatsby to build our website, which was a single page, and it is hosted on [Netlify](http://netlify.com). It has a form, handled by Netlify Forms to collect mail id&apos;s of people interested and we promised to send a mail the podcast launches. We used [Buttondown](http://buttondown.email) for it where we manually imported subscribers from the Netlify form responses to Buttondown.
+
+# After launch
+
+We published, sent out mails and tweeted about it. People listened to it and a few gave us feedback. Personally, I learnt a lot in this process. We improved episode by episode.
+
+I now use Blue ice mic, which I borrowed from my friend, and its better than having nothing. The quality improved a lot. I record in Garageband (or Audacity sometimes). Brittik made a good intro music and we include it from the 3rd episode onwards. It&apos;s a great start to the episodes now. We record in the mornings these days because it&apos;s mostly silent and audio is better.
+
+It&apos;s fun to talk about things we love and be able to share it to people. We are looking forward to publish more this year.
+
+I&apos;m really happy to share these stats
+
+![podcast stats](https://dev-to-uploads.s3.amazonaws.com/i/0k56jj0cq2lgct3dn24v.png)
+
+# What are you waiting for?
+
+Yes you.
+
+~~Go listen to out podcaaasst! Haha no, that’s not the point.~~
+
+Start what you were waiting to start. There is no perfect time than now. And you don&apos;t have to be ready. You will never be 100% ready 💯
+
+Let me know what you start/launch/started with a comment here.
+
+_Take care!_
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Ending your coding sessions in the right way]]></title>
+            <description><![CDATA[With experience, I have learnt how to stop working and take a break, in the right way.]]></description>
+            <link>https://aravindballa.com/writings/ending-your-coding-sessions-right/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/ending-your-coding-sessions-right/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Tue, 22 Jun 2021 00:00:00 GMT</pubDate>
+            <content:encoded>
+When you work on huge project with complex code it becomes difficult to keep track of what you are doing and what&apos;s been done.
+
+We generally start work with a goal in mind. We want to add a feature, for example. Or fix this particular bug.
+
+Sometimes we know how to do that. We know what steps to achieve and what changes are to be made. Sometimes we don&apos;t. We have to figure that out along the way.
+
+It&apos;s like navigating a map. Sometimes you know the roads to take, sometimes you don&apos;t. You know the destination though.
+
+![you know vs you don&apos;t](maps.jpg)
+
+After all, we can&apos;t travel all day. We need to rest too.
+
+Now coming back to coding – When we want to take a break or stop work for the day, we are worried all the progress we made might be lost. Because all our thought process will be lost when you stop working on it. When we start work again the next day, we will have to spend some time recollecting what was done and where we were yesterday.
+
+Earlier I used to prefer not taking a break and finish the task at hand so that I don&apos;t have to spend more time recollecting the next day.
+
+But that&apos;s a bad habit. Taking breaks is necessary. Recharging is important. ⚡️
+
+## Note taking to the rescue 📝
+
+What I started to do is I write some notes in code comments to help future me understand where I left and what are all the things I should take care when I start back.
+
+Adding something like `// you were here 👈` goes a long way.
+
+When I know what the next steps are and in which order I need to do tham, I also add numbered TODOs.
+
+```
+some sample code
+
+// TODO 2. fix this
+
+some other logic
+
+// TODO 1. add a parameter to the function
+
+```
+
+It&apos;s like marking your location on a map. 📍
+
+![you are here](maps-route.jpg)
+
+Writing also helps you keep track of what&apos;s been done and what still has to be. At the start of the file or at a relevant place, write pseudo code or plan the steps you need to achieve. More like documenting your journey.
+
+Don&apos;t use your brain to remember the steps. Use it to process your thoughts on how to implement that step.
+
+```
+/**
+ * Get the data from API
+ * - [x] get all posts data for the index page
+ * - [x] now loop on it and make div for each post
+ * - [] get single post for the post page
+ * ...
+ * (you get the point)
+ */
+```
+
+This helps us get better context on what&apos;s going on with the project. If you are in a team, it will help others understand where you are, what&apos;s done and what&apos;s not.
+
+That&apos;s how writing and taking notes while coding helps us. Thanks for reading!
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Fetch so many things, at once]]></title>
+            <description><![CDATA[There is the fetch API in Node, which allows us to make a HTTP request and get some information from the servers. We can use that to make REST calls, get HTML content of a webpage and many more things.]]></description>
+            <link>https://aravindballa.com/writings/fetching-things-at-once/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/fetching-things-at-once/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Sat, 20 Apr 2019 00:00:00 GMT</pubDate>
+            <content:encoded>
+There is the `fetch` API in Node, which allows us to make a HTTP request and get some information from the servers. We can use that to make REST calls, get HTML content of a webpage(if we are using node for scraping) and many more things.
+
+&gt; This article is valid for any function that returns a promise.
+
+An example of such call goes like this
+
+```js
+fetch(&apos;/url&apos;)
+  .then((res) =&gt; res.json())
+  .then((data) =&gt; console.log(data));
+```
+
+# The Async way
+
+We could do the same thing, using async and await.
+
+```js
+const result = await fetch(&apos;/url&apos;);
+const data = await result.json();
+
+console.log(data);
+
+// Or, a one-liner
+// const data = await (await fetch(&apos;/url&apos;)).json(); 😉
+```
+
+# I have so many things to fetch!
+
+Okay fine. We can do that over a classic for loop. The synchronous nature will be preserved. I mean, we can fetch one after the other, synchronously.
+
+```js
+const urls = [...];
+for(const url of urls) {
+    const result = await fetch(url);
+    const data = await result.json();
+
+    console.log(data);
+}
+```
+
+But what if, the order does not matter? We can fetch them all at once. Yes, all at once, using the Promise API. After all, `fetch` returns a promise and that&apos;s why we `await` for it to be resolved.
+
+Promise API has this method `Promise.all()` , which can be awaited on for all the promises that it accepts as an argument to be resolved.
+
+```js
+const urls = [...];
+const promises = urls.map(url =&gt; fetch(url));
+
+await Promise.all(promises);
+
+for (const promise of promises) {
+    const data = await promise.json();
+    console.log(data);
+}
+```
+
+This will save us a lot of time. Imagine we want to parse many webpages, around 100, and each webpage takes 2 seconds to be fetched and scraped for information we need. If we fetch it one after the other, it will take us around 200 seconds, which is over 3 minutes. But if we fetch all at once, it will take under a minute.
+
+# Like, really SO MANY!
+
+What is we have over 10000 urls to fetch. If we do the same thing as above, we will most probably not make it. We will have to face some weird socket hangup error. What can we do about it?
+
+There is a node package called `Bluebird` which has its own Promise API and it functions the same. It has this method called `map`, which takes an extra options argument where we can set concurrency.
+
+`Promise.map(urls =&gt; fetch(url), { concurrency: 100 });`
+
+This will, as we can infer from the line, concurrently fetch 100 requests at a time. This will save a significant load on CPU.
+
+```js
+const Promise = require(&apos;bluebird&apos;).Promise;
+const urls = [...];
+const promises = await Promise.map(
+    urls =&gt; fetch(url),
+    { concurrency: 100 }
+);
+
+for (const promise of promises) {
+    const data = await promise.json();
+    console.log(data);
+}
+```
+
+Thanks for making it till the end.
+
+Keep on Hacking! ✌
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[First ever interview]]></title>
+            <link>https://aravindballa.com/writings/first-ever-interview/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/first-ever-interview/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Fri, 03 Jan 2020 00:00:00 GMT</pubDate>
+            <content:encoded>
+I contributed to Bismuth Community recently where I helped build a [voting tool](https://github.com/bismuthfoundation/Bismuth-Voting/tree/master/client-side/src). The community was so generous. I loved the [gratitude](https://twitter.com/BismuthPlatform/status/1185265743576862722) they showed towards me. They just started BisBabble where they interview contributors to the community. I feel honoured to be the first one the series.
+
+Here is the interview - [https://hypernodes.bismuth.live/?p=1033](https://hypernodes.bismuth.live/?p=1033)
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Build pages in Gatsby from Rest API]]></title>
+            <description><![CDATA[Its not that hard. We just have to hook into gatsby-node.]]></description>
+            <link>https://aravindballa.com/writings/gatsby-pages-from-rest/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/gatsby-pages-from-rest/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Thu, 25 Feb 2021 00:00:00 GMT</pubDate>
+            <content:encoded>
+Creating pages in Gatsby is easy. But when we want the pages to be also part of the GraphQL layer so that we can query them in index pages, we need to hook into `sourceNode()` in the `gatsby-node.js`.
+
+```js
+// gatsby-node.js
+
+const fetch = require(‘node-fetch’;)
+
+// part one
+const createPages = async ({ actions }) =&gt; {
+  const { createPage } = actions;
+
+  const allPosts = await (await fetch(‘http://some-api.com/all’)).json();
+  for (const post of allPosts) {
+    const blocks = await (await fetch(‘http://some-api.com/post/’ + post.id)).json();
+    createPage({
+      path: `writings/${post.Slug}`,
+      component: path.resolve(`./src/templates/post.js`),
+      context: {
+        slug: `writings/${post.Slug}`,
+        blocks,
+      },
+    });
+  }
+};
+
+// part two
+const sourceNodes = async ({ actions }) =&gt; {
+  const { createNode } = actions;
+
+  const allPosts = await (await fetch(‘http://some-api.com/all’)).json();
+  for (const post of allPosts) {
+    // create node for graphql
+    const node = {
+      id: `${post.Slug}`,
+      parent: `__SOURCE__`,
+      internal: {
+        // lets you query nodes using allAPIPost and APIPost
+        type: `APIPost`,
+      },
+      children: [],
+
+      // Other fields that you want to query with graphQl
+      slug: post.Slug,
+      title: post.Name,
+      date: post.Date,
+      draft: post.Draft,
+    };
+    const contentDigest = crypto.createHash(`md5`).update(JSON.stringify(node)).digest(`hex`);
+    node.internal.contentDigest = contentDigest;
+    createNode(node);
+  }
+};
+
+// module.exports = { createPages, sourceNodes };
+```
+
+Let me explain this. There are 2 parts to it.
+
+- One - creating the pages after fetching from the rest API using `createPage()`
+- Two - creating the node in the GraphQL layer to be able to query in other pages (for example in `index.js` where you list all the pages)
+
+After adding that piece of code to `gatsby-node.js` and running `gatsby develop` you will have pages created at the `path` you’ve given to `createPage()`.
+
+To list them in any other page, we can use a query that looks like this
+
+```graphql
+query {
+  allPost(sort: { order: DESC, fields: date }) {
+    nodes {
+      slug
+      title
+      date
+    }
+  }
+}
+```
+
+You can experiment with the query in GraphiQL dashboard that runs when you `gatsby develop`.
+
+Hope this helps.
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Single Page Apps with Gatsby]]></title>
+            <description><![CDATA[Can we build a single page application using a static site generator, Gatsby? Ofcourse yes!]]></description>
+            <link>https://aravindballa.com/writings/gatsby-single-page-app/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/gatsby-single-page-app/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Mon, 04 Nov 2019 00:00:00 GMT</pubDate>
+            <content:encoded>
+Gatsby, which is a static site generator, is famous for blogs and documentation websites. But there is no wrong in build full blown React apps with it.
+
+In the case of a blog, Gatsby builds a page for every article at the build time and generates a directory which can be hosted directly. But when it comes to Single Page App (SPA), we have only one `index.html` at the root, and the components are loaded depending on the route that the user is in.
+
+We can get the benefits of code spitting with some React lazy suspense features with some minimal extra work too.
+
+```jsx
+const Contact = React.lazy(() =&gt; import(&apos;../components/Contact&apos;));
+const LazyContact = (props) =&gt; (
+  &lt;React.Suspense fallback={&apos;&lt;p&gt;Loading...&lt;/p&gt;&apos;}&gt;
+    &lt;Contact {...props} /&gt;
+  &lt;/React.Suspense&gt;
+);
+```
+
+The `Contact` component is loaded only when it will be rendered, which is when we hit a particular route. We will have a look at the routes in a moment.
+
+## But wait
+
+Before that, we need a `gatsby-node.js` file to let Gatsby know that we want all the route to end up in `index.html`
+
+After cloning Gatsby&apos;s Default starter, let&apos;s add this file.
+
+```js
+// gatsby-node.js
+
+exports.onCreatePage = ({ page, actions }) =&gt; {
+  const { createPage } = actions;
+  if (page.path === `/`) {
+    page.matchPath = `/*`;
+    createPage(page);
+  }
+};
+```
+
+Now we are ready.
+
+## Components for each Routes
+
+Let&apos;s plan to have two routes, `/contact` and `/about` . In `src/components` we will create basic components like this.
+
+```jsx
+// src/components/Contact.js
+import React from &apos;react&apos;;
+
+console.log(&apos;contact component&apos;);
+
+export default function () {
+  return &lt;div&gt;Contact Us as you like.&lt;/div&gt;;
+}
+
+// src/components/About.js
+import React from &apos;react&apos;;
+
+console.log(&apos;about component&apos;);
+
+export default function () {
+  return &lt;div&gt;We are a great bunch of people&lt;/div&gt;;
+}
+```
+
+I&apos;ve added the console logs to check when this file is loaded. We don&apos;t want it to load at the homepage. Rather only when the route is visited.
+
+## Main App
+
+In the main page, which is `src/pages/index.js` we make use for `@reach/router` which Gatsby itself, uses for routing.
+
+```jsx
+// src/pages/index.js
+
+import React from &apos;react&apos;;
+import { Router, Link } from &apos;@reach/router&apos;;
+
+const Contact = React.lazy(() =&gt; import(&apos;../components/Contact&apos;));
+const About = React.lazy(() =&gt; import(&apos;../components/About&apos;));
+
+const LazyComponent = ({ Component, ...props }) =&gt; (
+  &lt;React.Suspense fallback={&apos;&lt;p&gt;Loading...&lt;/p&gt;&apos;}&gt;
+    &lt;Component {...props} /&gt;
+  &lt;/React.Suspense&gt;
+);
+
+const Home = () =&gt; &lt;h2&gt;Hello and Welcome&lt;/h2&gt;;
+
+const IndexPage = () =&gt; (
+  &lt;div&gt;
+    &lt;h1&gt;Hi people&lt;/h1&gt;
+    &lt;Link to=&quot;/&quot;&gt;Home&lt;/Link&gt;
+    &lt;br /&gt;
+    &lt;Link to=&quot;/contact/&quot;&gt;Contact&lt;/Link&gt;
+    &lt;br /&gt;
+    &lt;Link to=&quot;/about-us&quot;&gt;About Us&lt;/Link&gt;
+    &lt;br /&gt;
+
+    &lt;input /&gt;
+
+    &lt;Router&gt;
+      &lt;Home path=&quot;/&quot; /&gt;
+      &lt;LazyComponent Component={Contact} path=&quot;contact&quot; /&gt;
+      &lt;LazyComponent Component={About} path=&quot;about-us&quot; /&gt;
+    &lt;/Router&gt;
+  &lt;/div&gt;
+);
+```
+
+`LazyComponent` renders the `Component` we pass to it as a prop under `React.Suspense` with a fallback.
+
+If you build this project and serve, you can open the Networks tab in the browser console and see that a new JS file is loaded when you hit the `/contact` route for the first time.
+
+That&apos;s it, this is all we need to make an SPA using Gatsby.
+
+Here is a working codesandbox link - [https://codesandbox.io/s/gatsby-starter-default-yf72w](https://codesandbox.io/s/gatsby-starter-default-yf72w)
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Gatsby without GraphQL - only JSON]]></title>
+            <description><![CDATA[Number one misconception about Gatsby is that you need to know GraphQL to build something with Gatsby, which is not true. Yes, you don't need GraphQL.]]></description>
+            <link>https://aravindballa.com/writings/gatsby-without-graphql/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/gatsby-without-graphql/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Sat, 02 Mar 2019 00:00:00 GMT</pubDate>
+            <content:encoded>
+Number one misconception about Gatsby is that you need to know GraphQL to build something with Gatsby, **which is not true**. Yes, you don&apos;t need GraphQL. A Gatsby site can be built from an API or just with some data from a JSON file.
+
+&gt; You don&apos;t need GraphQL.
+
+If you don&apos;t know what [Gatsby](https://www.gatsbyjs.org/) is, it is a static site generator built in React. You can use React to build the components of the website and give them to Gatsby, which will then generate a blazing fast website for you.
+
+If you are interested in building it from an API, [here](https://www.gatsbyjs.org/docs/using-gatsby-without-graphql/) is a well demonstrated example.
+
+If most of you site is static and only certain part of it changes, why would you need GraphQL to fetch things.
+
+Let us build a site from just a JSON file which contains some data.
+
+# Let&apos;s Start
+
+Step One is to clone the `hello-world-starter` and make sure everything works.
+
+```bash
+npx gatsby new hello-world https://github.com/gatsbyjs/gatsby-starter-hello-world
+cd hello-world
+yarn develop
+```
+
+Now, `http://localhost:8000` should say, &quot;hello world!&quot;.
+
+# Adding the data
+
+Add a JSON file at `content/data.json` which has information on the pages. The path is just a personal preference ;)
+
+```javascript
+// content/data.json
+{
+  &quot;pages&quot;: [
+    {
+      &quot;title&quot;: &quot;About&quot;,
+      &quot;slug&quot;: &quot;about&quot;,
+      &quot;paragraphs&quot;: [
+        {
+          &quot;heading&quot;: &quot;Work&quot;,
+          &quot;content&quot;: &quot;Works as a Javascript Enginneer. Has experience with Gatsby, React, Javascript, Node, Mongo and a little Python as well&quot;
+        }
+      ]
+    },
+    {
+      &quot;title&quot;: &quot;Talks&quot;,
+      &quot;slug&quot;: &quot;talks&quot;,
+      &quot;paragraphs&quot;: [
+        {
+          &quot;heading&quot;: &quot;Building A Progressive Web App&quot;,
+          &quot;content&quot;: &quot;PWA (Progre...&quot;
+        },
+        ...
+      ]
+    }
+  ]
+}
+```
+
+# Template to render the Page
+
+Next, we create a template which will get the data from the JSON and render it to the webpage.
+
+```javascript
+// src/templates/page.js
+import React from &apos;react&apos;;
+
+const PageTemplate = (props) =&gt; {
+  const { title = null, paragraphs = null } = props.pageContext;
+
+  return (
+    &lt;React.Fragment&gt;
+      {title &amp;&amp; &lt;h1&gt;{title}&lt;/h1&gt;}
+      {paragraphs &amp;&amp;
+        paragraphs.map((para) =&gt; (
+          &lt;div&gt;
+            &lt;h2&gt;{para.heading}&lt;/h2&gt;
+            &lt;p&gt;{para.content}&lt;/p&gt;
+          &lt;/div&gt;
+        ))}
+    &lt;/React.Fragment&gt;
+  );
+};
+
+export default PageTemplate;
+```
+
+A very naive and basic React component which gets `title` and `paragraphs` in the `pageContext` and it renders them. We will get to how the data is passed to `pageContext` in a while.
+
+# Create the Pages now!
+
+How do we tell Gatsby what pages it should create? By creating `gatsby-node.js`!
+
+```javascript
+// gatsby-node.js
+const path = require(`path`);
+const fs = require(&apos;fs&apos;);
+
+exports.createPages = ({ actions }) =&gt; {
+  const { createPage } = actions;
+
+  const pageData = JSON.parse(fs.readFileSync(&apos;./content/data.json&apos;, { encoding: &apos;utf-8&apos; }));
+  const blogPostTemplate = path.resolve(`src/templates/page.js`);
+
+  pageData.pages.forEach((page) =&gt; {
+    createPage({
+      path: page.slug,
+      component: blogPostTemplate,
+      context: {
+        ...page,
+      },
+    });
+  });
+};
+```
+
+Here, we use `createPages()` API, where we loop through all the pages from the JSON data, and call `createPage()` action to create the actual page. Here we pass the template(which is component) and the URL(path) where the page has to be generated. The actual data is passed as `context`. This is the context that we use in our Page template to populate the data.
+
+# Run
+
+Boom! It actually works of you have used `yarn develop`. It hot reloads every change you make. Now you can navigate to `http://localhost:8000/talks` and `/about` pages and see how they look (and feel good about yourself).
+
+You realise the potential of Gatsby, right? Possibilities are limitless. In this case, you just have to add styles and you have a portfolio site.
+
+Thanks for reading through.
+
+Keep on hacking!
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Getting Work Done when away from Home]]></title>
+            <link>https://aravindballa.com/writings/getting-work-done/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/getting-work-done/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Mon, 29 May 2023 00:00:00 GMT</pubDate>
+            <content:encoded>
+Ability get stuff done while roaming around is a skill which can be built. I&apos;ve been practising this for almost 4 years now and this is what I learnt.
+
+- when you are not your home office or office in general, it&apos;s hard to get into the zone
+- Day feels cluttered, too much disorganisation
+- You can use a schedule because there won&apos;t be any structure to your day
+- Your thoughts will be all over the place
+
+- routines help
+    - Morning routine where you write mooring pages to empty your mind and plan out tasks for your day.
+    - Evening routine of what went well and what didn&apos;t
+- Plan short blocks of deep work session
+- Your ability to go in and out of deep work improves with deliberate practice.</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[How remote work changed me]]></title>
+            <description><![CDATA[How can remote work change my life. These are some advantages I take from remote work and now I am happy in life.]]></description>
+            <link>https://aravindballa.com/writings/how-remote-work-changed-me/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/how-remote-work-changed-me/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Fri, 25 Jan 2019 00:00:00 GMT</pubDate>
+            <content:encoded>
+Now that I don&apos;t work from the same concrete place every time, I am really loving it. I rent a desk at a co-working space nearby and often go there. Sometimes I work from home when I have to do my daily chores, and sometimes from nearby coffee shops.
+
+I really enjoy that I don&apos;t go to **an office** to work every day. Gone are those days when I had to sit at the same place to work (under the nose of my manager) and feel guilty to take a break or spend some time in the cafeteria.
+
+The days earlier were daunting(in a way) and I did not have time for anything other than work. I used to work my ass off even in the weekends, sometimes. I could not function like this more than 6 months. These were the first 6 months of my day job, and I clearly knew I was getting exhausted. This was not the way to work, for me especially. It even took a toll on my productivity. Zero progress on side-projects or the things I wanted to learn or the books I wanted to read. The to-do lists just kept increasing.
+
+&gt; You cannot function for long without re-fueling yourselves.
+
+I decided to change this. I took up a remote position at an awesome company. They are the best people I&apos;ve ever worked with. A lot of things, including my lifestyle, have changed lately. I really enjoy the work I do, along with the life I am living.
+
+# Things that I take benefit of
+
+## Flexibility - time 🕰
+
+I don&apos;t have to work at strict timings anymore. If I have some other work in the afternoon, I can shift my work timing to the night. If I don&apos;t like to work in the day, because of the noise out there, I can become a batman and work at nights.
+
+Our team is remote. The main pro, and also a con, of a completely remote team is **availability**. But, when well managed, this is not such a problem. When you know, who will be available at what time and when to expect replies, you can adapt to the routine. I use [There app](https://there.pm) to keep track of the different time zones my colleagues are in.
+
+## Flexibility - location 🏕
+
+No office to go to. I go to a co working space in the city centre and work from there. I could not function alone from home for more than a month. I go to that space to have some people around. I met some amazing people there. Co-working spaces have have diverse people. From startup founders to designers to architects I&apos;ve met them all. Its good to talk to them about the work they do and listen to the problems they face.
+
+![an image of co working space](workspace.jpeg)
+
+I visit my family often. I go home during some weekends and extend my stay there for few days.
+
+I work from coffee shops if I need some change and I am getting to like it. I am planning to do it more often. I get more work done in a coffee shop. Maybe the aroma makes me more productive. 😉
+
+(Also, I can wear anything I want.)
+
+Travelling to other cities has been on my checklist from long ago and I will check that off soon. I plan to stay in another city for a month.
+
+## Free time
+
+I can now attend conferences and speak at meetups. I learned a lot by attending conferences and events. I should start writing and publishing about those experiences too.
+
+![aravind balla talk seminar about react](talk.jpg)
+
+Also, I love sharing the things I&apos;ve learnt, so I speak at few meetups.
+
+&gt; Those who know, do. Those who understand, teach.
+
+Not only this, I now have time for hobbies. I have been learning [German](https://www.duolingo.com/aravindballa) and I am loving it. _Vershest du Duestch?_
+
+I read books in the evening sometimes. This year, I want to do it more. One book a month is the goal. This is the progress till now - [Goodreads](https://www.goodreads.com/user/show/35045477-aravind-balla).
+
+I find myself pull out a notebook and practicing hand lettering sometimes. A complete beginner though.
+
+![beginner hand lettering picture](art.jpeg)
+
+All these things are helping me unwind after work and being in track. Productivity and the quality of work I do has improved a lot. I am learning great things at my job and it doesn&apos;t feel as overwhelming as it used to be.
+
+# So...
+
+I encourage you to introspect and see where is your life taking you to and where do you want to be. Change things that you are not happy with and I hope this post helps you (a little bit) in doing so.
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[The Hunt for a Great and Cheap Newsletter Service]]></title>
+            <description><![CDATA[As I hit the free limits on the current newsletter service, I try to find the next thing to send newsletters.]]></description>
+            <link>https://aravindballa.com/writings/hunt-for-easy-and-cheap-newsletter-service/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/hunt-for-easy-and-cheap-newsletter-service/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Wed, 31 Aug 2022 00:00:00 GMT</pubDate>
+            <content:encoded>
+I sometime dwell deep into one specific topic.
+Today was about finding the cheapest and most convenient service to write my newsletter on.
+
+Why? - I will be hitting my free limits on Buttondown soon.
+It&apos;s a great service and I have no problem paying.
+But, I wanted to go back to brainstorming board and check what can hack together and build myself a service that sends newsletter, without adding up much friction.
+I [did this](https://twitter.com/aravindballa/status/1415997144683614208) in that past and ended up switching to Buttondown because of the friction.
+
+I love fiddling with things.
+
+&lt;Toggle title=&quot;Assumed Audience&quot;&gt;
+  You are curious and can find your way around integrating things and setting the right API
+  credentials. You spend some time figuring out things as you don&apos;t have endless money to get a task
+  done.
+&lt;/Toggle&gt;
+
+My priorities for the dream newsletter service are these
+
+- Great writing experience or just plain Markdown works
+- API for adding subscribers as I like to have custom forms on my blog (like the one at the bottom of this page)
+- Analytics telling me how many people opened
+- Free of cost or costs little (too much to ask?)
+
+One thing that gets close to those is [Mailbluster](https://mailbluster.com/), which uses your own SES credentials to send emails, so it&apos;s very cheap.
+The editor is bad though.
+And there is no API.
+
+Even if I build a simple markdown to html-email generator (which I did in the past), I have to open Mailbluster and send the emails.
+
+## Enter, Ghost
+
+[Ghost](https://ghost.org) is a great publishing platform.
+The editor is best in class.
+Like Notion.
+
+Not just that, it can send really nice emails to the subscribers.
+
+**Here is the good part** - If you self host it, you can have unlimited subscribers and send as many email you&apos;d like with Mailgun account.
+
+Mailgun is almost free.
+After first 1000 free emails, other 1000 cost 1$ in that month.
+
+So the upsides with Ghost
+
+- Great writing experience
+- Unlimited subscribers
+- Unlimited emails
+- Costs less for the emails and for the hosting
+- Also, I can have multiple different newsletters (for future)
+
+## Where do we host it, though?
+
+Remember I&apos;m not using this a blog or personal portfolio.
+Just for sending newsletters.
+
+It doesn&apos;t have to be fast and no visitors on the site, as I&apos;m using it only for sending newsletters.
+It is only me using the app and the emails get routed though Mailgun anyways.
+So a cheap server works.
+
+I&apos;d say you can do it just on your laptop or a home server. Railway is a good choice if you want it to be available everywhere.
+
+Or, a service which lets you host it for free, like [Digital Press](https://www.digitalpress.blog/).
+Their free plan puts ads on your content, but guess what - I don&apos;t publish content, just send emails.
+
+We now have something that costs almost nothing, with great upsides.
+
+Will I use it? We&apos;ll have to wait and see. 😅
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Incremental Static Generation]]></title>
+            <description><![CDATA[SSG is not prefect, like all the other things in web development. And ISR makes SSG powerful but it has downsides too.]]></description>
+            <link>https://aravindballa.com/writings/incremental-static-generation/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/incremental-static-generation/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Tue, 13 Apr 2021 00:00:00 GMT</pubDate>
+            <content:encoded>
+We know Static site generation (SSG) is awesome. We get to build the pages of the website in advance, which is while building the project, and then deploy it to a hosting provider like S3, GitHub pages, Netlify or Vercel. Some providers put a CDN on the front which makes accessing static pages very fast. ⚡️
+
+## This comes with some downsides though
+
+When ever you have a new page or changed content of a page, you&apos;d need to rebuild the project and redeploy. For example, in our case, considering our podcast&apos;s website has a page for each episode, we need to redeploy after we release a new podcast episode. This adds friction to the content creation process.
+
+Modern hosting providers have become powerful now. Netlify or Vercel give you a webhook, which can be pinged to trigger a new build. Well, this at least makes the process a little easy by not having to login to you provider&apos;s dashboard, navigating to your project and triggering a rebuild.
+
+&gt; Trigger a build using iOS Shortcut
+&gt;
+&gt; ![ios-shortcut](shortcut.png)
+
+If we use Gatsby to build the website, then it even intelligently builds only the pages that have changed. Incremental builds they call it. We&apos;d need to trigger a build though.
+
+&gt; If we deploy on Netlify/Vercel and connect Git, a redeploy gets triggered whenever a new commit is pushed. That is good when your content lives locally in the repo. But when it comes from an external source, we&apos;d have to do it manually.
+
+## Enter ISR
+
+_ISR is short for Incremental Static Regeneration._
+
+ISR gives few SSR benefits to SSG. _Wow, that&apos;s a good line, I should tweet it. You should retweet it maybe :p_
+
+[https://twitter.com/aravindballa/status/1379990610552135682?s=21](https://twitter.com/aravindballa/status/1379990610552135682?s=21)
+
+Let me explain that now. As the name says, ISR regenerates the pages after every visit. So the first visit to the page has old data, then it rebuilds that particular page in the background and serves it from the next time. You don&apos;t loose the magic of SSG here, which looking at content instantly and not waiting for the content to come.
+
+&gt; I talk about scenarios with NextJS below and that apply only when we deploy on Vercel.
+
+NextJS framework has this feature built into it. It takes a parameter called `revalidate` in `getStaticProps()` method to see whether that page needs to be ISR and it rebuilds it incrementally.
+
+---
+
+There one more feature in NextJS which is quite awesome. **Fallback pages**. We generally have all the pages built in advance if we use SSG. But in this case, we can specify `fallback: true` for lazy building. After the site has been deployed, it does it on the fly. _Isn&apos;t that cool!_
+
+This actually adds superpowers to SSG. I talked about updating our podcast episode after every new release, right? Well, this would enable us to just fetch the page after a release.
+
+---
+
+## Is this perfect?
+
+Well, not really. We do sacrifice the first visit. First visit still sees the old data and then it refetches.
+
+**Should you use it over SSG?**
+
+Definetly no. In some case, it is better to see old data instead of stale data first and new data later. Or always new data where one would choose SSR.
+
+For data that isn&apos;t updated very frequently, but not always the same is a good fit. For example a page which fetches highlights of book. It&apos;s okay if the first visit see few less highlights.
+
+That concludes this big post. Thanks for reading, have a good day!
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Infinite feeds are robbing the joy of your life]]></title>
+            <description><![CDATA[You close Instagram. Go to the apps screen, open it again. Invoulantarily!]]></description>
+            <link>https://aravindballa.com/writings/infinite-feeds/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/infinite-feeds/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Fri, 20 May 2022 00:00:00 GMT</pubDate>
+            <content:encoded>
+You get to switch contexts at an enormous pace and your brain gets hooked. Now, it always wants it, and we’re doomed!
+
+But life happens in a slow pace.
+
+It takes time for a flower to blossom
+It takes time …
+
+It takes time to brew coffee
+It takes time to finish a book
+It takes time enjoy your meal
+
+What do we do then? Pull out our phones and get back the dopamine kicking feeds. Insta &amp; Twitter
+
+I find myself guilty of - closing the app and opening it again immediately unconsciously.
+
+Happens to you too?
+
+Why are our brains wired like this? - Because we aren’t taking control
+
+What can we do?
+
+- Be okay with missing out
+- Embrace long form content like books, podcasts etc
+- Set your intentions with Social Media
+- Use Lists instead of Twitter&apos;s default feed
+
+An excellent summary of Digital minimalism by the man himself, Cal Newport - https://www.youtube.com/watch?v=DsGKzjyj_6Q
+
+No wonder why he isn&apos;t on social media.
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[I cracked the key to reading books]]></title>
+            <description><![CDATA[Do you also have a goal to read a lot of books this year?]]></description>
+            <link>https://aravindballa.com/writings/key-to-reading-books/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/key-to-reading-books/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Fri, 08 Jan 2021 00:00:00 GMT</pubDate>
+            <content:encoded>
+I had big goals. Like read 12 books this year. Not big for you? It was for me. A lot of books I chose were non fiction. The mistake I made was to read them cover to cover. That’s what is finishing, right?
+
+You don’t have to read a book cover to cover. Yeah. If the book is interesting, you might end up reading everything. But when few sections are boring, you don’t have to drag through them knowing you wont have any take away from those sections. **You can skip them**.
+
+It’s like driving somewhere without getting close to the destination.
+
+The main idea for me to read books is to get ideas and remix them with things I know or believe. When I reading chapters that interest me, that would most likely happen. I consider a book is good for me if it forces me **write my thoughts every now and then**. So skipping things that I know would not help me think deeper is always better.
+
+Do you read books cover to cover?
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Making progress with Sacred side-hustle Hours]]></title>
+            <description><![CDATA[Finding time to work on your side projects is difficult. Especially when you have a day job which task which takes up your time and energy.]]></description>
+            <link>https://aravindballa.com/writings/making-progress-with-sacred-side-hustle-hours/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/making-progress-with-sacred-side-hustle-hours/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Sun, 03 Oct 2021 00:00:00 GMT</pubDate>
+            <content:encoded>
+Finding time to work on your side projects is difficult.
+
+Especially when you have a day job which task which takes up your time and energy. And if you have other commitments, like kids, you know that becomes complicated.
+
+It makes you feel like you aren&apos;t making enough progress on your side projects. Right?
+
+## Sacred Side Hustle Hours
+
+Best thing you can do for your side projects is to block few sacred side hustle hours everyday.
+
+What is a sacred hour? It is the time when
+
+- You are **not (or very less) answerable to people**. People don&apos;t expect replies from you.
+- You have the **energy for the kind of work** you are planning to do.
+- You can find this time **consistently**, hopefully at the same time of the day.
+
+When you have kids, maybe it&apos;s when they are asleep or when you partner is looking after them. If you are a student, maybe it&apos;s after college. If you have a day job, maybe it is one hour early in the morning before you begin your day job.
+
+**Having the energy** is also equally important. Even if you find the right time and you are all drained, it&apos;s of no help. Tweak your schedule to preserve some energy.
+
+Deciding a time and place for you scared hour makes you stick to it for longer. At 8pm everyday in your living room couch, you work on this project - how does that sound? James Clear talks about this in Atomic Habits actually.
+
+## Prepping for a sacred hour
+
+The prep actually should start way early from your sacred hour. You should not be spending time thinking of what to work on in your sacred hour.
+
+Maintain a [list of things you want to work](https://hackletter.email/37) and [prioritize](https://aravindballa.com/writings/prioritization-for-side-projects/) them.
+
+When your sacred hour starts, just pick the one on top and start working.
+
+That&apos;s how you can make the most of your sacred hours. Ideas don&apos;t come when you want them to. Having a list helps you write them whenever your get one.
+
+All you have to do then, is to excitedly wait to work on your side hustle and make loads of progress.
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Creating & Managing components outside React]]></title>
+            <description><![CDATA[Can you use React in an existing/old JS project? If you do, how do you manage the components?]]></description>
+            <link>https://aravindballa.com/writings/manage-react-components-outside/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/manage-react-components-outside/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Fri, 27 Jul 2018 00:00:00 GMT</pubDate>
+            <content:encoded>
+You are probably not starting a new project with React in the frontend. You just want to build some components, make use of the apis that your frontend already consumes and use them in your existing application.
+
+Awesome! You can always do that. Let me outline the workflow here.
+
+Take the built output js file and include it your HTML(application). You would need to add React and ReactDOM to the HTML to mount the components on to the page.
+
+```javascript
+class WelcomeComp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { name: &apos;&apos; };
+    if (props.name) this.state = { name: props.name };
+  }
+
+  updateName = (name) =&gt; this.setState({ name });
+
+  render() {
+    return &lt;p&gt;I am a React Component. Hello {this.state.name}&lt;/p&gt;;
+  }
+}
+```
+
+The transpiled version of the above code is most probably the output you would be getting from build system. (Webpack isn’t mandatory. You can use gulp or grunt if you development is setup using them.)
+
+Next up is including things in your application. I am including directly into HTML.
+
+```html
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Sandbox&lt;/title&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;script src=&quot;&lt;https://unpkg.com/react/umd/react.production.min.js&gt;&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;&lt;https://unpkg.com/react-dom/umd/react-dom.production.min.js&gt;&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+    &lt;div id=&quot;root&quot;&gt;&lt;/div&gt;
+
+    &lt;script src=&quot;build/existing.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;build/WelcomeComp.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+      var rootEl = document.getElementById(&apos;root&apos;);
+      ReactDOM.render(React.createElement(WelcomeComp, null, null), rootEl);
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+```
+
+This would mount the component to the root div. Remember you cannot use JSX here as the script in HTML has a type `text/javascript`. So we used `React.createElement()` instead of `&lt;WelcomeComp /&gt;`.
+
+### The issue
+
+But how would your Component communicate with the existing application? You could be fetching and sending requests from the component itself. Which would need some React code, that isn’t an issue. But in some cases, you need the component to sync up with existing stores in your application.
+
+Maybe you have an ExtJS store or a RxJS store, maybe a MobX one. How do you sync the component with it? 🤔
+
+### React ref to our rescue
+
+You can pass a reference to the component and store it as a local variable in the code. All the methods in the React Component can be accessed through those refs. Don’t quite get it? Here is the code.
+
+```html
+&lt;script type=&quot;text/javascript&quot;&gt;
+  var rootEl = document.getElementById(&apos;root&apos;);
+  var componentProps = {
+    name: &apos;Balla&apos;,
+    ref: function (ref) {
+      this.welcomeComp = ref;
+    },
+  };
+  ReactDOM.render(React.createElement(WelcomeComp, componentProps, null), rootEl);
+
+  setTimeout(function () {
+    this.welcomeComp.updateName(&apos;Aravind&apos;);
+  }, 2000);
+&lt;/script&gt;
+```
+
+Syncing is easy now. When ever there is an update, you can just call a method that changes the Component state. See how I did it in a timeout. You can even pass methods that update the store, in the props, and make the Component call it whenever it has to update.
+
+Keep on hacking!
+
+### References
+
+- [https://reactjs.org/docs/react-without-jsx.html](https://reactjs.org/docs/react-without-jsx.html)
+- The transpiler used  —  [https://babeljs.io/repl/](https://babeljs.io/repl/)
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Non blocking updates in React]]></title>
+            <description><![CDATA[Sometimes, a few updates/computations take up a lot of time. They block the UI from updating, which makes it look as if things are slow.]]></description>
+            <link>https://aravindballa.com/writings/non-blocking-ui-react/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/non-blocking-ui-react/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Mon, 01 Jul 2019 00:00:00 GMT</pubDate>
+            <content:encoded>
+Sometimes, a few updates/computations take up a lot of time. They block the UI from updating, which makes it look as if things are slow. I am not talking about asynchronous data fetches which take time.
+
+&gt; TL DR; We will be using web workers as a solution along with Hooks.
+
+Consider this for example
+
+```javascript
+// Codesandbox - https://codesandbox.io/s/admiring-pond-ixp59
+import React from &apos;react&apos;;
+import ReactDOM from &apos;react-dom&apos;;
+
+const fib = (i) =&gt; (i &lt;= 1 ? i : fib(i - 1) + fib(i - 2));
+
+function App() {
+  const [value, setValue] = React.useState(&apos;&apos;);
+  const [length, setLength] = React.useState(0);
+
+  // whenever `value` changes
+  React.useEffect(() =&gt; {
+    // we calculate the fibonnaci of the length of input * 5
+    const result = fib(value.length * 5);
+    setLength(result);
+  }, [value]);
+
+  const handleChange = async (e) =&gt; {
+    const { value } = e.target;
+    setValue(value);
+  };
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;h1&gt;Hello CodeSandbox&lt;/h1&gt;
+      &lt;h2&gt;Start editing to see some magic happen!&lt;/h2&gt;
+      &lt;input value={value} onChange={handleChange} /&gt;
+      &lt;p&gt;{length}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+const rootElement = document.getElementById(&apos;root&apos;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+```
+
+When we enter the input here, it takes time to update. And it waits for the update to show up until,
+till the result calculation is not finished. Fibonacci for large numbers is expensive.
+It even freezes your browser tab if the input is long.
+
+Do we have a solution to this? Can we some how **off-load** this computation from the main thread?
+_(Why is he talking about threads in javascript?)_
+
+## Web Workers
+
+Web workers act as threads which are handled/processed by our browser. We can start a worker as a thread and communicate with it in a particular way. React is after all Javascript UI library, and we are running it in the browser, so why not?
+
+This is the worker, which has to be statically served. (Put in `public` folder)
+
+```javascript
+// thread.worker.js
+const fib = (i) =&gt; (i &lt;= 1 ? i : fib(i - 1) + fib(i - 2));
+
+self.addEventListener(&apos;message&apos;, ({ data }) =&gt; {
+  let { type, payload } = data;
+  if (type === &apos;UPDATE&apos;) {
+    payload = payload &gt; 11 ? 11 : payload; // upper limit we set
+    const result = fib(payload * 5);
+    self.postMessage({ type: &apos;UPDATE_SUCCESS&apos;, payload: result });
+  }
+});
+
+self.addEventListener(
+  &apos;exit&apos;,
+  () =&gt; {
+    process.exit(0);
+  },
+  false
+);
+```
+
+We communicate with the worker using events. Look at the code here, we are listening 👂 to `message` events. We process the data according to `type` passed and return the result as a message.
+
+If you can guess right, we will have to listen to these messages from the worker in our component. Our component goes like this.
+
+```javascript
+// App.js
+import React from &apos;react&apos;;
+import ReactDOM from &apos;react-dom&apos;;
+
+import &apos;./styles.css&apos;;
+
+const worker = new Worker(&apos;/thread.worker.js&apos;);
+
+function App() {
+  const [value, setValue] = React.useState(&apos;&apos;);
+  const [length, setLength] = React.useState(0);
+
+  // when mount and unmount
+  React.useEffect(() =&gt; {
+    const listener = ({ data: { type, payload } }) =&gt; {
+      console.log(type, payload);
+      if (type === &apos;UPDATE_SUCCESS&apos;) setLength(payload);
+    };
+    worker.addEventListener(&apos;message&apos;, listener);
+    return () =&gt; worker.removeEventListener(&apos;message&apos;, listener);
+  }, []);
+
+  React.useEffect(() =&gt; {
+    worker.postMessage({ type: &apos;UPDATE&apos;, payload: value.length });
+  }, [value]);
+
+  const handleChange = async (e) =&gt; {
+    const { value } = e.target;
+    setValue(value);
+  };
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;h1&gt;Hello CodeSandbox&lt;/h1&gt;
+      &lt;h2&gt;Start editing to see some magic happen!&lt;/h2&gt;
+      &lt;input value={value} onChange={handleChange} /&gt;
+      &lt;p&gt;{length}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+const rootElement = document.getElementById(&apos;root&apos;);
+ReactDOM.render(&lt;App /&gt;, rootElement);
+```
+
+If you are using Webpack, you can load it into your component with `worker-loader!thread.js`. We are directly using `Worker()` to load it from the `public` directory.
+
+Here is the codesandbox demo - [https://codesandbox.io/s/funny-nightingale-5kxo1](https://codesandbox.io/s/funny-nightingale-5kxo1)
+
+&gt; Here is the [Effect Hook documentation](https://reactjs.org/docs/hooks-effect.html) for reference.
+
+We are adding the listeners for the messages in the **first effect**, where the dependencies are `[]`, which means this will [run](https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects) when the component is mounting and unmounting.
+
+And in the **second effect**, we send a message to the worker whenever the value changes.
+
+We can see a huge performance bump with workers when we compare it to the first demo. The load is taken up by the browser now.
+
+That&apos;s how you can use web workers in React. Thanks for reading!
+
+Keep on Hacking! ✌
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Found the perfect writing setup]]></title>
+            <description><![CDATA[For now, at least]]></description>
+            <link>https://aravindballa.com/writings/perfect-writing-setup/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/perfect-writing-setup/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Wed, 24 Feb 2021 00:00:00 GMT</pubDate>
+            <content:encoded>
+&gt; 📌 Disclaimer
+&gt;
+&gt; You don’t need this to start writing. This is just icing over the cake and a process that fits nicely in my routine.
+
+The setup involves 2 apps, Working Copy &amp; iA Writer, and my iPad. And it costs ₹1799 + ₹2699.
+
+**Working Copy** is a Git client for iOS and iPadOS. I works really well to clone, add new commits and push (requires a pro subscription, hence ₹1799 cost).
+
+**iA Writer** is a beautiful, focused, markdown writing app. Its the one you see in the picture above.
+
+## How it works together
+
+Working copy clones the repositories to the Files locally. I open the repo in iA Writer and edit / add new content. I go back to Working Copy, select the changes and push. The website is updated. 🎉
+
+## Things I like in this setup
+
+- **Offline first**. I can open and start writing on iPad irrespective of the network connection
+- **Syncs** directly to GitHub, so it gets built and deployed when updated.
+- It looks beautiful, keeps me focused and lets me use my **iPad**. Which is good because, I don’t want to open / sit with my laptop after work.
+
+## Bonus
+
+When ever I open iA Writer, [Shortcuts](https://itunes.apple.com/us/app/id915249334?mt=8) (automations) make sure the content I have is up to date by pulling content from the repository. Thanks [Quinn](https://twitter.com/com/status/1364637833965797378?s=21)!
+
+I still manually commit the changes from Working Copy app as I don’t want to push commits (and re deploy the website) every time I close the app.
+
+---
+
+This is likely to evolve or discarded completely. 😅
+I’ll post the updates here as usual.
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Playing GitHub Issues API for a Digital Garden]]></title>
+            <description><![CDATA[GitHub Issues is a great CMS. Can we use it for a blog / digital garden?]]></description>
+            <link>https://aravindballa.com/writings/playing-with-github-issues-for-digital-garden/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/playing-with-github-issues-for-digital-garden/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Tue, 12 Jul 2022 00:00:00 GMT</pubDate>
+            <content:encoded>
+GitHub issues can become a nice interlinked digital garden. 🌱 🌲 🌳
+
+I&apos;ve seen people use it as a CMS for their blogs. The inspiration comes from OneGraph&apos;s [blog example](https://github.com/OneGraph/essay.dev/). I [loved it](https://twitter.com/aravindballa/status/1414630464002871297).
+
+A garden, which is **interlinked**, can be done as well.
+
+Swyx did that for his blog. He wrote a post about it - [Moving to a GitHub CMS](https://www.swyx.io/github-cms).
+
+A few repos that embrace GitHub Issues as a CMS -
+
+- [Swyx Kit](https://github.com/sw-yx/swyxkit)
+- [OneGraph&apos;s essay.dev](https://github.com/OneGraph/essay.dev/)
+- [Github Blog - An API to fetch blog posts from Issues](https://github.com/renatorib/github-blog)
+- [muhajir.dev](https://github.com/muhajirdev/muhajir.dev/)
+
+![](https://pbs.twimg.com/media/FXNq3qGaQAE-GZO?format=jpg&amp;name=4096x4096)
+
+**A nice inbuilt feature** - You can see to which notes a particular note is linked in the mentions.
+
+![](https://pbs.twimg.com/media/FXNrMGraAAAxEHI?format=jpg&amp;name=4096x4096)
+
+I played with GitHub&apos;s GraphQL API and it gives me a prefect response to create a website from these notes
+
+(omitted bodyText to fit the screenshot)
+
+![](https://pbs.twimg.com/media/FXNvS57acAAgtpk?format=jpg&amp;name=4096x4096)
+
+I have a basic working version up here - [https://github-issues-garden.netlify.app](https://github-issues-garden.netlify.app) 🎉
+
+The pages comes from Issues of the repository - [https://github.com/aravindballa/github-issues-garden](https://github.com/aravindballa/github-issues-garden)
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Positioning yourself for remote work]]></title>
+            <description><![CDATA[Remote work is picking up these days. But how do you land a remote job?]]></description>
+            <link>https://aravindballa.com/writings/position-yourself-for-remote-work/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/position-yourself-for-remote-work/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Tue, 17 Sep 2019 00:00:00 GMT</pubDate>
+            <content:encoded>
+Remote work is [picking up](https://buffer.com/state-of-remote-work-2019) these days. Its easy to find people, in countries like India, who are working remotely for a company which is located elsewhere. And there are a lot of predictions which say: by 2020, there will be 50% workforce will be remote. Companies like Basecamp, Stripe, etc have remote teams and encourage them to be remote.
+
+But how do you land a remote job? Especially when you are a fresher.
+
+Imagine you are the recruiter looking for a remote candidate. What would you search for? You would obviously look for the work the person has done in the past. Its easy if the person has some previous experience in the same field. If not, you could check his github profile and the projects that they have done. He/She has a blog and write about the technology regularly? Then its an added advantage. The person knows what they are doing, that’s why they care to explain it in their blog.
+
+Hope that has all the answers you were looking for.
+
+Landing a remote job is hard and there is some luck involved. But I feel _hard workers are the luckiest_.
+
+Number one rule -
+
+## Build a profile
+
+Tell people about the projects you have made and write about the decisions you took while building it. If you need more content, **journal** daily while building the projects.
+
+Create a basic **website** that tells about you. Portfolio websites are the modern resumes. Its very easy to get started these days, with companies like [Netlify](http://netlify.com) offering free hosting.
+
+Write about technology that you care. Write about what you are learning. Help others start off, as well.
+
+Push all your projects to **Github** and let people, and potentially recruiters, know you can code.
+
+## Community
+
+Join a community, preferably with remote devs, so you can get help and know about job opportunities. If you are from India, [Remote Indian](https://remoteindian.com/) is such group. Its a very active and good place to hangout with remote workers from India.
+
+Find people on Twitter or [dev.to](http://dev.to) (or Reddit) and talk to them. Get to know how it feels to work remotely and ask them if they can refer you to any job that they know of. I&apos;d be happy to help if you hit me on Twitter.
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[(P)reacting on the server side]]></title>
+            <description><![CDATA[We use Preact and Node to build server side rendered web pages. Blazing fast webpages can be built using Preact.]]></description>
+            <link>https://aravindballa.com/writings/preact-ssr/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/preact-ssr/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Sun, 30 Sep 2018 00:00:00 GMT</pubDate>
+            <content:encoded>
+It takes time to realise Server-side rendering is amazing.😁 It was the same for me. You get a ton of benefits with it. Mainly, **first meaningful paint** of the webpage is quick. It still has to download the `js` to make it interactive. But, users will **not** be staring at white (empty) pages for long.
+
+As you might know, [Preact](https://preactjs.com/) is the 3KB alternative to React. It is a bit faster than React and very less in size. The API is mostly same and easy to adapt if you are coming from React.
+
+Let&apos;s see how we can do that using Node on the server. We will be using `preact-router` for the routing at the client side.
+
+This is the [repo](https://github.com/aravindballa/preact-ssr) that I have created, if you want to follow along.
+
+## `mkdir`
+
+Create an empty directory and `npm init` it!
+
+Now, we install the necessary things.
+
+```bash
+yarn add preact preact-router preact-render-to-string express
+
+yarn add -D webpack webpack-cli babel-core babel-cli babel-loader
+babel-preset-env babel-plugin-transform-react-jsx babel-register
+```
+
+There are a few new packages that are helping us here.
+
+`preact-render-to-string` - This will help us render the App to string so that we can include this in the HTML that we send out to the client.
+
+`babel-register` - helps in transpiling ES6 code at run time on the server.
+
+## Webpack 🔷
+
+Look at the repo to see how the project is structured. `client` folder contains the Preact code and the `webpack` is configured to generate a build from that folder to a file.
+
+```javascript
+module.exports = {
+  entry: {
+    app: &apos;./client/index.js&apos;,
+  },
+  output: {
+    path: path.join(__dirname, &apos;dist&apos;),
+    filename: &apos;[name].js&apos;,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        loader: &apos;babel-loader&apos;,
+      },
+    ],
+  },
+};
+```
+
+## Server 🚀
+
+The main file is `index.js` here where it requires babel to be present at runtime and help in transpiling code.
+
+```javascript
+require(&apos;babel-register&apos;)({
+  presets: [&apos;env&apos;],
+  plugins: [[&apos;transform-react-jsx&apos;, { pragma: &apos;h&apos; }]],
+});
+require(&apos;./server&apos;);
+```
+
+`{&quot;pragma&quot;: &quot;h&quot;}` is given as an option to the `transform-react-jsx` babel plugin because we are dealing with Preact and `createElement` is `h()` in it.
+
+Babel can do the magic once you tell this to it. ✨
+
+Now we have `server.js` where the rendering logic is present.
+
+```javascript
+const express = require(&apos;express&apos;);
+const { h } = require(&apos;preact&apos;);
+const renderToString = require(&apos;preact-render-to-string&apos;);
+const path = require(&apos;path&apos;);
+const chalk = require(&apos;chalk&apos;);
+
+const App = require(&apos;./client/App&apos;);
+
+const app = express();
+const port = 8080;
+
+app.use(express.static(path.join(__dirname, &apos;dist&apos;)));
+
+app.listen(port);
+
+app.get(&apos;*&apos;, (req, res) =&gt; {
+  const html = renderToString(&lt;App /&gt;);
+
+  res.send(`
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+  &lt;title&gt;Preact SSR&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id=&quot;app&quot;&gt;${html}&lt;/div&gt;
+  &lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+    `);
+});
+
+console.log(chalk.blue(`Server started at http://localhost:${port}`));
+```
+
+See how we are generating `html` and including it in `res.send()`. We include the Webpack output, `app.js`, as a script tag. As we have set `express.static` as the `dist` directory, Express will serve that folder as well.
+
+That&apos;s it.
+
+## 🏃
+
+Run `node index.js` to see the magic. 🎉
+
+Take Care
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Prioritization for side-projects]]></title>
+            <description><![CDATA[While working on side projects, we dont have much time on our hands to do everything possible. Few things that have to be done in order to move the project forward have to be prioritized. This is a framework.]]></description>
+            <link>https://aravindballa.com/writings/prioritization-for-side-projects/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/prioritization-for-side-projects/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Tue, 07 Jun 2022 00:00:00 GMT</pubDate>
+            <content:encoded>
+While working on side projects, we don&apos;t have much time on our hands to do everything possible.
+
+There will be few things that have to be done in order to move the project forward. There might be some things that would make sense to get done, but not really a must. And, there lie a few tasks that are just a nice to have which don&apos;t move the project any further but might delight the user.
+
+Choosing the wrong things to work on will cost you a lot of time.
+
+You will see that you&apos;ve spent days and weeks working on the project, but haven&apos;t the project hasn&apos;t progressed. You can&apos;t take it live, you can&apos;t invite friends to use it, you can&apos;t charge people.
+
+The criticality of tasks doesn&apos;t match with the effort or fun that task is.
+
+This is where **proritization** helps.
+
+## The MoSCoW method
+
+![MoSCoW](moscow.jpg)
+
+With a huge list of things we want to do, we can categorize them in one of these buckets -
+
+- **Must**. The critical pieces that make your product are the ones in this bucket. They make up the MVP.
+
+- **Should**. This bucket has important tasks that aren&apos;t critical and can wait for sometime. You would want to implement them but not absolutely necessary. Adding multiple ways to sign in, for example
+
+- **Could**. &quot;Nice to have&quot; tasks make up this bucket. These can be safe to leave out when you don&apos;t have the time for it. Things like adding animations or a dark mode for the app can be in this.
+
+- **Won&apos;t**. Tasks that no longer align with your goals for the product end up in this bucket.
+  After a certain time with your product, you might want to implement everything. But when you are starting out, shipping MVP to you initial customers, prioritization is absolutely essential.
+
+## How can we implement this
+
+Most tools that we use to write down all the tasks in our mind have some system to tag the task. A Notion board can have a property, task in Todoist can have filter and so on. It can be easy used to categorize them into one of the buckets above.
+
+We can then schedule focus blocks in our calendar where we work on the `must`s first. This ensures we get the most important things first and take us closer to the (imaginary 😅) finish line.
+
+As and when we finish the `must`s, tasks from `should` can jump up and now be a `must`. Priority will change as the product progresses.
+
+I also suggest we take out some time, at least once every week, to review and clean up the tasks, assign them to proper buckets.
+
+Effectiveness of all productive systems keep reducing when we don&apos;t keep reviewing them.
+Hope this helps you in your journey as a Indie hacker!
+
+### References
+
+There is a great article called [The MoSCoW method of prioritization](https://nesslabs.com/moscow-method) by Anne-Laure from Ness Labs, which inspired me to write this.
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[What I learnt at React Nexus 2023]]></title>
+            <description><![CDATA[Notes about learnings at React conference I attended recently]]></description>
+            <link>https://aravindballa.com/writings/react-nexus-2023/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/react-nexus-2023/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Mon, 29 May 2023 00:00:00 GMT</pubDate>
+            <content:encoded>
+- Great talks
+	- Added a few links to resources at the end, which might be useful
+- Talking to speakers about what makes a great talk
+	- Find good stuff from Matheus blog post and write here
+	- Learnings from Tejas
+- On the state of browsers
+- Felt like I should have recorded the conversations and carry them with me
+- Random resources</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[I have a second brain]]></title>
+            <description><![CDATA[Second brain is a place we store our thoughts, ideas and concepts for life.]]></description>
+            <link>https://aravindballa.com/writings/second-brain/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/second-brain/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Tue, 28 Jul 2020 00:00:00 GMT</pubDate>
+            <content:encoded>
+Yeah, one more brain. Not a physical one, though. _\*Laughs\*_ Second brain is a place we store our thoughts, ideas and concepts for life. Doing this is important because our human brains are good at processing but not so good at remembering (or storing) them.
+
+&gt; Human brain is a CPU and not a HDD.
+
+And, writing is a great way to find insights and gather all our thoughts together. We store all of them in our second brain.
+
+## What would a second brain contain?
+
+As I just said, all the thoughts that we type, or scribble. We consume a lot of content. And sometimes that content triggers new ideas, or extends an existing view that we previously had. How good would it be to store all of that?
+
+Brain is a great organ and to be able to fully utilise it, we should be able to store all the things that it has produced so far, and use that the next time. _What does brain produce? Thoughts!_
+
+There are so many apps which we can use to write things and make it our second brain. Ideally, we would need a good search feature to be able to discover back the thoughts quicker. Organising our second brain is a different huge topic. (If you’re interested, you can checkout a [podcast episode](https://learningcurve.dev/15) we did.)
+
+## How has it helped me?
+
+I’ve been maintaining a second brain (without actually realising it was one) from more than 4 years. Last time I had to give a talk on a topic, it was crazy how I could go through my second brain and come up with an outline for that talk in less than half n hour. I could search for all the things I had thought about that topic very easily. If I had to sit down and try recollect everything, then it would obviously take up a lot of time, and, I’d miss out on a lot of stuff.
+
+The outline for this article was also made in my second brain, by looking up what I had on second brain. _No, this ain’t inception._
+
+## You should make parts of your second brain public
+
+Our thoughts and ideas and thoughts are more worthy than we generally think. We cannot expect what one thought can do to (in a positive sense) the right person at the right time. When we publish our thoughts in the public, they get consumed by other and it gets a scope to further evolve.
+
+This is a strong reason I believe where we should show up in the public, share things that matter and inspire each other.
+
+I do it using [`gatsby-theme-andy`](https://balla.dev/g-andy) which is a Gatsby theme I built _(ahem ahem)_, where I write content in markdown and let the theme and Gatsby create a website out of it.
+
+If this feels like an overkill, sure, you can just **tweet a lot**. You can reference your old tweets, build upon them, crosslink them, make long threads, what ever and create a space out there for your thoughts to exist and for people to find you. I am no expert at this, but I am trying to tweet more, and be a nerdy ambitious internet friend (yes, that is coined by [Visa](https://twitter.com/visakanv)). Again, all these tweets are spawned by the thinking I do while writing.
+
+If you are interested in this and want to hear more on this topic, my co-host Brittik and I made few episodes on this on our podcast. You can consider these a deep dive.
+
+- [13. Why you need a second brain](https://learningcurve.dev/13-why-you-need-a-second-brain)
+- [15. Organizing second brains](https://learningcurve.dev/15-organizing-2nd-brains)
+- [16. Writing for clarity and focus](https://learningcurve.dev/16-writing-for-clarity-and-focus)
+
+Keep nerding! ✌
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Siri Shortcuts I use]]></title>
+            <description><![CDATA[Siri shortcuts are a game changers.]]></description>
+            <link>https://aravindballa.com/writings/siri-shortcuts-i-use/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/siri-shortcuts-i-use/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Fri, 19 Mar 2021 00:00:00 GMT</pubDate>
+            <content:encoded>
+Siri shortcuts are a game changer. It was one of the reasons I bought an iPhone. _(Well, at least I feel good when I think like that)_
+
+If there is a task that takes opening up a few apps and clicking buttons in it, it can be done with a single click using Shortcuts. It’s crazy.
+
+&gt; This blog post is a work in progress. Message Aravind on Twitter if you want to know or talk more about this.
+
+## Save Tweets for later
+
+Let’s look at a shortcut which **adds a Tweet to my ToDo app**. _Why? You have bookmarks in Twitter, right? — you may ask._ I don’t want to use bookmarks for tweets that I just want to have a look later, and not save them. So, it’s helpful if I just add to my ToDo app which I can check off after having a look at it. And to do this, we would have to copy the tweet’s URL, open the ToDo app, and paste it. But with shortcuts, I can just share the tweet to the shortcut from the share menu, and it gets added.
+
+## Properly turn off WiFi
+
+iOS doesn’t turn off the WiFi completely when you pull the menu from top-right, it just `Disables it till tomorrow`. This is frustrating. I would expect it to turn off when I turn it off. I use a Shortcut as a work around here. I can turn off WiFi completely from there.
+
+## What did I tweet?
+
+Many a times, I want to look at my tweets about a topic. I can use Twitter search for it — `from:aravindballa search-string`. But when I want to lookup when I’m drafting a tweet, I have to save tweet as a draft and search it in the app. Instead, I have a Shortcut which prompts me to enter a string, and then opens Safari page with the search results. This lets me easily look at past tweets and copy the URL if I want to link it.
+
+## What’s playing?
+
+I collect songs interesting songs on the go from places like cafes and restaurants. Some play cool music. I look up on Shazam for the song and save it to a playlist in Apple Music. That takes a few clicks. But with Shortcuts, one tap and the song gets added to a playlist.
+
+## Custom icons on iPhone Home screen
+
+There was a wave of people doing funky things with their home screens when someone found out you can have custom icons for apps using shortcuts. Mainly because you couldn’t do those kind of customizations on iOS earlier . Few made a lot of money selling icon packs. Mine is minimal.
+
+## Notes on the fly
+
+I use Drafts to take quick notes when in a rush. It automatically syncs to other devices. And it opens a fresh new note whenever I open the app. It’s purely for quick notes and first drafts. And when in a rush, we can just dictate a note using shortcuts, without even opening the app. All the shortcuts can be run using Siri. _Hey Siri, dictate note_ and the note gets recorded and saved as text in Drafts. You can use any other note taking app for that matter, if it supports Shortcuts, not just Drafts.
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Why I`d like to start a podcast]]></title>
+            <description><![CDATA[This isn`t a motivational post. This is a short why post. It`s about the reason why I`d like to start a podcast. Hopefully this will help me stick around.]]></description>
+            <link>https://aravindballa.com/writings/starting-podcast/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/starting-podcast/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Sun, 08 Dec 2019 00:00:00 GMT</pubDate>
+            <content:encoded>
+This isn&apos;t a motivational post. This is a short _why_ post. It&apos;s about the reason why I&apos;d like to start a podcast. Hopefully this will help me stick around.
+
+## I should not do it because
+
+I know I don&apos;t have thousands of followers on Twitter. And things I say wont probably be heard by a lot of people. I am also not a pro at what I do and I am still getting there. I am not an influencer.
+
+## Instead, I am doing it because
+
+I want to improve. I know I am not good at talking or presenting or articulating a thought. Yes, I stammered a bit in the first episode. But, this will be a way for me to improve at all those things, publicly. Trust me, I&apos;ll get better. `#GrowInPublic`
+
+Not being know by a lot of people puts me in a great position, where I can experiment lot of things and I don&apos;t have to feel bad if it fails.
+
+[Brittik](https://twitter.com/brittikbasu) is a kind person who you will want to be around. I share a same vibe from the day I met him. We talk about a lot of things and learned a lot from each other. Sometimes, we keep taking about a topic and at the end, we think the conversation should have been recorded. This time, we are consciously recording it.
+
+I like to share things that I learn and that has been the motivation to write this blog, make (very few) videos and give talks. This podcast is another outlet.
+
+Brittik and I actually started it. By the time of writing, first episode is already recorded and is set to be published the next day. We built up the landing page and setup things for the podcast distribution. Also, this is the first thing Brittik and I are launching together. (We will talk about things that failed too.)
+
+I&apos;d want you to listen to the podcast - [learningcurve.dev](http://learningcurve.dev) and give me feedback. A DM on [Twitter](https://twitter.com/aravindballa) would help.
+
+Thanks a ton for reading this 🎉
+
+Good day!
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Can we use AI to grab insights from your notes?]]></title>
+            <description><![CDATA[How can it help me, personally, taking in the context of my environment, the things I consume, where I live etc]]></description>
+            <link>https://aravindballa.com/writings/talk-to-notes/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/talk-to-notes/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Tue, 06 Dec 2022 00:00:00 GMT</pubDate>
+            <content:encoded>
+The question that I explored [last time](https://aravindballa.com/writings/ai-coworker/), which is “Can AI be your coworker?”, is answered now.
+
+With ChatGPT, its a sure shot YES.
+
+I mean, go on to Twitter and search for &quot;chatgpt&quot;, you&apos;ll find overwhelming responses on what its capable of doing.
+
+---
+
+I was now pondering on the question **&quot;How can it help me&quot;**, personally, taking in the context of my environment, the things I consume, where I live etc.
+
+Things I read – Aha!
+
+I know I have collected quotes from the books I read, and they ARE valuable. _“Maybe there is a way to train the AI on all these quotes and ask it for insights based on it”_, I wondered.
+
+Right in time, I came across [this video](https://www.youtube.com/watch?v=V3RTA9ZbEPw) where Sahil, the founder of Gumroad, talks about how he built [askmybook.com](https://askmybook.com). He trained the AI on his book called The Minimalist Entrepreneur, and it answers questions based on that book.
+
+It was perfect for my use case.
+
+Created a fresh repository and started hacking together bit and pieces. A lot of examples were in python, which isn’t a language of comfort for me. With the help of ChatGPT I translated code to JavaScript and adapted them.
+
+Couple of hours later, I ended up with this.
+
+![tweet](tweet.jpg)
+
+[https://twitter.com/aravindballa/status/1600087889026875392](https://twitter.com/aravindballa/status/1600087889026875392)
+
+---
+
+The questions now - Will anyone else want this? If so, how can make this customizable? Will I run out of my free OpenAI GPT credits?
+
+I&apos;d like to know what you think?
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Tweet daily using Github Actions]]></title>
+            <description><![CDATA[I built a GitHub action recently that tweets everyday. Check out the acticle to know.]]></description>
+            <link>https://aravindballa.com/writings/tweet-using-github-actions/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/tweet-using-github-actions/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Tue, 12 May 2020 00:00:00 GMT</pubDate>
+            <content:encoded>
+Github Actions are really powerful. I like to see them as personal assistants. You tell your assistants to do some work for you. Similarly, you tell Github actions to do some job for you.
+
+&lt;GrayBlock&gt;
+
+I&apos;ve recorded a video while building this. If you&apos;d like to watch me build, here is the video 👇
+
+[https://www.youtube.com/watch?v=XI_B99Yw4kY](https://www.youtube.com/watch?v=XI_B99Yw4kY)
+
+&lt;/GrayBlock&gt;
+
+The main usecase for these actions, I feel, is when we use it to publish your library to npm or deploying your app on S3 or Github Pages whenever you push new changes. CI/CD - like the techies call it.
+
+These actions can be triggered in different scenarios. In the above usecase, it is triggered on `push`. Similarly, you can also do it on a `pull-request` where we run a few checks or welcome new contributors to the project.
+
+Another way to trigger an action is on a `schedule`, which is what I used to make the action Tweet everyday. 🗓We can give CRON expressions to schedule the triggers for the action.
+
+_Okay, where do we tell all these things to the Action? There&apos;s got to be some config, right?_
+
+Yeah. We have a `yaml` file for every action and we specify all the configuration for it there. All the yamls for your actions lie in `.github/workflows` path in your GitHub repo.
+
+This is the action config I wrote
+
+(Trimmed version. Full code [here](https://github.com/aravindballa/learningcurve.dev/blob/master/.github/workflows/tweet.yml))
+
+```yml
+name: Tweet
+
+on:
+  schedule:
+    - cron: &apos;0 10,16 * * *&apos;
+```
+
+Now we know how to schedule things. Next step?
+
+## Tweet
+
+We know there should be an API to post tweets. But for that, you need a few API credentials from Twitter. This was a big time taking process for me as the application for a dev account on Twitter had to go through a few reviews from Twitter employees.
+
+Once you get the credentials, tweeting is as easy as the code below.
+
+[Full Code](https://github.com/aravindballa/learningcurve.dev/blob/master/scripts/getQuote.js)
+
+```js
+const Twitter = require(&apos;twitter&apos;);
+
+const client = new Twitter({
+  consumer_key: process.env.TWITTER_API_KEY,
+  consumer_secret: process.env.TWITTER_API_SECRET,
+  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
+});
+
+client.post(&apos;statuses/update&apos;, { status: tweet }, function (error, tweet, response) {
+  if (!error) {
+    console.log(tweet);
+  }
+});
+```
+
+I have this in a file `scripts/getQuote.js` and I run using `yarn tweet`. We add a script in `package.json` to be able to do this.
+
+```json
+&quot;scripts&quot;: {
+  &quot;tweet&quot;: &quot;node  scripts/getQuote.js&quot;,
+}
+```
+
+## Last step
+
+What&apos;s remaining now is that we tell our Action to run `yarn tweet` and that&apos;s it.
+
+```yml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Tweet it yo
+        run: |
+          yarn install
+          yarn tweet
+        env:
+          CI: true
+          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+          TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+          TWITTER_ACCESS_TOKEN_KEY: ${{ secrets.TWITTER_ACCESS_TOKEN_KEY }}
+          TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+```
+
+If you observe, we pass the Twitter API credentials as environment variables. This can be done in the Repo settings in GitHub. You can add a few secrets and they get passed to the Actions in that repo.
+
+![Screenshot of Github Repo settings](github-repo-settings.png)
+
+That takes us to the end of the article. Thanks for reading till end and if you think learnt something from this, please tweet it so your friends learn too.
+
+If you&apos;d like to check out the tweets in action, its here - [https://twitter.com/learningcurvpod](https://twitter.com/learningcurvpod)
+
+[https://twitter.com/learningcurvpod/status/1259425283003822080](https://twitter.com/learningcurvpod/status/1259425283003822080)
+
+Take care.
+</content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Weekly reviews in Roam Research [Plugin]]]></title>
+            <description><![CDATA[I built a Roam Research plugin to help me review time I spent in the week. Takes advantage of Interstitial Journaling.]]></description>
+            <link>https://aravindballa.com/writings/weekly-review-in-roam-research/</link>
+            <guid isPermaLink="true">https://aravindballa.com/writings/weekly-review-in-roam-research/</guid>
+            <dc:creator><![CDATA[Aravind Balla]]></dc:creator>
+            <pubDate>Tue, 27 Jul 2021 00:00:00 GMT</pubDate>
+            <content:encoded>
+I wanted something that tracks where I spend my time. I&apos;ve tried various apps to do it, but nothing clicked. I often forget to stop the timers. 🤦🏻‍♂️ ⏲
+
+At last, I found the sweet spot for it in [Roam Research](https://roamresearch.com/). I use it for **Interstitial Journaling** already. So I built a plugin which analyses those logs and gives me a summary of my time in the current week.
+
+Demo video (2min 46sec) 👇
+
+[https://www.youtube.com/watch?v=shbnd29-wIo](https://www.youtube.com/watch?v=shbnd29-wIo)
+
+I&apos;ve put the source code on Gumroad. It&apos;s basically FREE but you can pay-what-you-want if you want to support me for the time spent.
+
+&lt;script src=&quot;https://gumroad.com/js/gumroad.js&quot;&gt;&lt;/script&gt;
+
+&lt;div class=&quot;text-center&quot;&gt;
+  &lt;a class=&quot;gumroad-button&quot; href=&quot;https://gumroad.com/l/DViZI&quot;&gt;
+    Check it out
+  &lt;/a&gt;
+&lt;/div&gt;
+</content:encoded>
+        </item>
+    </channel>
+</rss>

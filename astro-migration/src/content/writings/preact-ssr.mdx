@@ -1,0 +1,125 @@
+---
+title: '(P)reacting on the server side'
+date: '2018-09-30'
+type: 'Post'
+description: 'We use Preact and Node to build server side rendered web pages. Blazing fast webpages can be built using Preact.'
+banner: 'banner.jpg'
+---
+
+It takes time to realise Server-side rendering is amazing.😁 It was the same for me. You get a ton of benefits with it. Mainly, **first meaningful paint** of the webpage is quick. It still has to download the `js` to make it interactive. But, users will **not** be staring at white (empty) pages for long.
+
+As you might know, [Preact](https://preactjs.com/) is the 3KB alternative to React. It is a bit faster than React and very less in size. The API is mostly same and easy to adapt if you are coming from React.
+
+Let's see how we can do that using Node on the server. We will be using `preact-router` for the routing at the client side.
+
+This is the [repo](https://github.com/aravindballa/preact-ssr) that I have created, if you want to follow along.
+
+## `mkdir`
+
+Create an empty directory and `npm init` it!
+
+Now, we install the necessary things.
+
+```bash
+yarn add preact preact-router preact-render-to-string express
+
+yarn add -D webpack webpack-cli babel-core babel-cli babel-loader
+babel-preset-env babel-plugin-transform-react-jsx babel-register
+```
+
+There are a few new packages that are helping us here.
+
+`preact-render-to-string` - This will help us render the App to string so that we can include this in the HTML that we send out to the client.
+
+`babel-register` - helps in transpiling ES6 code at run time on the server.
+
+## Webpack 🔷
+
+Look at the repo to see how the project is structured. `client` folder contains the Preact code and the `webpack` is configured to generate a build from that folder to a file.
+
+```javascript
+module.exports = {
+  entry: {
+    app: './client/index.js',
+  },
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: '[name].js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+      },
+    ],
+  },
+};
+```
+
+## Server 🚀
+
+The main file is `index.js` here where it requires babel to be present at runtime and help in transpiling code.
+
+```javascript
+require('babel-register')({
+  presets: ['env'],
+  plugins: [['transform-react-jsx', { pragma: 'h' }]],
+});
+require('./server');
+```
+
+`{"pragma": "h"}` is given as an option to the `transform-react-jsx` babel plugin because we are dealing with Preact and `createElement` is `h()` in it.
+
+Babel can do the magic once you tell this to it. ✨
+
+Now we have `server.js` where the rendering logic is present.
+
+```javascript
+const express = require('express');
+const { h } = require('preact');
+const renderToString = require('preact-render-to-string');
+const path = require('path');
+const chalk = require('chalk');
+
+const App = require('./client/App');
+
+const app = express();
+const port = 8080;
+
+app.use(express.static(path.join(__dirname, 'dist')));
+
+app.listen(port);
+
+app.get('*', (req, res) => {
+  const html = renderToString(<App />);
+
+  res.send(`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Preact SSR</title>
+</head>
+<body>
+  <div id="app">${html}</div>
+  <script src="./app.js"></script>
+</body>
+</html>
+    `);
+});
+
+console.log(chalk.blue(`Server started at http://localhost:${port}`));
+```
+
+See how we are generating `html` and including it in `res.send()`. We include the Webpack output, `app.js`, as a script tag. As we have set `express.static` as the `dist` directory, Express will serve that folder as well.
+
+That's it.
+
+## 🏃
+
+Run `node index.js` to see the magic. 🎉
+
+Take Care

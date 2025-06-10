@@ -1,0 +1,151 @@
+---
+title: 'Non blocking updates in React'
+date: '2019-07-01'
+type: 'Post'
+published: true
+description: 'Sometimes, a few updates/computations take up a lot of time. They block the UI from updating, which makes it look as if things are slow.'
+tags: 'react,javascript,webworkers'
+banner: 'banner.jpg'
+---
+
+Sometimes, a few updates/computations take up a lot of time. They block the UI from updating, which makes it look as if things are slow. I am not talking about asynchronous data fetches which take time.
+
+> TL DR; We will be using web workers as a solution along with Hooks.
+
+Consider this for example
+
+```javascript
+// Codesandbox - https://codesandbox.io/s/admiring-pond-ixp59
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const fib = (i) => (i <= 1 ? i : fib(i - 1) + fib(i - 2));
+
+function App() {
+  const [value, setValue] = React.useState('');
+  const [length, setLength] = React.useState(0);
+
+  // whenever `value` changes
+  React.useEffect(() => {
+    // we calculate the fibonnaci of the length of input * 5
+    const result = fib(value.length * 5);
+    setLength(result);
+  }, [value]);
+
+  const handleChange = async (e) => {
+    const { value } = e.target;
+    setValue(value);
+  };
+  return (
+    <div className="App">
+      <h1>Hello CodeSandbox</h1>
+      <h2>Start editing to see some magic happen!</h2>
+      <input value={value} onChange={handleChange} />
+      <p>{length}</p>
+    </div>
+  );
+}
+
+const rootElement = document.getElementById('root');
+ReactDOM.render(<App />, rootElement);
+```
+
+When we enter the input here, it takes time to update. And it waits for the update to show up until,
+till the result calculation is not finished. Fibonacci for large numbers is expensive.
+It even freezes your browser tab if the input is long.
+
+Do we have a solution to this? Can we some how **off-load** this computation from the main thread?
+_(Why is he talking about threads in javascript?)_
+
+## Web Workers
+
+Web workers act as threads which are handled/processed by our browser. We can start a worker as a thread and communicate with it in a particular way. React is after all Javascript UI library, and we are running it in the browser, so why not?
+
+This is the worker, which has to be statically served. (Put in `public` folder)
+
+```javascript
+// thread.worker.js
+const fib = (i) => (i <= 1 ? i : fib(i - 1) + fib(i - 2));
+
+self.addEventListener('message', ({ data }) => {
+  let { type, payload } = data;
+  if (type === 'UPDATE') {
+    payload = payload > 11 ? 11 : payload; // upper limit we set
+    const result = fib(payload * 5);
+    self.postMessage({ type: 'UPDATE_SUCCESS', payload: result });
+  }
+});
+
+self.addEventListener(
+  'exit',
+  () => {
+    process.exit(0);
+  },
+  false
+);
+```
+
+We communicate with the worker using events. Look at the code here, we are listening 👂 to `message` events. We process the data according to `type` passed and return the result as a message.
+
+If you can guess right, we will have to listen to these messages from the worker in our component. Our component goes like this.
+
+```javascript
+// App.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import './styles.css';
+
+const worker = new Worker('/thread.worker.js');
+
+function App() {
+  const [value, setValue] = React.useState('');
+  const [length, setLength] = React.useState(0);
+
+  // when mount and unmount
+  React.useEffect(() => {
+    const listener = ({ data: { type, payload } }) => {
+      console.log(type, payload);
+      if (type === 'UPDATE_SUCCESS') setLength(payload);
+    };
+    worker.addEventListener('message', listener);
+    return () => worker.removeEventListener('message', listener);
+  }, []);
+
+  React.useEffect(() => {
+    worker.postMessage({ type: 'UPDATE', payload: value.length });
+  }, [value]);
+
+  const handleChange = async (e) => {
+    const { value } = e.target;
+    setValue(value);
+  };
+  return (
+    <div className="App">
+      <h1>Hello CodeSandbox</h1>
+      <h2>Start editing to see some magic happen!</h2>
+      <input value={value} onChange={handleChange} />
+      <p>{length}</p>
+    </div>
+  );
+}
+
+const rootElement = document.getElementById('root');
+ReactDOM.render(<App />, rootElement);
+```
+
+If you are using Webpack, you can load it into your component with `worker-loader!thread.js`. We are directly using `Worker()` to load it from the `public` directory.
+
+Here is the codesandbox demo - [https://codesandbox.io/s/funny-nightingale-5kxo1](https://codesandbox.io/s/funny-nightingale-5kxo1)
+
+> Here is the [Effect Hook documentation](https://reactjs.org/docs/hooks-effect.html) for reference.
+
+We are adding the listeners for the messages in the **first effect**, where the dependencies are `[]`, which means this will [run](https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects) when the component is mounting and unmounting.
+
+And in the **second effect**, we send a message to the worker whenever the value changes.
+
+We can see a huge performance bump with workers when we compare it to the first demo. The load is taken up by the browser now.
+
+That's how you can use web workers in React. Thanks for reading!
+
+Keep on Hacking! ✌

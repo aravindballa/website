@@ -1,0 +1,89 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { calculateReadingTime, formatReadingTime } from '../../utils/readingTime';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('writings');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
+}
+
+type Props = CollectionEntry<'writings'>;
+
+const post = Astro.props;
+const { Content } = await post.render();
+const readingTime = calculateReadingTime(post.body);
+
+// Helper function to format date
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
+}
+---
+
+<Layout 
+  title={post.data.title} 
+  description={post.data.description || `Read ${post.data.title} by Aravind Balla`}
+  type="article"
+  publishedTime={post.data.date.toISOString()}
+  image={post.data.banner || undefined}
+>
+  <article class="max-w-3xl mx-auto">
+    {post.data.banner && post.data.banner.trim() && (
+      <div class="mb-8 -mx-4 md:-mx-8 lg:-mx-16">
+        <img 
+          src={post.data.banner} 
+          alt={post.data.title}
+          class="w-full h-64 md:h-96 object-cover rounded-lg"
+        />
+        {post.data.bannercaption && post.data.bannercaption.trim() && (
+          <p class="text-sm text-gray-500 dark:text-gray-400 mt-2 text-center">
+            {post.data.bannercaption}
+          </p>
+        )}
+      </div>
+    )}
+    
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold font-poppins mb-4">{post.data.title}</h1>
+      <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 space-x-4">
+        <time datetime={post.data.date.toISOString()}>
+          {formatDate(post.data.date)}
+        </time>
+        <span>·</span>
+        <span>{formatReadingTime(readingTime)}</span>
+        {post.data.tags && post.data.tags.trim() && (
+          <>
+            <span>·</span>
+            <div class="flex gap-2">
+              {post.data.tags.split(',').map((tag) => (
+                <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs">
+                  {tag.trim()}
+                </span>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </header>
+    
+    <div class="prose prose-lg dark:prose-invert max-w-none">
+      <Content />
+    </div>
+    
+    <footer class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+      <a href="/writings" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Back to all writings
+      </a>
+    </footer>
+  </article>
+</Layout>

@@ -1,0 +1,69 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { calculateReadingTime, formatReadingTime } from '../../utils/readingTime';
+
+export async function getStaticPaths() {
+  const memos = await getCollection('memos');
+  return memos.map((memo) => ({
+    params: { slug: memo.slug },
+    props: memo,
+  }));
+}
+
+type Props = CollectionEntry<'memos'>;
+
+const memo = Astro.props;
+const { Content } = await memo.render();
+const readingTime = calculateReadingTime(memo.body);
+
+// Helper function to format date
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
+}
+---
+
+<Layout 
+  title={memo.data.title} 
+  description={memo.data.description || `Read memo: ${memo.data.title} by Aravind Balla`}
+  type="article"
+  publishedTime={memo.data.date.toISOString()}
+>
+  <article class="max-w-3xl mx-auto">
+    <header class="mb-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900 rounded-full text-blue-600 dark:text-blue-400">
+          memo
+        </span>
+        <time datetime={memo.data.date.toISOString()} class="text-sm text-gray-500 dark:text-gray-400">
+          {formatDate(memo.data.date)}
+        </time>
+        <span class="text-sm text-gray-500 dark:text-gray-400">·</span>
+        <span class="text-sm text-gray-500 dark:text-gray-400">{formatReadingTime(readingTime)}</span>
+      </div>
+      <h1 class="text-4xl font-bold font-poppins mb-4">{memo.data.title}</h1>
+      {memo.data.description && (
+        <p class="text-xl text-gray-600 dark:text-gray-400 mb-4">
+          {memo.data.description}
+        </p>
+      )}
+    </header>
+    
+    <div class="prose prose-lg dark:prose-invert max-w-none">
+      <Content />
+    </div>
+    
+    <footer class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+      <a href="/writings" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Back to all writings
+      </a>
+    </footer>
+  </article>
+</Layout>

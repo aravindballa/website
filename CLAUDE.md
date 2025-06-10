@@ -55,3 +55,14 @@ When adding new content:
 - Include required frontmatter fields based on document type
 - Use `.md` or `.mdx` extensions
 - Slugs are automatically generated from filenames
+
+### Commit Message Patterns
+This repository follows specific commit message conventions:
+- **feat:** for new features (e.g. "feat: rel me github", "feat: nice url for rss")
+- **fix:** for bug fixes (e.g. "fix: bookshelf", "fix siteid")
+- **post:** for new blog posts/content (e.g. "post: icloudpd", "post: polyphasic sleep")
+- **migration:** for migration-related changes (e.g. "migration: site buiids")
+- **chore:** for maintenance tasks (e.g. "chore: update umami")
+- **vault backup:** for automated obsidian vault backups
+- Simple descriptive messages for direct updates (e.g. "hide books bunny", "typo")
+- File-specific updates often use "Update filename" format

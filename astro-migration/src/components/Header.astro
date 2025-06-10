@@ -1,10 +1,10 @@
 ---
 const navItems = [
-  { href: '/writings', label: 'Writings' },
-  { href: '/bookshelf', label: 'Bookshelf' },
-  { href: '/caffeineletter', label: 'caffeineletter' },
-  { href: '/newsletter', label: 'Newsletter' },
-  { href: '/podcast', label: 'Podcast' },
+  { href: '/writings/', label: 'Writings' },
+  { href: '/bookshelf/', label: 'Bookshelf' },
+  { href: 'https://letter.coffee/?utm_source=aravindballa.com', label: 'caffeineletter ↗', external: true },
+  { href: 'https://hackletter.email/', label: 'Newsletter ↗', external: true },
+  { href: 'https://learningcurve.pages.dev/?utm_source=aravindballa.com', label: 'Podcast ↗', external: true },
 ];
 ---
 
@@ -12,8 +12,17 @@ const navItems = [
   <nav class="container mx-auto px-4 py-4 max-w-4xl">
     <div class="flex items-center justify-between">
       <!-- Logo -->
-      <a href="/" class="text-2xl font-poppins font-bold text-headings hover:opacity-80 transition-opacity">
-        AB
+      <a href="/" class="hover:opacity-80 transition-opacity">
+        <img 
+          src="/logo.png" 
+          alt="AB Logo" 
+          class="h-10 w-10 dark:hidden"
+        />
+        <img 
+          src="/logo-dark.png" 
+          alt="AB Logo" 
+          class="h-10 w-10 hidden dark:block"
+        />
       </a>
 
       <!-- Desktop Navigation -->
@@ -22,6 +31,8 @@ const navItems = [
           <a 
             href={item.href} 
             class="text-foreground hover:text-headings transition-colors"
+            target={item.external ? "_blank" : undefined}
+            rel={item.external ? "noopener noreferrer" : undefined}
           >
             {item.label}
           </a>
@@ -63,6 +74,8 @@ const navItems = [
           <a 
             href={item.href} 
             class="text-foreground hover:text-headings transition-colors py-2"
+            target={item.external ? "_blank" : undefined}
+            rel={item.external ? "noopener noreferrer" : undefined}
           >
             {item.label}
           </a>

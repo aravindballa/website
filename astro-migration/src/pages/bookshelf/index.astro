@@ -1,0 +1,72 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getReadwiseBooks, type ReadwiseBook, formatDate, slugify } from '../../utils/readwise';
+
+// Get Readwise books
+const booksData = await getReadwiseBooks();
+const books = booksData.results
+  .filter((book: ReadwiseBook) => book.author !== null && book.num_highlights > 0)
+  .sort((a: ReadwiseBook, b: ReadwiseBook) => 
+    new Date(b.last_highlight_at).getTime() - new Date(a.last_highlight_at).getTime()
+  );
+---
+
+<Layout title="Digital Bookshelf">
+  <div class="space-y-8">
+    <div>
+      <h1 class="text-5xl font-bold font-poppins mb-4">Book shelf 📚</h1>
+    </div>
+
+    <!-- Books Grid -->
+    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+      {books.length > 0 ? (
+        books.map((book: ReadwiseBook) => (
+          <a 
+            href={`/bookshelf/${slugify(book.title)}-${book.id}`}
+            class="p-4 rounded-md border-2 border-gray-300 dark:border-gray-700 hover:shadow-lg transition-all duration-300 block"
+          >
+            <div class="flex">
+              <div class="flex rounded border-2 border-gray-500 relative w-[67px] h-[100px] md:w-[132px] md:h-[200px] flex-shrink-0">
+                <img
+                  src={book.cover_image_url}
+                  alt={`Cover of the book ${book.title}`}
+                  class="w-full h-full object-cover rounded"
+                  loading="lazy"
+                />
+              </div>
+              <div class="flex-1 ml-4">
+                <h2 class="text-xl font-bold mb-1">{book.title}</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-400 mb-2">{book.author}</p>
+                <div class="mt-2 text-gray-400 flex items-center mb-1">
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                  <p class="flex-1">
+                    Last read in {formatDate(book.last_highlight_at)}
+                  </p>
+                </div>
+                <div class="text-gray-400 flex items-center">
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                  </svg>
+                  <p class="flex-1">{book.num_highlights} highlights</p>
+                </div>
+              </div>
+            </div>
+          </a>
+        ))
+      ) : (
+        <p class="text-gray-600 dark:text-gray-400 col-span-full">No books available at the moment.</p>
+      )}
+    </div>
+    
+    <div class="max-w-5xl mx-auto my-8 text-base bg-gray-100 dark:bg-gray-800 p-4 rounded text-gray-600 dark:text-gray-300">
+      This data is sourced from my Kindle using Readwise. Readwise automatically syncs all your
+      highlights from various sources. It's cool.{' '}
+      <a class="underline" href="https://readwise.io/i/aravind1">
+        Referral link
+      </a>{' '}
+      if you'd like to try.
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,151 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { calculateReadingTime, formatReadingTime } from '../../utils/readingTime';
+
+// Get all writings and memos  
+const writings = await getCollection('writings');
+const memos = await getCollection('memos');
+
+// Filter published posts and combine
+const publishedWritings = writings.filter(({ data }) => data.published !== false);
+const publishedMemos = memos.filter(({ data }) => data.published !== false);
+
+// Combine and sort by date
+const allPosts = [...publishedWritings, ...publishedMemos].sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+// Helper function to format date
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(date);
+}
+
+// State for filtering will be handled client-side
+---
+
+<Layout title="Writings">
+  <div class="space-y-8">
+    <div>
+      <h1 class="text-4xl font-bold font-poppins mb-4">Writings</h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400">
+        Thoughts on web development, productivity, and building products.
+      </p>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="flex gap-2" id="filter-buttons">
+      <button
+        data-filter="all"
+        class="filter-btn px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors active"
+      >
+        All
+      </button>
+      <button
+        data-filter="writings"
+        class="filter-btn px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+      >
+        Blog posts
+      </button>
+      <button
+        data-filter="memos"
+        class="filter-btn px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+      >
+        Memos
+      </button>
+    </div>
+
+    <!-- Posts Grid -->
+    <div class="grid gap-6 md:grid-cols-2" id="posts-grid">
+      {
+        allPosts.map((post) => {
+          const isMemo = post.collection === 'memos';
+          const postUrl = isMemo ? `/memos/${post.slug}` : `/writings/${post.slug}`;
+          const readingTime = calculateReadingTime(post.body);
+
+          return (
+            <article
+              class={`post-card group relative overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800 hover:shadow-lg transition-all duration-300 ${post.data.banner && post.data.banner.trim() ? 'row-span-2' : ''}`}
+              data-type={isMemo ? 'memos' : 'writings'}
+            >
+              {post.data.banner && post.data.banner.trim() && (
+                <div class="h-48 overflow-hidden">
+                  <img
+                    src={post.data.banner}
+                    alt={post.data.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+              )}
+
+              <div class="p-6">
+                <div class="flex items-start justify-between mb-2">
+                  <h3 class="text-xl font-semibold font-poppins">
+                    <a
+                      href={postUrl}
+                      class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    >
+                      {post.data.title}
+                    </a>
+                  </h3>
+                  {isMemo && (
+                    <span class="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-600 dark:text-gray-400">
+                      memo
+                    </span>
+                  )}
+                </div>
+
+                {post.data.description && post.data.description.trim() && (
+                  <p class="text-gray-600 dark:text-gray-400 mb-3">{post.data.description}</p>
+                )}
+
+                <div class="flex items-center text-sm text-gray-500 dark:text-gray-500">
+                  <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+                  <span class="mx-2">·</span>
+                  <span>{formatReadingTime(readingTime)}</span>
+                  {post.data.tags && post.data.tags.trim() && (
+                    <>
+                      <span class="mx-2">·</span>
+                      <span>{post.data.tags.split(',')[0].trim()}</span>
+                    </>
+                  )}
+                </div>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // Client-side filtering
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const postCards = document.querySelectorAll('.post-card');
+
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const filter = button.getAttribute('data-filter');
+
+      // Update active button
+      filterButtons.forEach((btn) => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      // Filter posts
+      postCards.forEach((card) => {
+        const htmlCard = card as HTMLElement;
+        if (filter === 'all') {
+          htmlCard.style.display = 'block';
+        } else {
+          const postType = card.getAttribute('data-type');
+          htmlCard.style.display = postType === filter ? 'block' : 'none';
+        }
+      });
+    });
+  });
+</script>

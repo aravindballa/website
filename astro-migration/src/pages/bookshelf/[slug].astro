@@ -1,0 +1,156 @@
+---
+export const prerender = false; // Enable SSR for dynamic Readwise data
+
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { getReadwiseBooks, type ReadwiseBook, type ReadwiseHighlightsResponse, slugify } from '../../utils/readwise';
+
+export async function getStaticPaths() {
+  // Return empty paths to enable on-demand generation like Next.js fallback: 'blocking'
+  // Pages will be generated when first accessed
+  return [];
+}
+
+const { slug } = Astro.params;
+
+// Check if this is a Readwise book (ends with -number)
+const readwiseMatch = slug?.match(/^(.+)-(\d+)$/);
+let bookData: any = null;
+let highlights: any = null;
+let bookContent: any = null;
+
+if (readwiseMatch) {
+  // This is a Readwise book
+  const [, titleSlug, bookId] = readwiseMatch;
+  
+  try {
+    // Only fetch highlights if we have a token
+    if (import.meta.env.READWISE_TOKEN) {
+      const highlightsResponse = await fetch(
+        `https://readwise.io/api/v2/highlights/?book_id=${bookId}`,
+        {
+          headers: {
+            Authorization: `TOKEN ${import.meta.env.READWISE_TOKEN}`,
+          },
+        }
+      );
+      
+      if (highlightsResponse.ok) {
+        highlights = await highlightsResponse.json();
+      }
+    }
+
+    // Get book details from our cached data
+    const booksData = await getReadwiseBooks();
+    const book = booksData.results.find((book: ReadwiseBook) => book.id.toString() === bookId);
+    
+    if (book) {
+      bookData = {
+        title: book.title,
+        author: book.author,
+        cover: book.cover_image_url,
+        id: book.id,
+      };
+    }
+
+    // Check if there's a corresponding content note
+    const contentBooks = await getCollection('bookshelf');
+    bookContent = contentBooks.find((contentBook) => 
+      contentBook.slug === `bookshelf/${slugify(book?.title || '')}`
+    );
+  } catch (error) {
+    console.error('Error fetching book data:', error);
+  }
+} else {
+  // This might be a content book - check collection
+  try {
+    const contentBooks = await getCollection('bookshelf');
+    const book = contentBooks.find((contentBook) => contentBook.slug === slug);
+    
+    if (book) {
+      bookData = {
+        title: book.data.title,
+        author: book.data.author,
+        description: book.data.description,
+        date: book.data.date,
+        rating: book.data.rating,
+      };
+      bookContent = await book.render();
+    }
+  } catch (error) {
+    console.error('Error fetching content book:', error);
+  }
+}
+
+// If no book data found, return 404
+if (!bookData) {
+  return new Response(null, { status: 404 });
+}
+
+// Helper function to format date
+function formatDate(date: Date | string | undefined): string {
+  if (!date) return '';
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(dateObj);
+}
+---
+
+<Layout title={bookData.title} description={bookData.description}>
+  <div class="mt-12 prose lg:prose-lg dark:prose-light max-w-4xl mx-auto">
+    <h1>{highlights ? `Highlights from "${bookData.title}"` : bookData.title}</h1>
+    
+    <div class="flex justify-between flex-col md:flex-row mb-8">
+      <p class="italic text-lg">By {bookData.author}</p>
+      {bookData.cover && (
+        <img
+          class="rounded border-2 border-gray-500 w-[132px] h-[200px] object-cover"
+          src={bookData.cover}
+          alt={`Cover of the book ${bookData.title}`}
+          loading="lazy"
+        />
+      )}
+    </div>
+
+    {bookContent && (
+      <div class="mt-12">
+        <bookContent.Content />
+      </div>
+    )}
+
+    {highlights && highlights.results && highlights.results.length > 0 && (
+      <div class="my-12">
+        <h2>Highlights</h2>
+        {highlights.results
+          .sort((a: any, b: any) => a.location - b.location)
+          .map((result: any) => (
+            <p key={result.id} class="mb-4">
+              <span class="bg-yellow-500 bg-opacity-20 px-1 py-0.5 rounded">
+                {result.text}
+              </span>
+            </p>
+          ))}
+      </div>
+    )}
+    
+    {highlights && (
+      <div class="text-base bg-gray-100 dark:bg-gray-800 p-4 rounded text-gray-600 dark:text-gray-300 mt-8">
+        These highlights are sourced from my Kindle using Readwise. Readwise automatically syncs
+        all your highlights from various sources. It's cool.{' '}
+        <a href="https://readwise.io/i/aravind1" class="underline">Referral link</a> if you'd like to try.
+      </div>
+    )}
+    
+    <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+      <a href="/bookshelf" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Back to bookshelf
+      </a>
+    </div>
+  </div>
+</Layout>
